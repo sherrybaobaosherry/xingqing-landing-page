@@ -101,6 +101,18 @@
             }
         }
 
+        /* Fade in animation for sections */
+        .fade-in-element {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in-element.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .container {
             max-width: 1280px;
             margin: 0 auto;
@@ -2764,11 +2776,11 @@
     <!-- Case Study Section -->
     <section class="case-study-section" id="case-study" aria-labelledby="case-study-title">
         <div class="container">
-            <h2 class="section-title">出海增长标杆案例</h2>
-            <p class="case-subtitle">机械设备行业 <span class="gradient-purple" style="background: linear-gradient(135deg, rgb(173, 70, 255), rgb(97, 95, 255)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">3个月 40倍增长</span></p>
+            <h2 class="section-title fade-in-element">出海增长标杆案例</h2>
+            <p class="case-subtitle fade-in-element">机械设备行业 <span class="gradient-purple" style="background: linear-gradient(135deg, rgb(173, 70, 255), rgb(97, 95, 255)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">3个月 40倍增长</span></p>
 
             <div class="case-content">
-                <div class="phone-mockup">
+                <div class="phone-mockup fade-in-element">
                     <div class="comparison-card">
                         <img src="images/用户案例_前.png" alt="运营前TikTok数据">
                     </div>
@@ -2780,7 +2792,7 @@
                     </div>
                 </div>
 
-                <div class="timeline">
+                <div class="timeline fade-in-element">
                     <div class="timeline-item timeline-before">
                         <div class="timeline-dot"></div>
                         <div class="timeline-content">
@@ -2828,11 +2840,11 @@
         <div class="team-star"></div>
         <div class="team-star"></div>
         <div class="container" style="position: relative; z-index: 1;">
-            <h2 class="section-title" id="team-title">出海营销顶尖操盘团队</h2>
-            <p class="section-subtitle">深耕外贸营销与 AI 技术的领军团队</p>
+            <h2 class="section-title fade-in-element" id="team-title">出海营销顶尖操盘团队</h2>
+            <p class="section-subtitle fade-in-element">深耕外贸营销与 AI 技术的领军团队</p>
 
             <div class="team-grid">
-                <div class="team-member">
+                <div class="team-member fade-in-element">
                     <div class="team-avatar">
                         <div class="team-avatar-inner">
                             <img  src="images/何总.png" alt="何方 Frankie">
@@ -2844,7 +2856,7 @@
                     <p class="team-tag">累计投放超 10 亿</p>
                 </div>
 
-                <div class="team-member">
+                <div class="team-member fade-in-element">
                     <div class="team-avatar">
                         <div class="team-avatar-inner">
                             <img  src="images/大师.png" alt="赵维杰 Jerry">
@@ -2856,7 +2868,7 @@
                     <p class="team-tag">脑科学领域大牛</p>
                 </div>
 
-                <div class="team-member">
+                <div class="team-member fade-in-element">
                     <div class="team-avatar">
                         <div class="team-avatar-inner">
                             <img  src="images/tianyi.png" alt="蔡天懿 Tianyi">
@@ -2889,12 +2901,12 @@
         </div>
 
         <div class="container" style="position: relative; z-index: 1;">
-            <h2 class="section-title" id="pricing-title">灵活的定价方案</h2>
-            <p class="section-subtitle">满足不同规模的业务需求</p>
+            <h2 class="section-title fade-in-element" id="pricing-title">灵活的定价方案</h2>
+            <p class="section-subtitle fade-in-element">满足不同规模的业务需求</p>
 
             <div class="pricing-grid">
                 <!-- Pro -->
-                <div class="pricing-card" role="article" tabindex="0">
+                <div class="pricing-card fade-in-element" role="article" tabindex="0">
                     <h3 class="pricing-title">Pro 正式版</h3>
                     <div class="pricing-price">
                         <span class="pricing-price-currency">¥</span>
@@ -3005,7 +3017,7 @@
                 </div>
 
                 <!-- Pro+ -->
-                <div class="pricing-card" role="article" tabindex="0">
+                <div class="pricing-card fade-in-element" role="article" tabindex="0">
                     <h3 class="pricing-title">Pro+ 专业版</h3>
                     <div class="pricing-price">
                         <span class="pricing-price-currency">¥</span>
@@ -3116,7 +3128,7 @@
                 </div>
 
                 <!-- Max -->
-                <div class="pricing-card active-card" style="position: relative;">
+                <div class="pricing-card fade-in-element active-card" style="position: relative;">
                     <div class="pricing-badge">
                         <svg width="7" height="10" viewBox="0 0 7 10" fill="none">
                             <path d="M3.68395 0.328482C3.57814 -0.110154 3.4055 -0.109361 3.30081 0.330069L2.71051 2.8088C2.60526 3.24823 2.26778 3.72891 1.95927 3.87882L0.231805 4.71564C-0.0767104 4.86476 -0.0772673 5.11224 0.230134 5.26453L1.94757 6.11563C2.25497 6.26792 2.59356 6.75177 2.69937 7.19041L3.29858 9.67152C3.40439 10.1102 3.57591 10.1094 3.68005 9.66993L4.26534 7.19913C4.36947 6.7597 4.70639 6.27744 5.01435 6.12753L6.7691 5.27088C7.07706 5.12096 7.07706 4.87666 6.76854 4.72833L5.04164 3.89548C4.73312 3.74715 4.39398 3.26727 4.28817 2.82863L3.68395 0.328482Z" fill="white"/>
@@ -3256,9 +3268,9 @@
         <div class="cta-gradient-bg"></div>
         <div class="cta-blur"></div>
         <div class="container" style="position: relative; z-index: 1;">
-            <h2 class="section-title">别让犹豫错失下一个亿级市场</h2>
-            <p class="cta-subtitle">立即获取为您定制的行业出海获客AI解决方案，用自动化营销抢占全球流量红利</p>
-            <div class="cta-buttons">
+            <h2 class="section-title fade-in-element">别让犹豫错失下一个亿级市场</h2>
+            <p class="cta-subtitle fade-in-element">立即获取为您定制的行业出海获客AI解决方案，用自动化营销抢占全球流量红利</p>
+            <div class="cta-buttons fade-in-element">
                 <a href="#contact" class="cta-btn-primary">
                     立即体验
                     <img  src="images/arrow-right.svg" alt="" class="cta-btn-icon">
@@ -3503,6 +3515,32 @@
         if (socialGrid) {
             socialObserver.observe(socialGrid);
         }
+
+        // Fade-in animation for sections
+        const fadeInObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Get all fade-in elements within the section
+                    const section = entry.target;
+                    const fadeElements = section.querySelectorAll('.fade-in-element');
+
+                    fadeElements.forEach((element, index) => {
+                        setTimeout(() => {
+                            element.classList.add('visible');
+                        }, index * 150); // 150ms delay between each element
+                    });
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        // Observe sections with fade-in elements
+        const sectionsToAnimate = document.querySelectorAll('.case-study-section, .team-section, .pricing-section, .cta-section');
+        sectionsToAnimate.forEach(section => {
+            fadeInObserver.observe(section);
+        });
 
         // Agent switching functionality
         const agentData = {
