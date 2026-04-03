@@ -1181,6 +1181,7 @@
         .case-study-section {
             padding: 128px 0;
             position: relative;
+            min-height: 200vh;
         }
 
         .case-subtitle {
@@ -1198,7 +1199,8 @@
         }
 
         .case-slider-wrapper {
-            position: relative;
+            position: sticky;
+            top: 128px;
             overflow: hidden;
             max-width: 1280px;
             margin: 0 auto;
@@ -1219,14 +1221,14 @@
             align-items: center;
             gap: 232px;
             max-width: 1280px;
-            margin: 0 auto;
+            margin: -20px auto 0;
         }
 
         .case-indicators {
             display: flex;
             justify-content: center;
             gap: 12px;
-            margin-top: 48px;
+            margin-top: -152px;
         }
 
         .case-indicator {
@@ -2838,7 +2840,7 @@
     <section class="case-study-section" id="case-study" aria-labelledby="case-study-title">
         <div class="container">
             <h2 class="section-title fade-in-element">出海增长标杆案例</h2>
-            <p class="case-subtitle fade-in-element">机械设备行业 <span class="gradient-purple" style="background: linear-gradient(135deg, rgb(173, 70, 255), rgb(97, 95, 255)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">3个月 40倍增长</span></p>
+            <p class="case-subtitle fade-in-element">真实客户数据见证 AI 短视频营销的力量</p>
 
             <div class="case-slider-wrapper">
                 <div class="case-slider">
@@ -2858,11 +2860,13 @@
                 </div>
 
                 <div class="timeline fade-in-element">
+                    <h3 style="font-size: 24px; font-weight: 500; margin-bottom: 32px; text-align: left;">机械设备行业 <span style="background: linear-gradient(135deg, rgb(173, 70, 255), rgb(97, 95, 255)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">3个月 40倍增长</span></h3>
+
                     <div class="timeline-item timeline-before">
                         <div class="timeline-dot"></div>
                         <div class="timeline-content">
                             <h3 class="timeline-title">运营前：某机械企业 TikTok 账号</h3>
-                            <p class="timeline-text">8 个月持续更新，仅积累 <strong>100</strong> 粉，获得 <strong>0</strong> 询盘，无法触达精准B端买家。</p>
+                            <p class="timeline-text" style="font-size: 16px;">8 个月持续更新，仅积累 <strong>100</strong> 粉，获得 <strong>0</strong> 询盘，无法触达精准B端买家。</p>
                         </div>
                     </div>
 
@@ -3681,7 +3685,9 @@
         // Case study slider functionality
         const caseSlider = document.querySelector('.case-slider');
         const caseIndicators = document.querySelectorAll('.case-indicator');
+        const caseStudySection = document.querySelector('.case-study-section');
         let currentSlide = 0;
+        let isScrollingCase = false;
 
         function goToSlide(slideIndex) {
             currentSlide = slideIndex;
@@ -3703,11 +3709,41 @@
             });
         });
 
-        // Auto-advance slider every 8 seconds
-        setInterval(() => {
-            const nextSlide = (currentSlide + 1) % caseIndicators.length;
-            goToSlide(nextSlide);
-        }, 8000);
+        // Scroll-based case slider navigation
+        function handleCaseScroll() {
+            if (!caseStudySection) return;
+
+            const sectionTop = caseStudySection.offsetTop;
+            const sectionHeight = caseStudySection.offsetHeight;
+            const scrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
+
+            // Check if we're in the case study section
+            if (scrollY >= sectionTop - windowHeight / 2 && scrollY < sectionTop + sectionHeight) {
+                const scrollProgress = (scrollY - sectionTop + windowHeight / 2) / sectionHeight;
+
+                // Switch slides based on scroll progress
+                if (scrollProgress < 0.4) {
+                    if (currentSlide !== 0) {
+                        goToSlide(0);
+                    }
+                } else if (scrollProgress >= 0.4) {
+                    if (currentSlide !== 1) {
+                        goToSlide(1);
+                    }
+                }
+            }
+        }
+
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            if (scrollTimeout) {
+                window.cancelAnimationFrame(scrollTimeout);
+            }
+            scrollTimeout = window.requestAnimationFrame(() => {
+                handleCaseScroll();
+            });
+        });
 
         // Agent switching functionality
         const agentData = {
