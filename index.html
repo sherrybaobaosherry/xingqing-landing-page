@@ -1023,7 +1023,7 @@
         .agent-avatar-inner img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
         }
 
         .agent-name {
@@ -1178,18 +1178,37 @@
         }
 
         /* Case Study Section */
-        .case-study-section {
-            padding: 128px 0;
+        .case-study-wrapper {
             position: relative;
-            min-height: 200vh;
+            height: 300vh;
+        }
+
+        .case-study-section {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: visible;
+        }
+
+        .case-study-header {
+            position: absolute;
+            top: 120px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            z-index: 10;
         }
 
         .case-subtitle {
             font-size: 20px;
             font-weight: 400;
-            text-align: center;
             color: rgba(255, 255, 255, 0.5);
-            margin-bottom: 96px;
+            margin-top: 16px;
             letter-spacing: -0.45px;
         }
 
@@ -1198,37 +1217,53 @@
             font-weight: 500;
         }
 
-        .case-slider-wrapper {
-            position: sticky;
-            top: 128px;
-            overflow: hidden;
-            max-width: 1280px;
-            margin: 0 auto;
+        .case-study-content {
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            position: relative;
+            overflow: visible;
         }
 
-        .case-slider {
+        .case-study-slides {
             display: flex;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 200%;
+            transition: transform 0.1s linear;
         }
 
         .case-slide {
-            min-width: 100%;
+            width: 50%;
             flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 500px;
+            padding-top: 150px;
         }
 
         .case-content {
             display: flex;
             align-items: center;
-            gap: 232px;
+            justify-content: center;
+            gap: 300px;
             max-width: 1280px;
-            margin: -20px auto 0;
+            width: 100%;
+            padding: 0 40px;
+        }
+
+        /* First slide specific - shift phone right */
+        .case-slide:first-child .case-content .phone-mockup {
+            transform: translateX(50px);
         }
 
         .case-indicators {
+            position: absolute;
+            bottom: 100px;
+            left: 0;
+            right: 0;
             display: flex;
             justify-content: center;
             gap: 12px;
-            margin-top: -152px;
+            z-index: 10;
         }
 
         .case-indicator {
@@ -1248,7 +1283,7 @@
 
         .case-phones-grid {
             display: flex;
-            gap: 32px;
+            gap: 72px;
             justify-content: center;
             align-items: flex-start;
         }
@@ -1277,12 +1312,12 @@
 
         .phone-glow {
             position: absolute;
-            width: 384px;
-            height: 832px;
-            left: -32px;
-            top: -69px;
+            width: 550px;
+            height: 1000px;
+            left: -115px;
+            top: -150px;
             background: rgba(122, 122, 255, 0.2);
-            filter: blur(80px);
+            filter: blur(100px);
             border-radius: 50%;
         }
 
@@ -1316,7 +1351,7 @@
             left: 0;
             width: 304px;
             height: 677.328px;
-            object-fit: cover;
+            object-fit: contain;
         }
 
         .phone-overlay {
@@ -1331,8 +1366,8 @@
 
         .comparison-card {
             position: absolute;
-            top: 235px;
-            left: 160px;
+            top: 260px;
+            left: 200px;
             width: 250px;
             z-index: 10;
         }
@@ -1669,7 +1704,7 @@
         .team-avatar-inner img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
             display: block;
         }
 
@@ -2309,6 +2344,67 @@
                 height: auto;
                 overflow-y: visible;
             }
+
+            /* Case study responsive */
+            .case-study-wrapper {
+                height: auto;
+            }
+
+            .case-study-section {
+                position: relative;
+                height: auto;
+                padding: 80px 0;
+            }
+
+            .case-study-slides-container {
+                flex: none;
+            }
+
+            .case-study-slides {
+                display: block;
+                width: 100%;
+                transform: none !important;
+            }
+
+            .case-slide {
+                width: 100%;
+                padding: 40px 20px;
+            }
+
+            .case-content {
+                flex-direction: column !important;
+                gap: 48px !important;
+                margin-top: 0 !important;
+                align-items: center;
+                padding: 20px !important;
+            }
+
+            .case-phones-grid {
+                flex-direction: column;
+                gap: 48px;
+            }
+
+            .timeline {
+                gap: 48px;
+            }
+
+            .case-indicators {
+                margin-top: 30px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .case-content {
+                gap: 60px !important;
+            }
+
+            .timeline h3 {
+                font-size: 20px !important;
+            }
+
+            .stat-number {
+                font-size: 32px !important;
+            }
         }
 
         @media (max-width: 768px) {
@@ -2325,43 +2421,109 @@
                 flex: 1 1 calc(50% - 6px);
             }
 
-            .nav-menu {
-                position: fixed;
-                top: 72px;
-                left: 0;
-                right: 0;
-                background: rgba(0, 0, 0, 0.95);
-                backdrop-filter: blur(20px);
-                flex-direction: column;
-                gap: 0;
-                padding: 20px;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                transform: translateY(-100%);
-                opacity: 0;
-                transition: transform 0.3s ease, opacity 0.3s ease;
-                pointer-events: none;
+            /* Case study mobile */
+            .case-study-wrapper {
+                height: auto;
             }
 
-            .nav-menu.active {
-                transform: translateY(0);
-                opacity: 1;
-                pointer-events: all;
+            .case-study-section {
+                position: relative;
+                height: auto;
+                padding: 60px 0;
             }
 
-            .nav-menu li {
+            .case-study-header {
+                margin-bottom: 40px;
+            }
+
+            .case-subtitle {
+                font-size: 16px;
+            }
+
+            .case-indicators {
+                margin-top: 30px;
+            }
+
+            .phone-mockup {
+                width: 240px !important;
+                height: 520px !important;
+            }
+
+            .phone-glow {
+                width: 280px !important;
+                height: 600px !important;
+            }
+
+            .phone-frame {
+                width: 240px !important;
+                height: 520px !important;
+            }
+
+            .phone-screen {
+                width: 226px !important;
+                height: 506px !important;
+            }
+
+            .phone-overlay {
+                width: 226px !important;
+                height: 506px !important;
+            }
+
+            .comparison-card {
+                top: 160px !important;
+                left: 20px !important;
+                width: 140px !important;
+            }
+
+            .main-phone-frame {
+                width: 220px !important;
+                height: 476px !important;
+            }
+
+            .main-phone-frame img {
+                border-width: 6px !important;
+            }
+
+            .comparison-card img {
+                max-width: 180px;
                 width: 100%;
-                text-align: center;
-                padding: 12px 0;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                height: auto;
             }
 
-            .nav-menu li:last-child {
-                border-bottom: none;
+            .timeline h3 {
+                font-size: 20px !important;
             }
 
-            .mobile-menu-btn {
-                display: block;
+            .timeline-text {
+                font-size: 14px !important;
             }
+
+            .timeline-quote {
+                font-size: 20px !important;
+            }
+
+            .stat-number {
+                font-size: 28px !important;
+            }
+
+            .stat-label {
+                font-size: 13px;
+            }
+
+            .case-content {
+                gap: 24px !important;
+                padding: 0 10px !important;
+            }
+
+            .case-phones-grid {
+                gap: 40px;
+            }
+
+            .case-slider-container {
+                padding: 20px 0;
+            }
+        }
+
         }
     
 
@@ -2452,6 +2614,16 @@
             backface-visibility: hidden;
         }
 
+        /* Hide scrollbar but keep scrolling */
+        html {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        html::-webkit-scrollbar {
+            display: none;
+        }
+
     </style>
 
 </head>
@@ -2475,15 +2647,14 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="nav-logo">
-                <img  src="images/创视星擎.svg" alt="星擎">
+                <img src="images/创视星擎.svg" alt="星擎">
             </a>
-            <ul class="nav-menu" id="navMenu">
+            <ul class="nav-menu">
                 <li><a href="index.html#solution" class="nav-link">解决方案</a></li>
                 <li><a href="product.html" class="nav-link">产品</a></li>
                 <li><a href="pricing.html" class="nav-link">定价</a></li>
                 <li><a href="index.html#about" class="nav-link">关于</a></li>
             </ul>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
         </div>
     </nav>
 
@@ -2772,17 +2943,17 @@
                     <div class="agent-stack">
                         <div class="agent-stack-item" style="width: 60px; height: 60px; top: 2px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, rgb(43, 127, 255), rgb(0, 184, 219)); padding: 1.25px; border-radius: 50%;">
                             <div style="width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: linear-gradient(135deg, rgba(122, 122, 255, 0.2), rgba(77, 159, 255, 0.2));">
-                                <img  src="https://www.figma.com/api/mcp/asset/c553e4a5-5c96-4567-bca3-9d2d679abe9f" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+                                <img  src="https://www.figma.com/api/mcp/asset/c553e4a5-5c96-4567-bca3-9d2d679abe9f" alt="" style="width: 100%; height: 100%; object-fit: contain;">
                             </div>
                         </div>
                         <div class="agent-stack-item" style="width: 50px; height: 50px; bottom: 5px; left: 0; background: linear-gradient(135deg, rgb(255, 105, 0), rgb(254, 154, 0)); padding: 1.042px; border-radius: 50%;">
                             <div style="width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: linear-gradient(135deg, rgba(122, 122, 255, 0.2), rgba(77, 159, 255, 0.2));">
-                                <img  src="https://www.figma.com/api/mcp/asset/f1ae64dc-bfe0-4d13-83ee-a802575a309e" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+                                <img  src="https://www.figma.com/api/mcp/asset/f1ae64dc-bfe0-4d13-83ee-a802575a309e" alt="" style="width: 100%; height: 100%; object-fit: contain;">
                             </div>
                         </div>
                         <div class="agent-stack-item" style="width: 36px; height: 36px; top: 48px; right: 0; background: linear-gradient(135deg, rgb(246, 51, 154), rgb(255, 32, 86)); padding: 0.75px; border-radius: 50%;">
                             <div style="width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: linear-gradient(135deg, rgba(122, 122, 255, 0.2), rgba(77, 159, 255, 0.2));">
-                                <img  src="https://www.figma.com/api/mcp/asset/eeac124e-7c06-400f-b585-d466ae4672b7" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+                                <img  src="https://www.figma.com/api/mcp/asset/eeac124e-7c06-400f-b585-d466ae4672b7" alt="" style="width: 100%; height: 100%; object-fit: contain;">
                             </div>
                         </div>
                     </div>
@@ -2837,13 +3008,15 @@
     </section>
 
     <!-- Case Study Section -->
-    <section class="case-study-section" id="case-study" aria-labelledby="case-study-title">
-        <div class="container">
-            <h2 class="section-title fade-in-element">出海增长标杆案例</h2>
-            <p class="case-subtitle fade-in-element">真实客户数据见证 AI 短视频营销的力量</p>
+    <div class="case-study-wrapper" id="case-study">
+        <div class="case-study-section">
+            <div class="case-study-header">
+                <h2 class="section-title fade-in-element">出海增长标杆案例</h2>
+                <p class="case-subtitle fade-in-element">真实客户数据见证 AI 短视频营销的力量</p>
+            </div>
 
-            <div class="case-slider-wrapper">
-                <div class="case-slider">
+            <div class="case-study-content">
+                <div class="case-study-slides">
                     <!-- Slide 1: 机械设备案例 -->
                     <div class="case-slide">
                         <div class="case-content">
@@ -2851,16 +3024,13 @@
                     <div class="comparison-card">
                         <img src="images/用户案例_前.png" alt="运营前TikTok数据">
                     </div>
-                    <div class="phone-glow"></div>
-                    <div class="phone-frame">
-                        <div class="phone-notch"></div>
-                        <img  src="images/用户案例_后.png" alt="TikTok页面" class="phone-screen">
-                        <div class="phone-overlay"></div>
+                    <div class="main-phone-frame" style="position: relative; width: 320px; height: 693px;">
+                        <img src="images/用户案例_后.png" alt="TikTok页面运营后" style="width: 100%; height: 100%; object-fit: cover; border-radius: 28px; border: 8px solid #1a1a24; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);">
                     </div>
                 </div>
 
                 <div class="timeline fade-in-element">
-                    <h3 style="font-size: 24px; font-weight: 500; margin-bottom: 32px; text-align: left;">机械设备行业 <span style="background: linear-gradient(135deg, rgb(173, 70, 255), rgb(97, 95, 255)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">3个月 40倍增长</span></h3>
+                    <h3 style="font-size: 24px; font-weight: 500; margin-bottom: 32px; text-align: left; background: linear-gradient(135deg, rgb(173, 70, 255), rgb(97, 95, 255)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">机械设备行业 3个月 40倍增长</h3>
 
                     <div class="timeline-item timeline-before">
                         <div class="timeline-dot"></div>
@@ -2879,15 +3049,15 @@
                             </h3>
                             <div class="stats-grid">
                                 <div class="stat-item">
-                                    <div class="stat-number">4,000+</div>
-                                    <div class="stat-label">新增精准粉丝群</div>
+                                    <div class="stat-number">3,800+</div>
+                                    <div class="stat-label">新增精准粉丝</div>
                                 </div>
                                 <div class="stat-item">
                                     <div class="stat-number">10+ <span class="stat-unit">/日</span></div>
                                     <div class="stat-label">平均日均精准询盘</div>
                                 </div>
                             </div>
-                            <p class="timeline-quote" style="background: linear-gradient(135deg, rgb(173, 70, 255), rgb(97, 95, 255)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 28px;">"单条爆款视频直接成交 2 台大型设备"</p>
+                            <p class="timeline-quote" style="color: white; font-size: 28px;">单条爆款视频直接成交 2 台大型设备</p>
                         </div>
                     </div>
                 </div>
@@ -2896,39 +3066,35 @@
 
                     <!-- Slide 2: 储能电池案例 -->
                     <div class="case-slide">
-                        <div class="case-content" style="flex-direction: column; gap: 48px;">
-                            <h3 class="section-title" style="font-size: 36px; margin-bottom: 24px;">储能电池行业 <span class="gradient-purple" style="background: linear-gradient(135deg, rgb(173, 70, 255), rgb(97, 95, 255)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">精准获客 业绩翻倍</span></h3>
+                        <div class="case-content" style="flex-direction: column; gap: 32px; margin-top: 10px;">
+                            <p style="font-size: 20px; text-align: center; background: linear-gradient(135deg, rgb(173, 70, 255), rgb(97, 95, 255)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">储能电池行业 精准获客 业绩大幅提升</p>
 
                             <div class="case-phones-grid">
                                 <!-- Phone 1: TikTok账号 -->
                                 <div class="case-phone-item">
-                                    <p class="case-phone-label">精准定位目标客户</p>
-                                    <div class="phone-mockup" style="width: 280px; height: 606.62px;">
-                                        <div class="phone-glow" style="width: 336px; height: 728px; left: -28px; top: -60px;"></div>
-                                        <div class="phone-frame" style="width: 280px; height: 606.62px; border-radius: 42px;">
-                                            <div class="phone-notch"></div>
-                                            <div class="phone-screen" style="width: 264px; height: 590.62px; background: linear-gradient(135deg, rgba(122, 122, 255, 0.1), rgba(77, 159, 255, 0.1)); display: flex; align-items: center; justify-content: center; color: white; font-size: 16px;">TikTok 专业账号</div>
-                                            <div class="phone-overlay" style="width: 264px; height: 590.62px;"></div>
+                                    <div class="phone-mockup" style="width: 375px; height: 667px;">
+                                        <div class="phone-glow" style="width: 450px; height: 800px; left: -37px; top: -66px;"></div>
+                                        <div class="phone-frame" style="width: 375px; height: 667px; border-radius: 38px;">
+                                            <img src="images/储能电池.png" alt="TikTok精准粉丝" class="phone-screen" style="width: 375px; height: 667px; object-fit: contain; border-radius: 38px;">
+                                            <div class="phone-overlay" style="width: 375px; height: 667px; border-radius: 38px;"></div>
                                         </div>
                                     </div>
-                                    <div class="stat-item" style="margin-top: 24px;">
-                                        <div class="stat-number" style="font-size: 36px;">8,500+</div>
+                                    <div class="stat-item" style="margin-top: 14px;">
+                                        <div class="stat-number" style="font-size: 36px;">600+</div>
                                         <div class="stat-label">精准粉丝</div>
                                     </div>
                                 </div>
 
                                 <!-- Phone 2: 用户精准询盘 -->
                                 <div class="case-phone-item">
-                                    <p class="case-phone-label">高质量询盘持续增长</p>
-                                    <div class="phone-mockup" style="width: 280px; height: 606.62px;">
-                                        <div class="phone-glow" style="width: 336px; height: 728px; left: -28px; top: -60px; background: rgba(173, 70, 255, 0.2);"></div>
-                                        <div class="phone-frame" style="width: 280px; height: 606.62px; border-radius: 42px;">
-                                            <div class="phone-notch"></div>
-                                            <div class="phone-screen" style="width: 264px; height: 590.62px; background: linear-gradient(135deg, rgba(173, 70, 255, 0.1), rgba(97, 95, 255, 0.1)); display: flex; align-items: center; justify-content: center; color: white; font-size: 16px;">WhatsApp 询盘</div>
-                                            <div class="phone-overlay" style="width: 264px; height: 590.62px;"></div>
+                                    <div class="phone-mockup" style="width: 375px; height: 667px;">
+                                        <div class="phone-glow" style="width: 450px; height: 800px; left: -37px; top: -66px; background: rgba(173, 70, 255, 0.2);"></div>
+                                        <div class="phone-frame" style="width: 375px; height: 667px; border-radius: 38px;">
+                                            <img src="images/询盘.png" alt="B端有效询盘" class="phone-screen" style="width: 375px; height: 667px; object-fit: contain; border-radius: 38px;">
+                                            <div class="phone-overlay" style="width: 375px; height: 667px; border-radius: 38px;"></div>
                                         </div>
                                     </div>
-                                    <div class="stat-item" style="margin-top: 24px;">
+                                    <div class="stat-item" style="margin-top: 14px;">
                                         <div class="stat-number" style="font-size: 36px;">150+ <span class="stat-unit">/月</span></div>
                                         <div class="stat-label">B端有效询盘</div>
                                     </div>
@@ -2936,35 +3102,30 @@
 
                                 <!-- Phone 3: 销售量增长 -->
                                 <div class="case-phone-item">
-                                    <p class="case-phone-label">订单转化率大幅提升</p>
-                                    <div class="phone-mockup" style="width: 280px; height: 606.62px;">
-                                        <div class="phone-glow" style="width: 336px; height: 728px; left: -28px; top: -60px; background: rgba(0, 201, 80, 0.2);"></div>
-                                        <div class="phone-frame" style="width: 280px; height: 606.62px; border-radius: 42px;">
-                                            <div class="phone-notch"></div>
-                                            <div class="phone-screen" style="width: 264px; height: 590.62px; background: linear-gradient(135deg, rgba(0, 201, 80, 0.1), rgba(0, 188, 125, 0.1)); display: flex; align-items: center; justify-content: center; color: white; font-size: 16px;">订单数据</div>
-                                            <div class="phone-overlay" style="width: 264px; height: 590.62px;"></div>
+                                    <div class="phone-mockup" style="width: 375px; height: 667px;">
+                                        <div class="phone-glow" style="width: 450px; height: 800px; left: -37px; top: -66px; background: rgba(0, 201, 80, 0.2);"></div>
+                                        <div class="phone-frame" style="width: 375px; height: 667px; border-radius: 38px;">
+                                            <img src="images/售出.png" alt="销售额增长" class="phone-screen" style="width: 375px; height: 667px; object-fit: contain; border-radius: 38px;">
+                                            <div class="phone-overlay" style="width: 375px; height: 667px; border-radius: 38px;"></div>
                                         </div>
                                     </div>
-                                    <div class="stat-item" style="margin-top: 24px;">
+                                    <div class="stat-item" style="margin-top: 14px;">
                                         <div class="stat-number" style="font-size: 36px;">220%</div>
                                         <div class="stat-label">销售额增长</div>
                                     </div>
                                 </div>
                             </div>
-
-                            <p class="timeline-quote" style="background: linear-gradient(135deg, rgb(173, 70, 255), rgb(97, 95, 255)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 28px; margin-top: 32px;">"AI短视频营销让我们的海外订单翻了一番"</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Slider Indicators -->
             <div class="case-indicators">
                 <div class="case-indicator active" data-slide="0"></div>
                 <div class="case-indicator" data-slide="1"></div>
             </div>
         </div>
-    </section>
+    </div>
 
     <!-- Team Section -->
     <section class="team-section" id="about" aria-labelledby="team-title" id="about">
@@ -3526,24 +3687,7 @@
             }
         });
 
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navMenu = document.getElementById('navMenu');
-
-        mobileMenuBtn.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            mobileMenuBtn.textContent = navMenu.classList.contains('active') ? '✕' : '☰';
-        });
-
-        // Close mobile menu when clicking a link
-        document.querySelectorAll('.nav-link, .nav-cta').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-                mobileMenuBtn.textContent = '☰';
-            });
-        });
-
-        // Smooth scroll for anchor links
+// Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 const href = this.getAttribute('href');
@@ -3682,66 +3826,66 @@
             fadeInObserver.observe(section);
         });
 
-        // Case study slider functionality
-        const caseSlider = document.querySelector('.case-slider');
-        const caseIndicators = document.querySelectorAll('.case-indicator');
-        const caseStudySection = document.querySelector('.case-study-section');
-        let currentSlide = 0;
-        let isScrollingCase = false;
+        // Case study scroll effect
+        function handleCaseStudyScroll() {
+            const wrapper = document.querySelector('.case-study-wrapper');
+            const slides = document.querySelector('.case-study-slides');
+            const indicators = document.querySelectorAll('.case-indicator');
 
-        function goToSlide(slideIndex) {
-            currentSlide = slideIndex;
-            caseSlider.style.transform = `translateX(-${slideIndex * 100}%)`;
+            if (!wrapper || !slides) return;
 
-            caseIndicators.forEach((indicator, index) => {
-                if (index === slideIndex) {
-                    indicator.classList.add('active');
-                } else {
-                    indicator.classList.remove('active');
-                }
-            });
-        }
-
-        caseIndicators.forEach((indicator) => {
-            indicator.addEventListener('click', () => {
-                const slideIndex = parseInt(indicator.getAttribute('data-slide'));
-                goToSlide(slideIndex);
-            });
-        });
-
-        // Scroll-based case slider navigation
-        function handleCaseScroll() {
-            if (!caseStudySection) return;
-
-            const sectionTop = caseStudySection.offsetTop;
-            const sectionHeight = caseStudySection.offsetHeight;
-            const scrollY = window.scrollY;
+            const rect = wrapper.getBoundingClientRect();
+            const wrapperHeight = wrapper.offsetHeight;
             const windowHeight = window.innerHeight;
+            const scrollableHeight = wrapperHeight - windowHeight;
 
-            // Check if we're in the case study section
-            if (scrollY >= sectionTop - windowHeight / 2 && scrollY < sectionTop + sectionHeight) {
-                const scrollProgress = (scrollY - sectionTop + windowHeight / 2) / sectionHeight;
+            // Calculate scroll progress (0 to 1)
+            let progress = -rect.top / scrollableHeight;
+            progress = Math.max(0, Math.min(1, progress));
 
-                // Switch slides based on scroll progress
-                if (scrollProgress < 0.4) {
-                    if (currentSlide !== 0) {
-                        goToSlide(0);
-                    }
-                } else if (scrollProgress >= 0.4) {
-                    if (currentSlide !== 1) {
-                        goToSlide(1);
-                    }
+            // Three phases: pause (0-0.33), slide (0.33-0.67), pause (0.67-1)
+            let translateX = 0;
+            if (progress < 0.33) {
+                translateX = 0;
+                indicators[0]?.classList.add('active');
+                indicators[1]?.classList.remove('active');
+            } else if (progress < 0.67) {
+                const slideProgress = (progress - 0.33) / 0.34;
+                translateX = -slideProgress * 50;
+
+                if (slideProgress < 0.5) {
+                    indicators[0]?.classList.add('active');
+                    indicators[1]?.classList.remove('active');
+                } else {
+                    indicators[0]?.classList.remove('active');
+                    indicators[1]?.classList.add('active');
                 }
+            } else {
+                translateX = -50;
+                indicators[0]?.classList.remove('active');
+                indicators[1]?.classList.add('active');
             }
+
+            slides.style.transform = `translateX(${translateX}%)`;
         }
 
-        let scrollTimeout;
-        window.addEventListener('scroll', () => {
-            if (scrollTimeout) {
-                window.cancelAnimationFrame(scrollTimeout);
-            }
-            scrollTimeout = window.requestAnimationFrame(() => {
-                handleCaseScroll();
+        window.addEventListener('scroll', handleCaseStudyScroll, { passive: true });
+        handleCaseStudyScroll();
+
+        document.querySelectorAll('.case-indicator').forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                const wrapper = document.querySelector('.case-study-wrapper');
+                if (wrapper) {
+                    const wrapperTop = wrapper.offsetTop;
+                    const wrapperHeight = wrapper.offsetHeight;
+                    const windowHeight = window.innerHeight;
+                    const targetProgress = index === 0 ? 0.15 : 0.8;
+                    const targetScroll = wrapperTop + (wrapperHeight - windowHeight) * targetProgress;
+                    window.scrollTo({
+                        top: targetScroll,
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
 
