@@ -589,7 +589,7 @@
             font-size: 20px;
             font-weight: 400;
             text-align: center;
-            color: rgba(255, 255, 255, 0.4);
+            color: rgba(255, 255, 255, 0.5);
             margin-bottom: 80px;
         }
 
@@ -1177,108 +1177,344 @@
             color: rgba(255, 255, 255, 0.5);
         }
 
-        /* Case Study Section */
-        .case-study-wrapper {
+        /* Case Study Section - 新版 Figma 设计 */
+        .case-study-section {
             position: relative;
-            height: 300vh;
+            background: #030308;
+            padding: 128px 0;
+            overflow: hidden;
         }
 
-        .case-study-section {
-            position: sticky;
+        /* 背景光晕 */
+        .case-glow-1 {
+            position: absolute;
+            width: 800px;
+            height: 600px;
+            left: 577.5px;
             top: 0;
-            height: 100vh;
-            background: #000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            overflow: visible;
+            background: rgba(122, 122, 255, 0.1);
+            filter: blur(150px);
+            border-radius: 9999px;
+            pointer-events: none;
+        }
+
+        .case-glow-2 {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            left: -195.5px;
+            top: 305px;
+            background: rgba(152, 16, 250, 0.1);
+            filter: blur(120px);
+            border-radius: 9999px;
+            pointer-events: none;
+        }
+
+        .case-glow-3 {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            left: 1550.5px;
+            top: 315px;
+            background: rgba(21, 93, 252, 0.1);
+            filter: blur(150px);
+            border-radius: 9999px;
+            pointer-events: none;
+        }
+
+        .case-glow-4 {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            left: 488.75px;
+            top: 820px;
+            background: rgba(97, 95, 255, 0.1);
+            filter: blur(100px);
+            border-radius: 9999px;
+            pointer-events: none;
+        }
+
+        .case-study-container {
+            position: relative;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            z-index: 1;
         }
 
         .case-study-header {
-            position: absolute;
-            top: 120px;
-            left: 0;
-            right: 0;
             text-align: center;
-            z-index: 10;
+            margin-bottom: 48px;
         }
 
         .case-subtitle {
             font-size: 20px;
             font-weight: 400;
-            color: rgba(255, 255, 255, 0.5);
-            margin-top: 16px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 24px;
             letter-spacing: -0.45px;
         }
 
-        .case-subtitle .highlight-purple {
-            color: #7a7aff;
-            font-weight: 500;
-        }
-
-        .case-study-content {
-            width: 100vw;
-            margin-left: calc(-50vw + 50%);
-            position: relative;
-            overflow: visible;
-        }
-
-        .case-study-slides {
-            display: flex;
-            width: 200%;
-            transition: transform 0.1s linear;
-        }
-
-        .case-slide {
-            width: 50%;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 500px;
-            padding-top: 150px;
-        }
-
-        .case-content {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 300px;
-            max-width: 1280px;
-            width: 100%;
-            padding: 0 40px;
-        }
-
-        /* First slide specific - shift phone right */
-        .case-slide:first-child .case-content .phone-mockup {
-            transform: translateX(50px);
-        }
-
-        .case-indicators {
-            position: absolute;
-            bottom: 100px;
-            left: 0;
-            right: 0;
+        /* Tab 切换 */
+        .case-tabs {
             display: flex;
             justify-content: center;
-            gap: 12px;
-            z-index: 10;
+            gap: 16px;
+            margin-bottom: 60px;
         }
 
-        .case-indicator {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
+        .case-tab {
+            padding: 12px 0;
+            width: 136px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.6);
+            background: transparent;
+            border: none;
+            border-radius: 9999px;
             cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: -0.44px;
+            position: relative;
+        }
+
+        .case-tab:last-child {
+            width: 124px;
+        }
+
+        .case-tab.active {
+            font-weight: 500;
+            color: white;
+            background: rgba(122, 122, 255, 0.1);
+            border: 1px solid rgba(122, 122, 255, 0.5);
+            box-shadow: inset 0 0 16px rgba(122, 122, 255, 0.3);
+        }
+
+        .case-tab:not(.active):hover {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* 案例内容区域 */
+        .case-content-wrapper {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .case-content-item {
+            display: none;
+        }
+
+        .case-content-item.active {
+            display: flex;
+        }
+
+        .case-left {
+            flex: 0 0 576px;
+        }
+
+        .case-company {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 8px;
+            font-weight: 500;
+            letter-spacing: 0.0105px;
+        }
+
+        .case-title {
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 1.25;
+            background: linear-gradient(90deg, #7a7aff 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 40px;
+        }
+
+        .case-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .case-stat-item {
+            text-align: center;
+        }
+
+        .case-stat-icon {
+            width: 32px;
+            height: 32px;
+            margin: 0 auto 12px;
+        }
+
+        .case-stat-number {
+            font-size: 30px;
+            font-weight: 700;
+            color: white;
+            line-height: 36px;
+            font-family: 'DIN Alternate', sans-serif;
+        }
+
+        .case-stat-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 4px;
+            letter-spacing: -0.15px;
+        }
+
+        .case-description {
+            padding-left: 24px;
+            margin-bottom: 48px;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            position: relative;
+        }
+
+        .case-description::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #7a7aff 0%, #a855f7 100%);
+            border-radius: 9999px;
+        }
+
+        .case-description p {
+            font-size: 18px;
+            color: white;
+            line-height: 1.625;
+            letter-spacing: 0.0105px;
+        }
+
+        .case-tags {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .case-tag {
+            padding: 7px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 9999px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: -0.15px;
+        }
+
+        .case-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            letter-spacing: -0.44px;
             transition: all 0.3s ease;
         }
 
-        .case-indicator.active {
-            background: rgba(122, 122, 255, 1);
-            width: 24px;
-            border-radius: 4px;
+        .case-cta:hover {
+            color: #7a7aff;
+        }
+
+        .case-cta {
+            --stroke-0: rgba(255, 255, 255, 0.9);
+        }
+
+        .case-cta:hover {
+            --stroke-0: #7a7aff;
+        }
+
+        .case-cta svg,
+        .case-cta img {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .case-cta svg path {
+            transition: stroke 0.3s ease;
+        }
+
+        .case-cta:hover svg,
+        .case-cta:hover img {
+            transform: translateX(4px);
+        }
+
+        .case-cta:hover svg path {
+            stroke: #7a7aff;
+            stroke-opacity: 1;
+        }
+
+        /* 箭头图标hover变紫色 */
+        .case-cta img {
+            content: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4.16667 10H15.8333' stroke='rgba(255,255,255,0.9)' stroke-width='1.66667' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M10 4.16667L15.8333 10L10 15.8333' stroke='rgba(255,255,255,0.9)' stroke-width='1.66667' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        }
+
+        .case-cta:hover img {
+            content: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4.16667 10H15.8333' stroke='%237a7aff' stroke-width='1.66667' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M10 4.16667L15.8333 10L10 15.8333' stroke='%237a7aff' stroke-width='1.66667' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        }
+
+
+        /* 右侧手机展示 */
+        .case-right {
+            flex: 0 0 auto;
+            position: relative;
+        }
+
+        .case-phone-wrapper {
+            position: relative;
+            width: 320px;
+            height: 563px;
+            margin-left: 168px;
+        }
+
+        .case-phone {
+            width: 320px;
+            height: 563px;
+            background: #000;
+            border: 4px solid #1a1a24;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative;
+        }
+
+        .case-phone img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .case-phone-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(60deg, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
+        }
+
+        .case-account-card {
+            position: absolute;
+            left: -112px;
+            top: 154px;
+            width: 220px;
+            height: 195px;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+        }
+
+        .case-account-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .case-phones-grid {
@@ -1290,6 +1526,112 @@
 
         .case-phone-item {
             text-align: center;
+        }
+
+        /* 3C数码特殊布局 - 3张叠加图片 */
+        .case-images-stack {
+            position: relative;
+            width: 380px;
+            height: 550px;
+            margin-left: 98px;
+            overflow: visible;
+        }
+
+        .case-stack-image {
+            position: absolute;
+            width: 220px;
+            height: 391px;
+            border-radius: 24px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0);
+        }
+
+        .case-stack-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .case-stack-image:nth-child(1) {
+            left: 194px;
+            top: -20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .case-stack-image:nth-child(2) {
+            left: 137px;
+            top: 200px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+            z-index: 3;
+        }
+
+        .case-stack-image:nth-child(3) {
+            left: 0;
+            top: 40px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+            z-index: 2;
+        }
+
+        /* 机械设备布局调整：左图右文 */
+        [data-content="machinery"].case-content-wrapper {
+            gap: 96px;
+        }
+
+        [data-content="machinery"] .case-left {
+            order: 2;
+            flex: 0 0 568px;
+        }
+
+        [data-content="machinery"] .case-right {
+            order: 1;
+        }
+
+        /* 机械设备统计数据 - 调整宽度以适应长label */
+        [data-content="machinery"] .case-stats {
+            display: flex;
+            gap: 24px;
+        }
+
+        [data-content="machinery"] .case-stat-item {
+            width: 124px;
+        }
+
+        /* 3C数码布局调整：左图右文 */
+        [data-content="3c"].case-content-wrapper {
+            gap: 160px;
+        }
+
+        [data-content="3c"] .case-left {
+            order: 2;
+        }
+
+        [data-content="3c"] .case-right {
+            order: 1;
+        }
+
+        /* 3C数码统计数据只有3列 */
+        [data-content="3c"] .case-stats {
+            display: flex;
+            gap: 24px;
+            margin-left: -0.5px;
+        }
+
+        [data-content="3c"] .case-stat-item {
+            width: 140px;
+        }
+
+        [data-content="3c"] .case-stat-item:nth-child(2) {
+            width: 141px;
+        }
+
+        /* 标签和查看按钮与描述文字左对齐 */
+        .case-tags {
+            padding-left: 24px;
+        }
+
+        .case-cta {
+            margin-left: 24px;
         }
 
         .case-phone-label {
@@ -1366,16 +1708,17 @@
 
         .comparison-card {
             position: absolute;
-            top: 260px;
-            left: 200px;
-            width: 250px;
+            top: 200px;
+            left: 160px;
+            width: 233px;
+            height: auto;
             z-index: 10;
         }
 
         .comparison-card img {
             width: 100%;
             height: auto;
-            border-radius: 12px;
+            border-radius: clamp(8px, 1vw, 12px);
             display: block;
             border: 2px solid rgba(255, 255, 255, 0.3);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
@@ -1522,45 +1865,71 @@
 
         /* Team Section */
         .team-section {
-            padding: 128px 0;
+            padding: 200px 0 128px 0;
             position: relative;
             overflow: hidden;
+            background: #030308;
+        }
+
+        .team-stars-container {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 1040px;
+            overflow: hidden;
+            pointer-events: none;
         }
 
         .team-bg-glow {
             position: absolute;
-            width: 800px;
+            width: 600px;
             height: 400px;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(122, 122, 255, 0.05);
             filter: blur(150px);
-            border-radius: 50%;
+            border-radius: 9999px;
             pointer-events: none;
+        }
+
+        .team-bg-glow-1 {
+            left: 50%;
+            margin-left: -617px;
+            top: 320px;
+            background: rgba(122, 122, 255, 0.1);
+        }
+
+        .team-bg-glow-2 {
+            left: 50%;
+            margin-left: -68px;
+            top: 320px;
+            background: rgba(122, 122, 255, 0.05);
         }
 
         .team-star {
             position: absolute;
-            width: 2px;
-            height: 2px;
             background: white;
             border-radius: 50%;
             pointer-events: none;
-            animation: twinkle 3s ease-in-out infinite;
-            box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 12px rgba(122, 122, 255, 0.6);
         }
 
-        .team-star:nth-child(1) { left: 8%; top: 15%; animation-delay: 0s; animation-duration: 2.5s; }
-        .team-star:nth-child(2) { left: 18%; top: 45%; animation-delay: 0.8s; animation-duration: 3.2s; }
-        .team-star:nth-child(3) { left: 28%; top: 75%; animation-delay: 1.5s; animation-duration: 2.8s; }
-        .team-star:nth-child(4) { left: 42%; top: 25%; animation-delay: 0.3s; animation-duration: 3.5s; }
-        .team-star:nth-child(5) { left: 55%; top: 60%; animation-delay: 1.8s; animation-duration: 2.6s; }
-        .team-star:nth-child(6) { left: 68%; top: 35%; animation-delay: 0.6s; animation-duration: 3.1s; }
-        .team-star:nth-child(7) { left: 78%; top: 70%; animation-delay: 2.1s; animation-duration: 2.9s; }
-        .team-star:nth-child(8) { left: 88%; top: 20%; animation-delay: 1.2s; animation-duration: 3.3s; }
-        .team-star:nth-child(9) { left: 15%; top: 85%; animation-delay: 0.9s; animation-duration: 2.7s; }
-        .team-star:nth-child(10) { left: 92%; top: 55%; animation-delay: 1.6s; animation-duration: 3s; }
+        .team-stars-container .team-star:nth-child(1) { width: 1px; height: 1px; left: 5%; top: 5%; opacity: 0.39; }
+        .team-stars-container .team-star:nth-child(2) { width: 1px; height: 1px; left: 24%; top: 17%; opacity: 0.11; }
+        .team-stars-container .team-star:nth-child(3) { width: 3.5px; height: 3.5px; left: 47%; top: 35%; opacity: 0.58; }
+        .team-stars-container .team-star:nth-child(4) { width: 0.5px; height: 0.5px; left: 71%; top: 52%; opacity: 0.10; }
+        .team-stars-container .team-star:nth-child(5) { width: 2px; height: 2px; left: 95%; top: 69%; opacity: 0.39; }
+        .team-stars-container .team-star:nth-child(6) { width: 2.8px; height: 2.8px; left: 18%; top: 87%; opacity: 0.34; }
+        .team-stars-container .team-star:nth-child(7) { width: 0.55px; height: 0.55px; left: 42%; top: 4%; opacity: 0.12; }
+        .team-stars-container .team-star:nth-child(8) { width: 1.8px; height: 1.8px; left: 66%; top: 21%; opacity: 0.32; }
+        .team-stars-container .team-star:nth-child(9) { width: 3.5px; height: 3.5px; left: 89%; top: 38%; opacity: 0.64; }
+        .team-stars-container .team-star:nth-child(10) { width: 0.75px; height: 0.75px; left: 13%; top: 56%; opacity: 0.23; }
+        .team-stars-container .team-star:nth-child(11) { width: 2.4px; height: 2.4px; left: 37%; top: 73%; opacity: 0.72; }
+        .team-stars-container .team-star:nth-child(12) { width: 1.8px; height: 1.8px; left: 61%; top: 91%; opacity: 0.14; }
+        .team-stars-container .team-star:nth-child(13) { width: 1.2px; height: 1.2px; left: 85%; top: 8%; opacity: 0.64; }
+        .team-stars-container .team-star:nth-child(14) { width: 1.2px; height: 1.2px; left: 8%; top: 25%; opacity: 0.14; }
+        .team-stars-container .team-star:nth-child(15) { width: 1.9px; height: 1.9px; left: 32%; top: 42%; opacity: 0.17; }
+        .team-stars-container .team-star:nth-child(16) { width: 0.7px; height: 0.7px; left: 55%; top: 60%; opacity: 0.19; }
+        .team-stars-container .team-star:nth-child(17) { width: 1.4px; height: 1.4px; left: 79%; top: 77%; opacity: 0.20; }
+        .team-stars-container .team-star:nth-child(18) { width: 3.3px; height: 3.3px; left: 3%; top: 95%; opacity: 0.51; }
 
         @media (prefers-reduced-motion: reduce) {
             .team-star {
@@ -1573,8 +1942,11 @@
         .team-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 80px;
+            gap: 40px;
             margin-top: 96px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .team-member {
@@ -1597,108 +1969,150 @@
         .team-avatar {
             width: 200px;
             height: 200px;
-            border-radius: 50%;
+            border-radius: 9999px;
             overflow: visible;
-            margin: 0 auto 32px;
+            margin: 0 auto 28px;
             position: relative;
             transition: all 0.3s ease;
+            background: transparent;
+        }
+
+        .team-member:nth-child(1) .team-avatar {
+            box-shadow: 0 0 40px rgba(59, 130, 246, 0.2);
+        }
+
+        .team-member:nth-child(2) .team-avatar {
+            box-shadow: 0 0 40px rgba(122, 122, 255, 0.2);
+        }
+
+        .team-member:nth-child(3) .team-avatar {
+            box-shadow: 0 0 40px rgba(168, 85, 247, 0.2);
         }
 
         .team-avatar::before {
             content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 280px;
-            height: 280px;
-            border-radius: 50%;
-            z-index: -1;
-            filter: blur(50px);
-            opacity: 1;
+            width: 200px;
+            height: 200px;
+            left: 0;
+            top: 0;
+            border-radius: 9999px;
+            z-index: 0;
+            filter: blur(24px);
+            opacity: 0.7;
             transition: opacity 0.3s ease;
         }
 
-        .team-avatar::after {
+        .team-avatar::before {
             content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 286px;
-            height: 286px;
-            border-radius: 50%;
-            background: conic-gradient(
-                transparent 0deg,
-                transparent 50deg,
-                rgba(255, 255, 255, 0.1) 70deg,
-                rgba(255, 255, 255, 0.5) 80deg,
-                currentColor 90deg,
-                rgba(255, 255, 255, 0.5) 100deg,
-                rgba(255, 255, 255, 0.1) 110deg,
-                transparent 130deg,
-                transparent 360deg
-            );
-            mask-image: radial-gradient(circle, transparent calc(50% - 1.5px), white calc(50% - 1.5px), white calc(50% + 1.5px), transparent calc(50% + 1.5px));
-            -webkit-mask-image: radial-gradient(circle, transparent calc(50% - 1.5px), white calc(50% - 1.5px), white calc(50% + 1.5px), transparent calc(50% + 1.5px));
-            animation: rotateOrbit 4s linear infinite;
-            z-index: 2;
+            width: 220px;
+            height: 220px;
+            left: -10px;
+            top: -10px;
             pointer-events: none;
-            opacity: 0.6;
+            animation: rotateOrbit 6s linear infinite;
+            z-index: 0;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+            border-radius: 50%;
+        }
+
+        /* 当 grid hover 时，只显示 hover 的那个光圈 */
+        .team-grid:hover .team-member:not(:hover) .team-avatar::before {
+            opacity: 0;
         }
 
         @keyframes rotateOrbit {
             from {
-                transform: translate(-50%, -50%) rotate(0deg);
+                transform: rotate(0deg);
             }
             to {
-                transform: translate(-50%, -50%) rotate(360deg);
+                transform: rotate(360deg);
             }
         }
 
+        /* 部分弧形光环效果 - 更细更精致 */
         .team-member:nth-child(1) .team-avatar::before {
-            background: radial-gradient(circle, rgba(77, 159, 255, 1), transparent 60%);
+            background: conic-gradient(
+                from -45deg,
+                transparent 0deg,
+                transparent 15deg,
+                rgba(59, 130, 246, 0) 20deg,
+                rgba(59, 130, 246, 0.4) 30deg,
+                rgba(59, 130, 246, 0.7) 45deg,
+                rgba(80, 150, 246, 0.95) 60deg,
+                rgba(90, 160, 250, 1) 67.5deg,
+                rgba(80, 150, 246, 0.95) 75deg,
+                rgba(59, 130, 246, 0.7) 90deg,
+                rgba(59, 130, 246, 0.4) 105deg,
+                rgba(59, 130, 246, 0) 115deg,
+                transparent 120deg,
+                transparent 360deg
+            );
+            filter: blur(5px);
+            border-radius: 50%;
+            mask: radial-gradient(circle at center, transparent 96px, black 96px, black 104px, transparent 104px);
         }
 
         .team-member:nth-child(2) .team-avatar::before {
-            background: radial-gradient(circle, rgba(99, 141, 255, 1), transparent 60%);
+            background: conic-gradient(
+                from -45deg,
+                transparent 0deg,
+                transparent 15deg,
+                rgba(122, 122, 255, 0) 20deg,
+                rgba(122, 122, 255, 0.4) 30deg,
+                rgba(122, 122, 255, 0.7) 45deg,
+                rgba(140, 140, 255, 0.95) 60deg,
+                rgba(150, 150, 255, 1) 67.5deg,
+                rgba(140, 140, 255, 0.95) 75deg,
+                rgba(122, 122, 255, 0.7) 90deg,
+                rgba(122, 122, 255, 0.4) 105deg,
+                rgba(122, 122, 255, 0) 115deg,
+                transparent 120deg,
+                transparent 360deg
+            );
+            filter: blur(5px);
+            border-radius: 50%;
+            mask: radial-gradient(circle at center, transparent 96px, black 96px, black 104px, transparent 104px);
         }
 
         .team-member:nth-child(3) .team-avatar::before {
-            background: radial-gradient(circle, rgba(122, 122, 255, 1), transparent 60%);
+            background: conic-gradient(
+                from -45deg,
+                transparent 0deg,
+                transparent 15deg,
+                rgba(168, 85, 247, 0) 20deg,
+                rgba(168, 85, 247, 0.4) 30deg,
+                rgba(168, 85, 247, 0.7) 45deg,
+                rgba(185, 110, 250, 0.95) 60deg,
+                rgba(195, 125, 252, 1) 67.5deg,
+                rgba(185, 110, 250, 0.95) 75deg,
+                rgba(168, 85, 247, 0.7) 90deg,
+                rgba(168, 85, 247, 0.4) 105deg,
+                rgba(168, 85, 247, 0) 115deg,
+                transparent 120deg,
+                transparent 360deg
+            );
+            filter: blur(5px);
+            border-radius: 50%;
+            mask: radial-gradient(circle at center, transparent 96px, black 96px, black 104px, transparent 104px);
         }
 
         .team-member:hover .team-avatar::before {
-            opacity: 1;
+            opacity: 0.5;
         }
 
         .team-avatar-inner {
             width: 200px;
             height: 200px;
-            border-radius: 50%;
+            border-radius: 9999px;
             overflow: hidden;
-            position: relative;
+            position: absolute;
+            left: 0;
+            top: 0;
             z-index: 1;
-        }
-
-        .team-member:nth-child(1) .team-avatar-inner {
-            box-shadow:
-                0 0 0 3px rgba(77, 159, 255, 0.2),
-                0 0 20px rgba(77, 159, 255, 0.2),
-                0 0 40px rgba(77, 159, 255, 0.1);
-        }
-
-        .team-member:nth-child(2) .team-avatar-inner {
-            box-shadow:
-                0 0 0 3px rgba(99, 141, 255, 0.2),
-                0 0 20px rgba(99, 141, 255, 0.2),
-                0 0 40px rgba(99, 141, 255, 0.1);
-        }
-
-        .team-member:nth-child(3) .team-avatar-inner {
-            box-shadow:
-                0 0 0 3px rgba(122, 122, 255, 0.2),
-                0 0 20px rgba(122, 122, 255, 0.2),
-                0 0 40px rgba(122, 122, 255, 0.1);
+            background: transparent;
         }
 
         .team-avatar-inner img {
@@ -1709,11 +2123,11 @@
         }
 
         .team-name {
-            font-size: 32px;
+            font-size: 30px;
             font-weight: 700;
             color: white;
             margin-bottom: 12px;
-            letter-spacing: 1.15px;
+            letter-spacing: 1.145px;
         }
 
         .team-name-en {
@@ -1725,24 +2139,153 @@
 
         .team-role {
             font-size: 18px;
-            font-weight: 500;
-            color: rgba(255, 255, 255, 0.7);
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.9);
             margin-bottom: 20px;
-            letter-spacing: -0.44px;
+            letter-spacing: 0.0105px;
+            line-height: 28px;
+            margin-top: 0;
         }
 
         .team-divider {
             width: 60px;
             height: 2px;
-            background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
-            margin-bottom: 20px;
+            margin: 16px auto 20px;
+        }
+
+        .team-member:nth-child(1) .team-divider {
+            background: linear-gradient(90deg, transparent 0%, rgba(59, 130, 246, 0.8) 50%, transparent 100%);
+        }
+
+        .team-member:nth-child(2) .team-divider {
+            background: linear-gradient(90deg, transparent 0%, rgba(122, 122, 255, 0.8) 50%, transparent 100%);
+        }
+
+        .team-member:nth-child(3) .team-divider {
+            background: linear-gradient(90deg, transparent 0%, rgba(168, 85, 247, 0.8) 50%, transparent 100%);
         }
 
         .team-tag {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 400;
-            color: rgba(255, 255, 255, 0.5);
-            letter-spacing: 0.5px;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 0.0875px;
+            line-height: 24px;
+            margin-bottom: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .team-info {
+            padding: 24px 28px;
+            border-radius: 24px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            margin-top: 0;
+            width: 100%;
+            max-width: 440px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .team-member:nth-child(1) .team-info::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            box-shadow: inset 0 0 30px rgba(59, 130, 246, 0.03);
+            pointer-events: none;
+        }
+
+        .team-member:nth-child(2) .team-info::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            box-shadow: inset 0 0 30px rgba(122, 122, 255, 0.03);
+            pointer-events: none;
+        }
+
+        .team-member:nth-child(3) .team-info::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            box-shadow: inset 0 0 30px rgba(168, 85, 247, 0.03);
+            pointer-events: none;
+        }
+
+        .team-member:nth-child(1) .team-info {
+            background: rgba(59, 130, 246, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            position: relative;
+        }
+
+        .team-member:nth-child(1) .team-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            opacity: 0.4;
+            background: linear-gradient(90deg, transparent 0%, #3b82f6 50%, transparent 100%);
+        }
+
+        .team-member:nth-child(2) .team-info {
+            background: rgba(122, 122, 255, 0.05);
+            border: 1px solid rgba(122, 122, 255, 0.1);
+            position: relative;
+        }
+
+        .team-member:nth-child(2) .team-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            opacity: 0.4;
+            background: linear-gradient(90deg, transparent 0%, #7a7aff 50%, transparent 100%);
+        }
+
+        .team-member:nth-child(3) .team-info {
+            background: rgba(168, 85, 247, 0.05);
+            border: 1px solid rgba(168, 85, 247, 0.1);
+            position: relative;
+        }
+
+        .team-member:nth-child(3) .team-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            opacity: 0.4;
+            background: linear-gradient(90deg, transparent 0%, #a855f7 50%, transparent 100%);
+        }
+
+        .team-member:nth-child(1):hover .team-info {
+            background: rgba(59, 130, 246, 0.06);
+            border-color: rgba(59, 130, 246, 0.5);
+            box-shadow: inset 0 0 16px rgba(59, 130, 246, 0.3);
+        }
+
+        .team-member:nth-child(2):hover .team-info {
+            background: rgba(122, 122, 255, 0.06);
+            border-color: rgba(122, 122, 255, 0.5);
+            box-shadow: inset 0 0 16px rgba(122, 122, 255, 0.3);
+        }
+
+        .team-member:nth-child(3):hover .team-info {
+            background: rgba(168, 85, 247, 0.06);
+            border-color: rgba(168, 85, 247, 0.5);
+            box-shadow: inset 0 0 16px rgba(168, 85, 247, 0.3);
+        }
+
+        .team-member:hover .team-role,
+        .team-member:hover .team-tag {
+            color: rgba(255, 255, 255, 1);
         }
 
         /* Pricing Section */
@@ -2135,7 +2678,7 @@
 
         .cta-subtitle {
             font-size: 20px;
-            font-weight: 300;
+            font-weight: 400;
             line-height: 32.5px;
             text-align: center;
             color: rgba(255, 255, 255, 0.5);
@@ -2709,11 +3252,11 @@
             </h1>
             <p class="hero-subtitle">AI全自动视频剪辑及全球分发</p>
             <div class="hero-buttons">
-                <a href="#contact" class="btn-primary">
+                <a href="https://xingqing.tradechina.com/login" class="btn-primary">
                     立即体验
                     <span>→</span>
                 </a>
-                <a href="#solution" class="btn-secondary">了解获客方案</a>
+                <a href="#case-study" class="btn-secondary">了解获客方案</a>
             </div>
         </div>
         <div class="scroll-indicator" aria-label="向下滚动查看更多内容" role="button" tabindex="0">
@@ -2872,7 +3415,7 @@
                         <div class="agent-avatar-glow" style="background: linear-gradient(135deg, rgb(246, 51, 154), rgb(255, 32, 86));"></div>
                         <div class="agent-avatar-border" style="background: linear-gradient(135deg, rgb(246, 51, 154), rgb(255, 32, 86));">
                             <div class="agent-avatar-inner">
-                                <img src="https://www.figma.com/api/mcp/asset/39167309-ee9a-4ecb-95be-bd90d29e6b6f" alt="文案师">
+                                <img src="images/agent1.png" alt="文案师">
                             </div>
                         </div>
                     </div>
@@ -2884,7 +3427,7 @@
                         <div class="agent-avatar-glow" style="background: linear-gradient(135deg, rgb(255, 105, 0), rgb(254, 154, 0));"></div>
                         <div class="agent-avatar-border" style="background: linear-gradient(135deg, rgb(255, 105, 0), rgb(254, 154, 0));">
                             <div class="agent-avatar-inner">
-                                <img src="https://www.figma.com/api/mcp/asset/b8bfaff4-4104-4835-aceb-6b5dfd504410" alt="翻译师">
+                                <img src="images/agent2.png?v=1775705262" alt="翻译师">
                             </div>
                         </div>
                     </div>
@@ -2896,7 +3439,7 @@
                         <div class="agent-avatar-glow" style="background: linear-gradient(135deg, rgb(43, 127, 255), rgb(0, 184, 219));"></div>
                         <div class="agent-avatar-border" style="background: linear-gradient(135deg, rgb(43, 127, 255), rgb(0, 184, 219));">
                             <div class="agent-avatar-inner">
-                                <img src="https://www.figma.com/api/mcp/asset/143760c7-6fbe-4418-a765-e0e1e327939b" alt="配音师">
+                                <img src="images/agent3.png" alt="配音师">
                             </div>
                         </div>
                     </div>
@@ -2908,7 +3451,7 @@
                         <div class="agent-avatar-glow" style="background: linear-gradient(135deg, rgb(255, 137, 4), rgb(240, 177, 0));"></div>
                         <div class="agent-avatar-border" style="background: linear-gradient(135deg, rgb(255, 137, 4), rgb(240, 177, 0));">
                             <div class="agent-avatar-inner">
-                                <img  src="https://www.figma.com/api/mcp/asset/059c1db1-aacf-4011-a3dc-828c18863a2e" alt="配乐师">
+                                <img  src="images/agent6.png?v=1775705262" alt="配乐师">
                             </div>
                         </div>
                     </div>
@@ -2920,7 +3463,7 @@
                         <div class="agent-avatar-glow" style="background: linear-gradient(135deg, rgb(173, 70, 255), rgb(97, 95, 255));"></div>
                         <div class="agent-avatar-border" style="background: linear-gradient(135deg, rgb(173, 70, 255), rgb(97, 95, 255));">
                             <div class="agent-avatar-inner">
-                                <img  src="https://www.figma.com/api/mcp/asset/14f52685-cba7-457f-b061-20bd8377be63" alt="发布师">
+                                <img  src="images/发布.png?v=1775705262" alt="发布师">
                             </div>
                         </div>
                     </div>
@@ -2932,7 +3475,7 @@
                         <div class="agent-avatar-glow" style="background: linear-gradient(135deg, rgb(0, 201, 80), rgb(0, 188, 125));"></div>
                         <div class="agent-avatar-border" style="background: linear-gradient(135deg, rgb(0, 201, 80), rgb(0, 188, 125));">
                             <div class="agent-avatar-inner">
-                                <img  src="https://www.figma.com/api/mcp/asset/edbf69e2-d7c4-43d1-9c90-976916260dd6" alt="数据分析师">
+                                <img  src="images/分析.png?v=1775705262" alt="数据分析师">
                             </div>
                         </div>
                     </div>
@@ -2943,17 +3486,17 @@
                     <div class="agent-stack">
                         <div class="agent-stack-item" style="width: 60px; height: 60px; top: 2px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, rgb(43, 127, 255), rgb(0, 184, 219)); padding: 1.25px; border-radius: 50%;">
                             <div style="width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: linear-gradient(135deg, rgba(122, 122, 255, 0.2), rgba(77, 159, 255, 0.2));">
-                                <img  src="https://www.figma.com/api/mcp/asset/c553e4a5-5c96-4567-bca3-9d2d679abe9f" alt="" style="width: 100%; height: 100%; object-fit: contain;">
+                                <img  src="images/剪辑.png?v=1775705262" alt="" style="width: 100%; height: 100%; object-fit: contain;">
                             </div>
                         </div>
                         <div class="agent-stack-item" style="width: 50px; height: 50px; bottom: 5px; left: 0; background: linear-gradient(135deg, rgb(255, 105, 0), rgb(254, 154, 0)); padding: 1.042px; border-radius: 50%;">
                             <div style="width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: linear-gradient(135deg, rgba(122, 122, 255, 0.2), rgba(77, 159, 255, 0.2));">
-                                <img  src="https://www.figma.com/api/mcp/asset/f1ae64dc-bfe0-4d13-83ee-a802575a309e" alt="" style="width: 100%; height: 100%; object-fit: contain;">
+                                <img  src="images/agent4.png?v=1775705284" alt="" style="width: 100%; height: 100%; object-fit: contain;">
                             </div>
                         </div>
                         <div class="agent-stack-item" style="width: 36px; height: 36px; top: 48px; right: 0; background: linear-gradient(135deg, rgb(246, 51, 154), rgb(255, 32, 86)); padding: 0.75px; border-radius: 50%;">
                             <div style="width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: linear-gradient(135deg, rgba(122, 122, 255, 0.2), rgba(77, 159, 255, 0.2));">
-                                <img  src="https://www.figma.com/api/mcp/asset/eeac124e-7c06-400f-b585-d466ae4672b7" alt="" style="width: 100%; height: 100%; object-fit: contain;">
+                                <img  src="images/agent5.png?v=1775705284" alt="" style="width: 100%; height: 100%; object-fit: contain;">
                             </div>
                         </div>
                     </div>
@@ -3008,138 +3551,230 @@
     </section>
 
     <!-- Case Study Section -->
-    <div class="case-study-wrapper" id="case-study">
-        <div class="case-study-section">
-            <div class="case-study-header">
-                <h2 class="section-title fade-in-element">出海增长标杆案例</h2>
-                <p class="case-subtitle fade-in-element">真实客户数据见证 AI 短视频营销的力量</p>
+    <section class="case-study-section" id="case-study">
+        <!-- 背景光晕 -->
+        <div class="case-glow-1"></div>
+        <div class="case-glow-2"></div>
+        <div class="case-glow-3"></div>
+        <div class="case-glow-4"></div>
+
+        <div class="case-study-container">
+            <!-- 标题 -->
+            <div class="case-study-header fade-in-element">
+                <h2 class="section-title">出海增长标杆案例</h2>
+                <p class="case-subtitle">真实客户数据见证 AI 短视频营销的力量</p>
             </div>
 
-            <div class="case-study-content">
-                <div class="case-study-slides">
-                    <!-- Slide 1: 机械设备案例 -->
-                    <div class="case-slide">
-                        <div class="case-content">
-                <div class="phone-mockup fade-in-element">
-                    <div class="comparison-card">
-                        <img src="images/用户案例_前.png" alt="运营前TikTok数据">
-                    </div>
-                    <div class="main-phone-frame" style="position: relative; width: 320px; height: 693px;">
-                        <img src="images/用户案例_后.png" alt="TikTok页面运营后" style="width: 100%; height: 100%; object-fit: cover; border-radius: 28px; border: 8px solid #1a1a24; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);">
-                    </div>
-                </div>
+            <!-- Tab 切换 -->
+            <div class="case-tabs fade-in-element">
+                <button class="case-tab active" data-tab="exhibit">展览展会</button>
+                <button class="case-tab" data-tab="machinery">机械设备</button>
+                <button class="case-tab" data-tab="3c">3C数码</button>
+            </div>
 
-                <div class="timeline fade-in-element">
-                    <h3 style="font-size: 24px; font-weight: 500; margin-bottom: 32px; text-align: left; background: linear-gradient(135deg, rgb(173, 70, 255), rgb(97, 95, 255)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">机械设备行业 3个月 40倍增长</h3>
+            <!-- 案例内容 - 展览展会 -->
+            <div class="case-content-item active case-content-wrapper fade-in-element" data-content="exhibit">
+                <div class="case-left">
+                    <p class="case-company">某包装材料公司</p>
+                    <h3 class="case-title">TikTok 全周期展会运营 <br>+ 社媒全域品牌塑造</h3>
 
-                    <div class="timeline-item timeline-before">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <h3 class="timeline-title">运营前：某机械企业 TikTok 账号</h3>
-                            <p class="timeline-text" style="font-size: 16px;">8 个月持续更新，仅积累 <strong>100</strong> 粉，获得 <strong>0</strong> 询盘，无法触达精准B端买家。</p>
+                    <div class="case-stats">
+                        <div class="case-stat-item">
+                            <img src="images/icon-view.svg" alt="" class="case-stat-icon">
+                            <div class="case-stat-number">21w+</div>
+                            <div class="case-stat-label">海外曝光</div>
+                        </div>
+                        <div class="case-stat-item">
+                            <img src="images/icon-user.svg" alt="" class="case-stat-icon">
+                            <div class="case-stat-number">+1610</div>
+                            <div class="case-stat-label">精准粉丝</div>
+                        </div>
+                        <div class="case-stat-item">
+                            <img src="images/icon-leads.svg" alt="" class="case-stat-icon">
+                            <div class="case-stat-number">16<span style="font-size: 20px;">条</span></div>
+                            <div class="case-stat-label">有效Leads</div>
+                        </div>
+                        <div class="case-stat-item">
+                            <img src="images/icon-content.svg" alt="" class="case-stat-icon">
+                            <div class="case-stat-number" style="font-size: 20px; font-weight: 700;">品牌内容</div>
+                            <div class="case-stat-label">高转化</div>
                         </div>
                     </div>
 
-                    <div class="timeline-item timeline-after">
-                        <div class="timeline-dot timeline-dot-active"></div>
-                        <div class="timeline-content">
-                            <h3 class="timeline-title timeline-title-active">
-                                <img  src="https://www.figma.com/api/mcp/asset/c8ac06a4-4637-4be6-91e3-67b89c9a08e4" alt="" class="timeline-icon" style="filter: brightness(0) saturate(100%) invert(45%) sepia(89%) saturate(2476%) hue-rotate(231deg) brightness(101%) contrast(101%);">
-                                <span style="background: linear-gradient(135deg, rgb(173, 70, 255), rgb(97, 95, 255)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">运营后：AI 赋能 3 个月</span>
-                            </h3>
-                            <div class="stats-grid">
-                                <div class="stat-item">
-                                    <div class="stat-number">3,800+</div>
-                                    <div class="stat-label">新增精准粉丝</div>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="stat-number">10+ <span class="stat-unit">/日</span></div>
-                                    <div class="stat-label">平均日均精准询盘</div>
-                                </div>
-                            </div>
-                            <p class="timeline-quote" style="color: white; font-size: 28px;">单条爆款视频直接成交 2 台大型设备</p>
-                        </div>
+                    <div class="case-description">
+                        <p>从0到1，用'社媒+展会'组合打法，</p>
+                        <p>将展会短期流量沉淀为长期品牌资产。</p>
                     </div>
+
+                    <div class="case-tags">
+                        <span class="case-tag">中小企业出海</span>
+                        <span class="case-tag">TikTok运营</span>
+                        <span class="case-tag">展会营销</span>
+                        <span class="case-tag">社媒矩阵</span>
+                    </div>
+
+                    <a href="#" class="case-cta">
+                        查看完整案例
+                        <img src="images/icon-arrow.svg" alt="">
+                    </a>
                 </div>
-            </div>
-                    </div>
 
-                    <!-- Slide 2: 储能电池案例 -->
-                    <div class="case-slide">
-                        <div class="case-content" style="flex-direction: column; gap: 32px; margin-top: 10px;">
-                            <p style="font-size: 20px; text-align: center; background: linear-gradient(135deg, rgb(173, 70, 255), rgb(97, 95, 255)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">储能电池行业 精准获客 业绩大幅提升</p>
-
-                            <div class="case-phones-grid">
-                                <!-- Phone 1: TikTok账号 -->
-                                <div class="case-phone-item">
-                                    <div class="phone-mockup" style="width: 375px; height: 667px;">
-                                        <div class="phone-glow" style="width: 450px; height: 800px; left: -37px; top: -66px;"></div>
-                                        <div class="phone-frame" style="width: 375px; height: 667px; border-radius: 38px;">
-                                            <img src="images/储能电池.png" alt="TikTok精准粉丝" class="phone-screen" style="width: 375px; height: 667px; object-fit: contain; border-radius: 38px;">
-                                            <div class="phone-overlay" style="width: 375px; height: 667px; border-radius: 38px;"></div>
-                                        </div>
-                                    </div>
-                                    <div class="stat-item" style="margin-top: 14px;">
-                                        <div class="stat-number" style="font-size: 36px;">600+</div>
-                                        <div class="stat-label">精准粉丝</div>
-                                    </div>
-                                </div>
-
-                                <!-- Phone 2: 用户精准询盘 -->
-                                <div class="case-phone-item">
-                                    <div class="phone-mockup" style="width: 375px; height: 667px;">
-                                        <div class="phone-glow" style="width: 450px; height: 800px; left: -37px; top: -66px; background: rgba(173, 70, 255, 0.2);"></div>
-                                        <div class="phone-frame" style="width: 375px; height: 667px; border-radius: 38px;">
-                                            <img src="images/询盘.png" alt="B端有效询盘" class="phone-screen" style="width: 375px; height: 667px; object-fit: contain; border-radius: 38px;">
-                                            <div class="phone-overlay" style="width: 375px; height: 667px; border-radius: 38px;"></div>
-                                        </div>
-                                    </div>
-                                    <div class="stat-item" style="margin-top: 14px;">
-                                        <div class="stat-number" style="font-size: 36px;">150+ <span class="stat-unit">/月</span></div>
-                                        <div class="stat-label">B端有效询盘</div>
-                                    </div>
-                                </div>
-
-                                <!-- Phone 3: 销售量增长 -->
-                                <div class="case-phone-item">
-                                    <div class="phone-mockup" style="width: 375px; height: 667px;">
-                                        <div class="phone-glow" style="width: 450px; height: 800px; left: -37px; top: -66px; background: rgba(0, 201, 80, 0.2);"></div>
-                                        <div class="phone-frame" style="width: 375px; height: 667px; border-radius: 38px;">
-                                            <img src="images/售出.png" alt="销售额增长" class="phone-screen" style="width: 375px; height: 667px; object-fit: contain; border-radius: 38px;">
-                                            <div class="phone-overlay" style="width: 375px; height: 667px; border-radius: 38px;"></div>
-                                        </div>
-                                    </div>
-                                    <div class="stat-item" style="margin-top: 14px;">
-                                        <div class="stat-number" style="font-size: 36px;">220%</div>
-                                        <div class="stat-label">销售额增长</div>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="case-right">
+                    <div class="case-phone-wrapper">
+                        <div class="case-phone">
+                            <img src="images/case-video.jpg" alt="TikTok视频">
+                            <div class="case-phone-overlay"></div>
+                        </div>
+                        <div class="case-account-card">
+                            <img src="images/case-account.jpg" alt="账号资料">
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="case-indicators">
-                <div class="case-indicator active" data-slide="0"></div>
-                <div class="case-indicator" data-slide="1"></div>
+            <!-- 案例内容 - 机械设备 -->
+            <div class="case-content-item case-content-wrapper fade-in-element" data-content="machinery">
+                <div class="case-right">
+                    <div class="case-phone-wrapper" style="width: 260px; height: 554px; margin-left: 202px;">
+                        <div class="case-phone" style="width: 260px; height: 554px; box-shadow: 0 20px 60px -15px rgba(122, 122, 255, 0.3);">
+                            <img src="images/machinery-after.jpg" alt="TikTok账号">
+                            <div class="case-phone-overlay" style="background: linear-gradient(65deg, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0) 100%);"></div>
+                        </div>
+                        <div class="case-account-card" style="width: 220px; height: 129px; top: 208px;">
+                            <img src="images/machinery-before.jpg" alt="运营前数据">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="case-left">
+                    <p class="case-company">某机械设备制造企业</p>
+                    <h3 class="case-title">3个月实现 40倍粉丝增长 <br>+ 精准B端客户获取</h3>
+
+                    <div class="case-stats">
+                        <div class="case-stat-item">
+                            <img src="images/icon-view.svg" alt="" class="case-stat-icon">
+                            <div class="case-stat-number">15<span style="font-size: 20px;">w+</span></div>
+                            <div class="case-stat-label">视频播放</div>
+                        </div>
+                        <div class="case-stat-item">
+                            <img src="images/icon-user.svg" alt="" class="case-stat-icon">
+                            <div class="case-stat-number">3800+</div>
+                            <div class="case-stat-label">精准粉丝</div>
+                        </div>
+                        <div class="case-stat-item">
+                            <img src="images/icon-leads.svg" alt="" class="case-stat-icon">
+                            <div class="case-stat-number">300<span style="font-size: 20px;">+</span></div>
+                            <div class="case-stat-label">有效询盘/月</div>
+                        </div>
+                        <div class="case-stat-item">
+                            <img src="images/icon-hot.svg" alt="" class="case-stat-icon">
+                            <div class="case-stat-number" style="font-size: 20px; font-weight: 700;">爆款视频</div>
+                            <div class="case-stat-label">直接成交</div>
+                        </div>
+                    </div>
+
+                    <div class="case-description">
+                        <p>AI短视频精准触达B端买家，</p>
+                        <p>单条爆款视频直接成交2台大型设备。</p>
+                    </div>
+
+                    <div class="case-tags">
+                        <span class="case-tag">B2B营销</span>
+                        <span class="case-tag">精准获客</span>
+                        <span class="case-tag">TikTok账号运营</span>
+                        <span class="case-tag">内容营销</span>
+                    </div>
+
+                    <a href="#" class="case-cta">
+                        查看完整案例
+                        <img src="images/icon-arrow.svg" alt="">
+                    </a>
+                </div>
+            </div>
+
+            <!-- 案例内容 - 3C数码 -->
+            <div class="case-content-item case-content-wrapper fade-in-element" data-content="3c">
+                <div class="case-right">
+                    <div class="case-images-stack">
+                        <div class="case-stack-image">
+                            <img src="images/3c-sold-data.jpg" alt="销售数据">
+                        </div>
+                        <div class="case-stack-image">
+                            <img src="images/3c-comments.jpg" alt="客户评论">
+                        </div>
+                        <div class="case-stack-image">
+                            <img src="images/3c-account-data.jpg" alt="账号数据">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="case-left">
+                    <p class="case-company">某储能电池企业</p>
+                    <h3 class="case-title">储能电池行业<br>精准获客 业绩大幅提升</h3>
+
+                    <div class="case-stats">
+                        <div class="case-stat-item">
+                            <img src="images/icon-user.svg" alt="" class="case-stat-icon">
+                            <div class="case-stat-number">600+</div>
+                            <div class="case-stat-label">精准粉丝</div>
+                        </div>
+                        <div class="case-stat-item">
+                            <img src="images/icon-leads.svg" alt="" class="case-stat-icon">
+                            <div class="case-stat-number">150+ <span style="font-size: 18px;">/月</span></div>
+                            <div class="case-stat-label">B端有效询盘</div>
+                        </div>
+                        <div class="case-stat-item">
+                            <img src="images/icon-growth.svg" alt="" class="case-stat-icon">
+                            <div class="case-stat-number">220%</div>
+                            <div class="case-stat-label">销售额暴增</div>
+                        </div>
+                    </div>
+
+                    <div class="case-description">
+                        <p>深度洞察海外储能市场痛点，</p>
+                        <p>将优质产品力转化为高净值客户咨询。</p>
+                    </div>
+
+                    <div class="case-tags">
+                        <span class="case-tag">储能出海</span>
+                        <span class="case-tag">精准引流</span>
+                        <span class="case-tag">业绩爆发</span>
+                        <span class="case-tag">品牌重塑</span>
+                    </div>
+
+                    <a href="#" class="case-cta">
+                        查看完整案例
+                        <img src="images/icon-arrow.svg" alt="">
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
     <!-- Team Section -->
-    <section class="team-section" id="about" aria-labelledby="team-title" id="about">
-        <div class="team-bg-glow"></div>
-        <div class="team-star"></div>
-        <div class="team-star"></div>
-        <div class="team-star"></div>
-        <div class="team-star"></div>
-        <div class="team-star"></div>
-        <div class="team-star"></div>
-        <div class="team-star"></div>
-        <div class="team-star"></div>
-        <div class="team-star"></div>
-        <div class="team-star"></div>
+    <section class="team-section" id="about" aria-labelledby="team-title">
+        <div class="team-stars-container">
+            <div class="team-star"></div>
+            <div class="team-star"></div>
+            <div class="team-star"></div>
+            <div class="team-star"></div>
+            <div class="team-star"></div>
+            <div class="team-star"></div>
+            <div class="team-star"></div>
+            <div class="team-star"></div>
+            <div class="team-star"></div>
+            <div class="team-star"></div>
+            <div class="team-star"></div>
+            <div class="team-star"></div>
+            <div class="team-star"></div>
+            <div class="team-star"></div>
+            <div class="team-star"></div>
+            <div class="team-star"></div>
+            <div class="team-star"></div>
+            <div class="team-star"></div>
+        </div>
+        <div class="team-bg-glow team-bg-glow-1"></div>
+        <div class="team-bg-glow team-bg-glow-2"></div>
         <div class="container" style="position: relative; z-index: 1;">
             <h2 class="section-title fade-in-element" id="team-title">出海营销顶尖操盘团队</h2>
             <p class="section-subtitle fade-in-element">深耕外贸营销与 AI 技术的领军团队</p>
@@ -3152,9 +3787,11 @@
                         </div>
                     </div>
                     <h3 class="team-name">何方 <span class="team-name-en">Frankie</span></h3>
-                    <p class="team-role">10年外贸营销专家</p>
                     <div class="team-divider"></div>
-                    <p class="team-tag">累计投放超 10 亿</p>
+                    <p class="team-role">外贸市场营销10年+<br>累计花费超10亿</p>
+                    <div class="team-info">
+                        <p class="team-tag">70亿 ｜ 200人 ｜ 7个语种<br>2014年自贸区尽头电商平台<br>外贸SaaS平台、累计融资 6亿+</p>
+                    </div>
                 </div>
 
                 <div class="team-member">
@@ -3164,9 +3801,11 @@
                         </div>
                     </div>
                     <h3 class="team-name">赵维杰 <span class="team-name-en">Jerry</span></h3>
-                    <p class="team-role">AI 算法首席专家</p>
                     <div class="team-divider"></div>
-                    <p class="team-tag">脑科学领域大牛</p>
+                    <p class="team-role">顶级AI算法专家与架构师<br>1亿+用户级产品架构师</p>
+                    <div class="team-info">
+                        <p class="team-tag">前华为海思AI团队创始人<br>上海交大脑科学与AI实验室主任<br>市科委科技专家</p>
+                    </div>
                 </div>
 
                 <div class="team-member">
@@ -3176,9 +3815,11 @@
                         </div>
                     </div>
                     <h3 class="team-name">蔡天懿 <span class="team-name-en">Tianyi</span></h3>
-                    <p class="team-role">视觉 AI 领航者</p>
                     <div class="team-divider"></div>
-                    <p class="team-tag">Versa 创始人</p>
+                    <p class="team-role">Versa 创始人兼首席执行官<br>连续创业家与数字创作领航者</p>
+                    <div class="team-info">
+                        <p class="team-tag">硅谷、中国连续成功创业者<br>前格瓦拉产品合伙人（操盘4000万级DAU）获得顶级风投（红杉/腾讯/真格/B站）10亿+融资</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -3572,11 +4213,11 @@
             <h2 class="section-title fade-in-element">别让犹豫错失下一个亿级市场</h2>
             <p class="cta-subtitle fade-in-element">立即获取为您定制的行业出海获客AI解决方案，用自动化营销抢占全球流量红利</p>
             <div class="cta-buttons fade-in-element">
-                <a href="#contact" class="cta-btn-primary">
+                <a href="https://xingqing.tradechina.com/login" class="cta-btn-primary">
                     立即体验
                     <img  src="images/arrow-right.svg" alt="" class="cta-btn-icon">
                 </a>
-                <a href="#solution" class="cta-btn-secondary">了解获客方案</a>
+                <a href="#case-study" class="cta-btn-secondary">了解获客方案</a>
             </div>
         </div>
     </section>
@@ -3697,6 +4338,14 @@
                     if (target) {
                         const offset = 72; // navbar height
 
+                        // For case-study, use instant jump by directly setting scrollTop
+                        if (href === '#case-study') {
+                            const targetPosition = target.offsetTop - offset;
+                            document.documentElement.scrollTop = targetPosition;
+                            document.body.scrollTop = targetPosition; // For Safari
+                            return;
+                        }
+
                         // Check if target is inside horizontal scroll wrapper
                         const horizontalWrapper = target.closest('.horizontal-scroll-wrapper');
                         if (horizontalWrapper) {
@@ -3707,7 +4356,7 @@
                                 behavior: 'smooth'
                             });
                         } else {
-                            // For normal sections, scroll directly to target
+                            // For normal sections, use smooth scroll
                             const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
                             window.scrollTo({
                                 top: targetPosition,
@@ -3843,14 +4492,16 @@
             let progress = -rect.top / scrollableHeight;
             progress = Math.max(0, Math.min(1, progress));
 
-            // Three phases: pause (0-0.33), slide (0.33-0.67), pause (0.67-1)
+            // Four phases: pause (0-0.3), slide (0.3-0.5), pause (0.5-0.8), finish (0.8-1)
             let translateX = 0;
-            if (progress < 0.33) {
+            if (progress < 0.3) {
+                // 第一屏停留
                 translateX = 0;
                 indicators[0]?.classList.add('active');
                 indicators[1]?.classList.remove('active');
-            } else if (progress < 0.67) {
-                const slideProgress = (progress - 0.33) / 0.34;
+            } else if (progress < 0.5) {
+                // 滑动到第二屏
+                const slideProgress = (progress - 0.3) / 0.2;
                 translateX = -slideProgress * 50;
 
                 if (slideProgress < 0.5) {
@@ -3860,7 +4511,13 @@
                     indicators[0]?.classList.remove('active');
                     indicators[1]?.classList.add('active');
                 }
+            } else if (progress < 0.8) {
+                // 第二屏停留，背景固定
+                translateX = -50;
+                indicators[0]?.classList.remove('active');
+                indicators[1]?.classList.add('active');
             } else {
+                // 继续向下滑动准备进入团队部分
                 translateX = -50;
                 indicators[0]?.classList.remove('active');
                 indicators[1]?.classList.add('active');
@@ -3874,16 +4531,21 @@
 
         document.querySelectorAll('.case-indicator').forEach((indicator, index) => {
             indicator.addEventListener('click', () => {
-                const wrapper = document.querySelector('.case-study-wrapper');
-                if (wrapper) {
-                    const wrapperTop = wrapper.offsetTop;
-                    const wrapperHeight = wrapper.offsetHeight;
-                    const windowHeight = window.innerHeight;
-                    const targetProgress = index === 0 ? 0.15 : 0.8;
-                    const targetScroll = wrapperTop + (wrapperHeight - windowHeight) * targetProgress;
-                    window.scrollTo({
-                        top: targetScroll,
-                        behavior: 'smooth'
+                const slides = document.querySelector('.case-study-slides');
+                const indicators = document.querySelectorAll('.case-indicator');
+
+                if (slides) {
+                    // 直接切换幻灯片，不滚动页面
+                    const translateX = index === 0 ? 0 : -50;
+                    slides.style.transform = `translateX(${translateX}%)`;
+
+                    // 更新指示器状态
+                    indicators.forEach((ind, i) => {
+                        if (i === index) {
+                            ind.classList.add('active');
+                        } else {
+                            ind.classList.remove('active');
+                        }
                     });
                 }
             });
@@ -4089,6 +4751,128 @@
                     window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
                 }
             });
+        }
+
+        // 数字滚动动画函数
+        function animateNumber(element, target, duration = 1000, suffix = '') {
+            const start = 0;
+            const startTime = performance.now();
+
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+
+                // 使用缓动函数
+                const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+                const current = Math.floor(start + (target - start) * easeOutQuart);
+
+                element.textContent = current + suffix;
+
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                } else {
+                    element.textContent = target + suffix;
+                }
+            }
+
+            requestAnimationFrame(update);
+        }
+
+        // 为案例数字添加滚动动画
+        function animateCaseNumbers(caseContent) {
+            const numbers = caseContent.querySelectorAll('.case-stat-number');
+            numbers.forEach((numberEl, index) => {
+                const text = numberEl.textContent.trim();
+                let target, suffix = '';
+
+                // 检查是否有span子元素（如"16条"、"15w+"、"300+"格式）
+                const span = numberEl.querySelector('span');
+                if (span) {
+                    const spanText = span.textContent.trim();
+                    target = parseInt(text);
+
+                    // 重置数字部分为0
+                    numberEl.childNodes[0].textContent = '0';
+
+                    setTimeout(() => {
+                        animateNumber(numberEl.childNodes[0], target, 1000, '');
+                    }, index * 100);
+                    return;
+                }
+
+                // 解析数字和后缀（无span的情况）
+                if (text.includes('w+') || text.includes('W+')) {
+                    target = parseInt(text);
+                    suffix = 'w+';
+                } else if (text.includes('+')) {
+                    target = parseInt(text);
+                    suffix = '+';
+                } else if (text.includes('%')) {
+                    target = parseInt(text);
+                    suffix = '%';
+                } else {
+                    // 品牌内容、爆款视频等文字，不做动画
+                    return;
+                }
+
+                // 延迟启动，形成依次滚动效果
+                setTimeout(() => {
+                    animateNumber(numberEl, target, 1000, suffix);
+                }, index * 100);
+            });
+        }
+
+        // 记录已经播放过动画的tab
+        const animatedTabs = new Set(['exhibit']); // 默认第一个tab会自动播放
+
+        // Case study tabs switching
+        document.querySelectorAll('.case-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetTab = tab.getAttribute('data-tab');
+
+                // Update tab active states
+                document.querySelectorAll('.case-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                // Update content active states
+                document.querySelectorAll('.case-content-item').forEach(content => {
+                    if (content.getAttribute('data-content') === targetTab) {
+                        content.classList.add('active');
+
+                        // 如果是第一次显示这个tab，播放数字动画
+                        if (!animatedTabs.has(targetTab)) {
+                            animatedTabs.add(targetTab);
+                            setTimeout(() => {
+                                animateCaseNumbers(content);
+                            }, 100);
+                        }
+                    } else {
+                        content.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        // 监听案例区域进入视口，第一次进入时播放第一个tab的数字动画
+        const caseStudySection = document.querySelector('.case-study-section');
+        let caseStudyAnimated = false;
+
+        const caseStudyObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !caseStudyAnimated) {
+                    caseStudyAnimated = true;
+                    const firstCaseContent = document.querySelector('.case-content-item.active');
+                    if (firstCaseContent) {
+                        setTimeout(() => {
+                            animateCaseNumbers(firstCaseContent);
+                        }, 300);
+                    }
+                }
+            });
+        }, { threshold: 0.2 });
+
+        if (caseStudySection) {
+            caseStudyObserver.observe(caseStudySection);
         }
 
     </script>
