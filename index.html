@@ -1597,6 +1597,57 @@
             width: 124px;
         }
 
+        /* 美的案例 - 叠加图片样式 */
+        .case-midea-stack {
+            position: relative;
+            width: 600px;
+            height: 500px;
+            margin-left: 50px;
+        }
+
+        .midea-image {
+            position: absolute;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .midea-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* 视频切片列表 - 左下角，在前面 */
+        .midea-image-clips {
+            width: 450px;
+            left: 0;
+            bottom: 70px;
+            z-index: 2;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+        }
+
+        /* 编辑界面 - 右上角，在后面 */
+        .midea-image-editor {
+            width: 450px;
+            right: 0;
+            top: 50px;
+            z-index: 1;
+        }
+
+        [data-content="midea"].case-content-wrapper {
+            gap: 80px;
+        }
+
+        [data-content="midea"] .case-left {
+            order: 1;
+            flex: 0 0 500px;
+        }
+
+        [data-content="midea"] .case-right {
+            order: 2;
+        }
+
         /* 3C数码布局调整：左图右文 */
         [data-content="3c"].case-content-wrapper {
             gap: 160px;
@@ -1864,11 +1915,80 @@
         }
 
         /* Team Section */
-        .team-section {
-            padding: 200px 0 128px 0;
+        .team-horizontal-wrapper {
             position: relative;
+            height: 300vh;
+        }
+
+        .team-horizontal-spacer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .team-horizontal-container {
+            position: sticky;
+            top: 0;
+            height: 100vh;
             overflow: hidden;
             background: #030308;
+        }
+
+        .team-bg-fixed {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background: rgba(3, 3, 8, 0.95);
+        }
+
+        .team-fixed-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding-top: 128px;
+            z-index: 50;
+            pointer-events: none;
+        }
+
+        .team-fixed-header .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .team-horizontal-inner {
+            display: flex;
+            width: 200%;
+            height: 100%;
+            transition: transform 0.1s ease-out;
+            position: relative;
+            z-index: 1;
+        }
+
+        .team-horizontal-section {
+            width: 50%;
+            height: 100%;
+            flex-shrink: 0;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 280px 0 80px 0;
+        }
+
+        .team-horizontal-section .container {
+            position: relative;
+            z-index: 100;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
         .team-stars-container {
@@ -1876,7 +1996,7 @@
             left: 0;
             top: 0;
             width: 100%;
-            height: 1040px;
+            height: 100%;
             overflow: hidden;
             pointer-events: none;
         }
@@ -1894,14 +2014,40 @@
             left: 50%;
             margin-left: -617px;
             top: 320px;
-            background: rgba(122, 122, 255, 0.1);
+            background: rgba(122, 122, 255, 0.15);
+            animation: teamGlowPulse 8s ease-in-out infinite;
         }
 
         .team-bg-glow-2 {
             left: 50%;
             margin-left: -68px;
             top: 320px;
-            background: rgba(122, 122, 255, 0.05);
+            background: rgba(122, 122, 255, 0.08);
+            animation: teamGlowPulse 8s ease-in-out infinite 2s;
+        }
+
+        @keyframes teamGlowPulse {
+            0%, 100% {
+                opacity: 0.6;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+
+        @keyframes teamStarTwinkle {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(1);
+                box-shadow: 0 0 8px rgba(122, 122, 255, 0.4);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.3);
+                box-shadow: 0 0 20px rgba(122, 122, 255, 0.9), 0 0 30px rgba(255, 255, 255, 0.6);
+            }
         }
 
         .team-star {
@@ -1910,26 +2056,45 @@
             border-radius: 50%;
             pointer-events: none;
             box-shadow: 0 0 12px rgba(122, 122, 255, 0.6);
+            animation: teamStarTwinkle 3s ease-in-out infinite;
         }
 
-        .team-stars-container .team-star:nth-child(1) { width: 1px; height: 1px; left: 5%; top: 5%; opacity: 0.39; }
-        .team-stars-container .team-star:nth-child(2) { width: 1px; height: 1px; left: 24%; top: 17%; opacity: 0.11; }
-        .team-stars-container .team-star:nth-child(3) { width: 3.5px; height: 3.5px; left: 47%; top: 35%; opacity: 0.58; }
-        .team-stars-container .team-star:nth-child(4) { width: 0.5px; height: 0.5px; left: 71%; top: 52%; opacity: 0.10; }
-        .team-stars-container .team-star:nth-child(5) { width: 2px; height: 2px; left: 95%; top: 69%; opacity: 0.39; }
-        .team-stars-container .team-star:nth-child(6) { width: 2.8px; height: 2.8px; left: 18%; top: 87%; opacity: 0.34; }
-        .team-stars-container .team-star:nth-child(7) { width: 0.55px; height: 0.55px; left: 42%; top: 4%; opacity: 0.12; }
-        .team-stars-container .team-star:nth-child(8) { width: 1.8px; height: 1.8px; left: 66%; top: 21%; opacity: 0.32; }
-        .team-stars-container .team-star:nth-child(9) { width: 3.5px; height: 3.5px; left: 89%; top: 38%; opacity: 0.64; }
-        .team-stars-container .team-star:nth-child(10) { width: 0.75px; height: 0.75px; left: 13%; top: 56%; opacity: 0.23; }
-        .team-stars-container .team-star:nth-child(11) { width: 2.4px; height: 2.4px; left: 37%; top: 73%; opacity: 0.72; }
-        .team-stars-container .team-star:nth-child(12) { width: 1.8px; height: 1.8px; left: 61%; top: 91%; opacity: 0.14; }
-        .team-stars-container .team-star:nth-child(13) { width: 1.2px; height: 1.2px; left: 85%; top: 8%; opacity: 0.64; }
-        .team-stars-container .team-star:nth-child(14) { width: 1.2px; height: 1.2px; left: 8%; top: 25%; opacity: 0.14; }
-        .team-stars-container .team-star:nth-child(15) { width: 1.9px; height: 1.9px; left: 32%; top: 42%; opacity: 0.17; }
-        .team-stars-container .team-star:nth-child(16) { width: 0.7px; height: 0.7px; left: 55%; top: 60%; opacity: 0.19; }
-        .team-stars-container .team-star:nth-child(17) { width: 1.4px; height: 1.4px; left: 79%; top: 77%; opacity: 0.20; }
-        .team-stars-container .team-star:nth-child(18) { width: 3.3px; height: 3.3px; left: 3%; top: 95%; opacity: 0.51; }
+        .team-stars-container .team-star:nth-child(1) { width: 1px; height: 1px; left: 5%; top: 5%; animation-duration: 3.5s; animation-delay: 0s; }
+        .team-stars-container .team-star:nth-child(2) { width: 1px; height: 1px; left: 24%; top: 17%; animation-duration: 4.2s; animation-delay: 2.1s; }
+        .team-stars-container .team-star:nth-child(3) { width: 2.2px; height: 2.2px; left: 47%; top: 35%; animation-duration: 4.8s; animation-delay: 3.7s; }
+        .team-stars-container .team-star:nth-child(4) { width: 0.5px; height: 0.5px; left: 71%; top: 52%; animation-duration: 3.8s; animation-delay: 1.3s; }
+        .team-stars-container .team-star:nth-child(5) { width: 1.5px; height: 1.5px; left: 95%; top: 69%; animation-duration: 4.1s; animation-delay: 2.8s; }
+        .team-stars-container .team-star:nth-child(6) { width: 1.8px; height: 1.8px; left: 18%; top: 87%; animation-duration: 4.5s; animation-delay: 3.2s; }
+        .team-stars-container .team-star:nth-child(7) { width: 0.55px; height: 0.55px; left: 42%; top: 4%; animation-duration: 3.9s; animation-delay: 0.8s; }
+        .team-stars-container .team-star:nth-child(8) { width: 1.3px; height: 1.3px; left: 66%; top: 21%; animation-duration: 4.3s; animation-delay: 2.5s; }
+        .team-stars-container .team-star:nth-child(9) { width: 2.5px; height: 2.5px; left: 89%; top: 38%; animation-duration: 4.6s; animation-delay: 4.1s; }
+        .team-stars-container .team-star:nth-child(10) { width: 0.75px; height: 0.75px; left: 13%; top: 56%; animation-duration: 3.7s; animation-delay: 1.9s; }
+        .team-stars-container .team-star:nth-child(11) { width: 1.8px; height: 1.8px; left: 37%; top: 73%; animation-duration: 4.4s; animation-delay: 3.4s; }
+        .team-stars-container .team-star:nth-child(12) { width: 1.3px; height: 1.3px; left: 61%; top: 91%; animation-duration: 4.2s; animation-delay: 2.3s; }
+        .team-stars-container .team-star:nth-child(13) { width: 1.2px; height: 1.2px; left: 85%; top: 8%; animation-duration: 3.9s; animation-delay: 1.6s; }
+        .team-stars-container .team-star:nth-child(14) { width: 1.2px; height: 1.2px; left: 8%; top: 25%; animation-duration: 4.1s; animation-delay: 3.8s; }
+        .team-stars-container .team-star:nth-child(15) { width: 1.5px; height: 1.5px; left: 32%; top: 42%; animation-duration: 3.7s; animation-delay: 2.9s; }
+        .team-stars-container .team-star:nth-child(16) { width: 0.7px; height: 0.7px; left: 55%; top: 60%; animation-duration: 4.3s; animation-delay: 1.4s; }
+        .team-stars-container .team-star:nth-child(17) { width: 1.2px; height: 1.2px; left: 79%; top: 77%; animation-duration: 3.8s; animation-delay: 0.5s; }
+        .team-stars-container .team-star:nth-child(18) { width: 2.3px; height: 2.3px; left: 3%; top: 95%; animation-duration: 4.5s; animation-delay: 4.3s; }
+        .team-stars-container .team-star:nth-child(19) { width: 1.2px; height: 1.2px; left: 12%; top: 12%; animation-duration: 3.9s; animation-delay: 1.8s; }
+        .team-stars-container .team-star:nth-child(20) { width: 0.8px; height: 0.8px; left: 28%; top: 28%; animation-duration: 4.1s; animation-delay: 3.1s; }
+        .team-stars-container .team-star:nth-child(21) { width: 1.6px; height: 1.6px; left: 52%; top: 18%; animation-duration: 3.7s; animation-delay: 2.4s; }
+        .team-stars-container .team-star:nth-child(22) { width: 1.1px; height: 1.1px; left: 68%; top: 45%; animation-duration: 4.3s; animation-delay: 3.6s; }
+        .team-stars-container .team-star:nth-child(23) { width: 1.8px; height: 1.8px; left: 88%; top: 62%; animation-duration: 4.8s; animation-delay: 1.2s; }
+        .team-stars-container .team-star:nth-child(24) { width: 0.9px; height: 0.9px; left: 22%; top: 78%; animation-duration: 3.8s; animation-delay: 2.7s; }
+        .team-stars-container .team-star:nth-child(25) { width: 1.3px; height: 1.3px; left: 45%; top: 88%; animation-duration: 4.2s; animation-delay: 3.9s; }
+        .team-stars-container .team-star:nth-child(26) { width: 2.1px; height: 2.1px; left: 72%; top: 12%; animation-duration: 4.4s; animation-delay: 4.5s; }
+        .team-stars-container .team-star:nth-child(27) { width: 0.6px; height: 0.6px; left: 92%; top: 25%; animation-duration: 3.6s; animation-delay: 1.1s; }
+        .team-stars-container .team-star:nth-child(28) { width: 1.5px; height: 1.5px; left: 15%; top: 48%; animation-duration: 4.1s; animation-delay: 2.6s; }
+        .team-stars-container .team-star:nth-child(29) { width: 1.1px; height: 1.1px; left: 38%; top: 58%; animation-duration: 3.8s; animation-delay: 3.3s; }
+        .team-stars-container .team-star:nth-child(30) { width: 1.9px; height: 1.9px; left: 58%; top: 75%; animation-duration: 4.3s; animation-delay: 4.2s; }
+        .team-stars-container .team-star:nth-child(31) { width: 0.7px; height: 0.7px; left: 82%; top: 85%; animation-duration: 3.9s; animation-delay: 1.5s; }
+        .team-stars-container .team-star:nth-child(32) { width: 1.4px; height: 1.4px; left: 6%; top: 68%; animation-duration: 4.2s; animation-delay: 3.5s; }
+        .team-stars-container .team-star:nth-child(33) { width: 1.7px; height: 1.7px; left: 35%; top: 8%; animation-duration: 3.7s; animation-delay: 2.2s; }
+        .team-stars-container .team-star:nth-child(34) { width: 1px; height: 1px; left: 62%; top: 32%; animation-duration: 4.1s; animation-delay: 3.7s; }
+        .team-stars-container .team-star:nth-child(35) { width: 2px; height: 2px; left: 78%; top: 55%; animation-duration: 4.8s; animation-delay: 4.6s; }
+        .team-stars-container .team-star:nth-child(36) { width: 1.2px; height: 1.2px; left: 26%; top: 62%; animation-duration: 3.8s; animation-delay: 2s; }
 
         @media (prefers-reduced-motion: reduce) {
             .team-star {
@@ -1941,12 +2106,14 @@
 
         .team-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-            margin-top: 96px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            margin-top: 0;
             max-width: 1400px;
             margin-left: auto;
             margin-right: auto;
+            position: relative;
+            z-index: 200;
         }
 
         .team-member {
@@ -1967,11 +2134,11 @@
         }
 
         .team-avatar {
-            width: 200px;
-            height: 200px;
+            width: 160px;
+            height: 160px;
             border-radius: 9999px;
             overflow: visible;
-            margin: 0 auto 28px;
+            margin: 0 auto 24px;
             position: relative;
             transition: all 0.3s ease;
             background: transparent;
@@ -1989,11 +2156,15 @@
             box-shadow: 0 0 40px rgba(168, 85, 247, 0.2);
         }
 
+        .team-member:nth-child(4) .team-avatar {
+            box-shadow: 0 0 40px rgba(236, 72, 153, 0.2);
+        }
+
         .team-avatar::before {
             content: '';
             position: absolute;
-            width: 200px;
-            height: 200px;
+            width: 160px;
+            height: 160px;
             left: 0;
             top: 0;
             border-radius: 9999px;
@@ -2006,10 +2177,10 @@
         .team-avatar::before {
             content: '';
             position: absolute;
-            width: 220px;
-            height: 220px;
-            left: -10px;
-            top: -10px;
+            width: 176px;
+            height: 176px;
+            left: -8px;
+            top: -8px;
             pointer-events: none;
             animation: rotateOrbit 6s linear infinite;
             z-index: 0;
@@ -2052,7 +2223,7 @@
             );
             filter: blur(5px);
             border-radius: 50%;
-            mask: radial-gradient(circle at center, transparent 96px, black 96px, black 104px, transparent 104px);
+            mask: radial-gradient(circle at center, transparent 76px, black 76px, black 83px, transparent 83px);
         }
 
         .team-member:nth-child(2) .team-avatar::before {
@@ -2074,7 +2245,7 @@
             );
             filter: blur(5px);
             border-radius: 50%;
-            mask: radial-gradient(circle at center, transparent 96px, black 96px, black 104px, transparent 104px);
+            mask: radial-gradient(circle at center, transparent 76px, black 76px, black 83px, transparent 83px);
         }
 
         .team-member:nth-child(3) .team-avatar::before {
@@ -2096,7 +2267,29 @@
             );
             filter: blur(5px);
             border-radius: 50%;
-            mask: radial-gradient(circle at center, transparent 96px, black 96px, black 104px, transparent 104px);
+            mask: radial-gradient(circle at center, transparent 76px, black 76px, black 83px, transparent 83px);
+        }
+
+        .team-member:nth-child(4) .team-avatar::before {
+            background: conic-gradient(
+                from -45deg,
+                transparent 0deg,
+                transparent 15deg,
+                rgba(236, 72, 153, 0) 20deg,
+                rgba(236, 72, 153, 0.4) 30deg,
+                rgba(236, 72, 153, 0.7) 45deg,
+                rgba(244, 100, 170, 0.95) 60deg,
+                rgba(250, 115, 180, 1) 67.5deg,
+                rgba(244, 100, 170, 0.95) 75deg,
+                rgba(236, 72, 153, 0.7) 90deg,
+                rgba(236, 72, 153, 0.4) 105deg,
+                rgba(236, 72, 153, 0) 115deg,
+                transparent 120deg,
+                transparent 360deg
+            );
+            filter: blur(5px);
+            border-radius: 50%;
+            mask: radial-gradient(circle at center, transparent 76px, black 76px, black 83px, transparent 83px);
         }
 
         .team-member:hover .team-avatar::before {
@@ -2104,8 +2297,8 @@
         }
 
         .team-avatar-inner {
-            width: 200px;
-            height: 200px;
+            width: 160px;
+            height: 160px;
             border-radius: 9999px;
             overflow: hidden;
             position: absolute;
@@ -2123,27 +2316,27 @@
         }
 
         .team-name {
-            font-size: 30px;
+            font-size: 24px;
             font-weight: 700;
             color: white;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             letter-spacing: 1.145px;
         }
 
         .team-name-en {
-            font-size: 20px;
+            font-size: 16px;
             font-weight: 400;
             color: white;
             opacity: 1;
         }
 
         .team-role {
-            font-size: 18px;
+            font-size: 15px;
             font-weight: 700;
             color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             letter-spacing: 0.0105px;
-            line-height: 28px;
+            line-height: 24px;
             margin-top: 0;
         }
 
@@ -2165,25 +2358,29 @@
             background: linear-gradient(90deg, transparent 0%, rgba(168, 85, 247, 0.8) 50%, transparent 100%);
         }
 
+        .team-member:nth-child(4) .team-divider {
+            background: linear-gradient(90deg, transparent 0%, rgba(236, 72, 153, 0.8) 50%, transparent 100%);
+        }
+
         .team-tag {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 400;
             color: rgba(255, 255, 255, 0.7);
             letter-spacing: 0.0875px;
-            line-height: 24px;
+            line-height: 22px;
             margin-bottom: 0;
             position: relative;
             z-index: 1;
         }
 
         .team-info {
-            padding: 24px 28px;
-            border-radius: 24px;
+            padding: 20px 24px;
+            border-radius: 20px;
             backdrop-filter: blur(10px);
             transition: all 0.3s ease;
             margin-top: 0;
             width: 100%;
-            max-width: 440px;
+            max-width: 100%;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
         }
 
@@ -2211,6 +2408,15 @@
             inset: 0;
             border-radius: inherit;
             box-shadow: inset 0 0 30px rgba(168, 85, 247, 0.03);
+            pointer-events: none;
+        }
+
+        .team-member:nth-child(4) .team-info::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            box-shadow: inset 0 0 30px rgba(236, 72, 153, 0.03);
             pointer-events: none;
         }
 
@@ -2265,6 +2471,23 @@
             background: linear-gradient(90deg, transparent 0%, #a855f7 50%, transparent 100%);
         }
 
+        .team-member:nth-child(4) .team-info {
+            background: rgba(236, 72, 153, 0.05);
+            border: 1px solid rgba(236, 72, 153, 0.1);
+            position: relative;
+        }
+
+        .team-member:nth-child(4) .team-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            opacity: 0.4;
+            background: linear-gradient(90deg, transparent 0%, #ec4899 50%, transparent 100%);
+        }
+
         .team-member:nth-child(1):hover .team-info {
             background: rgba(59, 130, 246, 0.06);
             border-color: rgba(59, 130, 246, 0.5);
@@ -2283,9 +2506,168 @@
             box-shadow: inset 0 0 16px rgba(168, 85, 247, 0.3);
         }
 
+        .team-member:nth-child(4):hover .team-info {
+            background: rgba(236, 72, 153, 0.06);
+            border-color: rgba(236, 72, 153, 0.5);
+            box-shadow: inset 0 0 16px rgba(236, 72, 153, 0.3);
+        }
+
         .team-member:hover .team-role,
         .team-member:hover .team-tag {
             color: rgba(255, 255, 255, 1);
+        }
+
+        .team-grid-3 {
+            grid-template-columns: repeat(3, 1fr) !important;
+            max-width: 1200px !important;
+        }
+
+        /* 第二页成员的颜色样式 */
+        .team-horizontal-section:nth-child(2) .team-member:nth-child(1) .team-avatar {
+            box-shadow: 0 0 40px rgba(59, 130, 246, 0.2);
+        }
+
+        .team-horizontal-section:nth-child(2) .team-member:nth-child(1) .team-avatar::before {
+            background: conic-gradient(
+                from -45deg,
+                transparent 0deg,
+                transparent 15deg,
+                rgba(59, 130, 246, 0) 20deg,
+                rgba(59, 130, 246, 0.4) 30deg,
+                rgba(59, 130, 246, 0.7) 45deg,
+                rgba(80, 150, 246, 0.95) 60deg,
+                rgba(90, 160, 250, 1) 67.5deg,
+                rgba(80, 150, 246, 0.95) 75deg,
+                rgba(59, 130, 246, 0.7) 90deg,
+                rgba(59, 130, 246, 0.4) 105deg,
+                rgba(59, 130, 246, 0) 115deg,
+                transparent 120deg,
+                transparent 360deg
+            );
+            filter: blur(5px);
+            border-radius: 50%;
+            mask: radial-gradient(circle at center, transparent 76px, black 76px, black 83px, transparent 83px);
+        }
+
+        .team-horizontal-section:nth-child(2) .team-member:nth-child(1) .team-divider {
+            background: linear-gradient(90deg, transparent 0%, rgba(59, 130, 246, 0.8) 50%, transparent 100%);
+        }
+
+        .team-horizontal-section:nth-child(2) .team-member:nth-child(1) .team-info {
+            background: rgba(59, 130, 246, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .team-horizontal-section:nth-child(2) .team-member:nth-child(1) .team-info::before {
+            background: linear-gradient(90deg, transparent 0%, #3b82f6 50%, transparent 100%);
+        }
+
+        .team-horizontal-section:nth-child(2) .team-member:nth-child(1) .team-info::after {
+            box-shadow: inset 0 0 30px rgba(59, 130, 246, 0.03);
+        }
+
+        .team-horizontal-section:nth-child(2) .team-member:nth-child(1):hover .team-info {
+            background: rgba(59, 130, 246, 0.06);
+            border-color: rgba(59, 130, 246, 0.5);
+            box-shadow: inset 0 0 16px rgba(59, 130, 246, 0.3);
+        }
+
+        .team-horizontal-section:nth-child(2) .team-member:nth-child(2) .team-avatar {
+            box-shadow: 0 0 40px rgba(122, 122, 255, 0.2);
+        }
+
+        .team-horizontal-section:nth-child(2) .team-member:nth-child(2) .team-avatar::before {
+            background: conic-gradient(
+                from -45deg,
+                transparent 0deg,
+                transparent 15deg,
+                rgba(122, 122, 255, 0) 20deg,
+                rgba(122, 122, 255, 0.4) 30deg,
+                rgba(122, 122, 255, 0.7) 45deg,
+                rgba(140, 140, 255, 0.95) 60deg,
+                rgba(150, 150, 255, 1) 67.5deg,
+                rgba(140, 140, 255, 0.95) 75deg,
+                rgba(122, 122, 255, 0.7) 90deg,
+                rgba(122, 122, 255, 0.4) 105deg,
+                rgba(122, 122, 255, 0) 115deg,
+                transparent 120deg,
+                transparent 360deg
+            );
+            filter: blur(5px);
+            border-radius: 50%;
+            mask: radial-gradient(circle at center, transparent 76px, black 76px, black 83px, transparent 83px);
+        }
+
+        .team-horizontal-section:nth-child(2) .team-member:nth-child(2) .team-divider {
+            background: linear-gradient(90deg, transparent 0%, rgba(122, 122, 255, 0.8) 50%, transparent 100%);
+        }
+
+        .team-horizontal-section:nth-child(2) .team-member:nth-child(2) .team-info {
+            background: rgba(122, 122, 255, 0.05);
+            border: 1px solid rgba(122, 122, 255, 0.1);
+        }
+
+        .team-horizontal-section:nth-child(2) .team-member:nth-child(2) .team-info::before {
+            background: linear-gradient(90deg, transparent 0%, #7a7aff 50%, transparent 100%);
+        }
+
+        .team-horizontal-section:nth-child(2) .team-member:nth-child(2) .team-info::after {
+            box-shadow: inset 0 0 30px rgba(122, 122, 255, 0.03);
+        }
+
+        .team-horizontal-section:nth-child(2) .team-member:nth-child(2):hover .team-info {
+            background: rgba(122, 122, 255, 0.06);
+            border-color: rgba(122, 122, 255, 0.5);
+            box-shadow: inset 0 0 16px rgba(122, 122, 255, 0.3);
+        }
+
+        .team-horizontal-section:nth-child(2) .team-member:nth-child(3) .team-avatar {
+            box-shadow: 0 0 40px rgba(168, 85, 247, 0.2);
+        }
+
+        .team-horizontal-section:nth-child(2) .team-member:nth-child(3) .team-avatar::before {
+            background: conic-gradient(
+                from -45deg,
+                transparent 0deg,
+                transparent 15deg,
+                rgba(168, 85, 247, 0) 20deg,
+                rgba(168, 85, 247, 0.4) 30deg,
+                rgba(168, 85, 247, 0.7) 45deg,
+                rgba(185, 110, 250, 0.95) 60deg,
+                rgba(195, 125, 252, 1) 67.5deg,
+                rgba(185, 110, 250, 0.95) 75deg,
+                rgba(168, 85, 247, 0.7) 90deg,
+                rgba(168, 85, 247, 0.4) 105deg,
+                rgba(168, 85, 247, 0) 115deg,
+                transparent 120deg,
+                transparent 360deg
+            );
+            filter: blur(5px);
+            border-radius: 50%;
+            mask: radial-gradient(circle at center, transparent 76px, black 76px, black 83px, transparent 83px);
+        }
+
+        .team-horizontal-section:nth-child(2) .team-member:nth-child(3) .team-divider {
+            background: linear-gradient(90deg, transparent 0%, rgba(168, 85, 247, 0.8) 50%, transparent 100%);
+        }
+
+        .team-horizontal-section:nth-child(2) .team-member:nth-child(3) .team-info {
+            background: rgba(168, 85, 247, 0.05);
+            border: 1px solid rgba(168, 85, 247, 0.1);
+        }
+
+        .team-horizontal-section:nth-child(2) .team-member:nth-child(3) .team-info::before {
+            background: linear-gradient(90deg, transparent 0%, #a855f7 50%, transparent 100%);
+        }
+
+        .team-horizontal-section:nth-child(2) .team-member:nth-child(3) .team-info::after {
+            box-shadow: inset 0 0 30px rgba(168, 85, 247, 0.03);
+        }
+
+        .team-horizontal-section:nth-child(2) .team-member:nth-child(3):hover .team-info {
+            background: rgba(168, 85, 247, 0.06);
+            border-color: rgba(168, 85, 247, 0.5);
+            box-shadow: inset 0 0 16px rgba(168, 85, 247, 0.3);
         }
 
         /* Pricing Section */
@@ -2643,6 +3025,238 @@
             border-color: rgba(255, 255, 255, 0.4);
             background: rgba(255, 255, 255, 0.05);
             transform: translateY(-2px);
+        }
+
+        /* O2O Section */
+        .o2o-section {
+            position: relative;
+            padding: 128px 0;
+            background: transparent;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .o2o-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 1200px 600px at 50% 0%, rgba(122, 122, 255, 0.15) 0%, transparent 70%),
+                radial-gradient(ellipse 800px 400px at 20% 50%, rgba(168, 85, 247, 0.1) 0%, transparent 60%),
+                radial-gradient(ellipse 800px 400px at 80% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .o2o-section::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 30%;
+            transform: translate(-50%, -50%);
+            width: 1600px;
+            height: 800px;
+            background: radial-gradient(ellipse, rgba(122, 122, 255, 0.08) 0%, transparent 70%);
+            filter: blur(100px);
+            pointer-events: none;
+        }
+
+        .o2o-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin: 48px 0 80px 0;
+        }
+
+        .o2o-tab {
+            padding: 12px 0;
+            width: 136px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.6);
+            background: transparent;
+            border: none;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: -0.44px;
+            position: relative;
+        }
+
+        .o2o-tab.active {
+            font-weight: 500;
+            color: white;
+            background: rgba(122, 122, 255, 0.1);
+            border: 1px solid rgba(122, 122, 255, 0.5);
+            box-shadow: inset 0 0 16px rgba(122, 122, 255, 0.3);
+        }
+
+        .o2o-tab:not(.active):hover {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .o2o-content {
+            display: none;
+        }
+
+        .o2o-content.active {
+            display: block;
+        }
+
+        .o2o-flow {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            align-items: flex-start;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .o2o-step {
+            flex: 1;
+            max-width: 220px;
+            text-align: center;
+            position: relative;
+        }
+
+        .o2o-icon {
+            width: 88px;
+            height: 88px;
+            margin: 0 auto 24px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(20px);
+        }
+
+        .o2o-icon::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .o2o-step:hover .o2o-icon {
+            transform: translateY(-6px) scale(1.05);
+        }
+
+        .o2o-icon svg {
+            width: 40px;
+            height: 40px;
+        }
+
+        .o2o-step-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 12px;
+            line-height: 1.4;
+            letter-spacing: -0.3px;
+        }
+
+        .o2o-step-desc {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.6;
+            letter-spacing: -0.2px;
+        }
+
+        .o2o-step:hover .o2o-step-title {
+            color: #fff;
+        }
+
+        .o2o-step:hover .o2o-step-desc {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* 每个步骤的颜色 - 参考企业难点配色 */
+        .o2o-step:nth-child(1) .o2o-icon {
+            background: linear-gradient(225deg, rgb(246, 51, 154), rgb(255, 32, 86));
+            box-shadow: 0 8px 32px rgba(246, 51, 154, 0.3);
+        }
+
+        .o2o-step:nth-child(2) .o2o-icon {
+            background: linear-gradient(225deg, rgb(254, 154, 0), rgb(255, 105, 0));
+            box-shadow: 0 8px 32px rgba(254, 154, 0, 0.3);
+        }
+
+        .o2o-step:nth-child(3) .o2o-icon {
+            background: linear-gradient(225deg, rgb(0, 184, 219), rgb(43, 127, 255));
+            box-shadow: 0 8px 32px rgba(43, 127, 255, 0.3);
+        }
+
+        .o2o-step:nth-child(4) .o2o-icon {
+            background: linear-gradient(225deg, rgb(97, 95, 255), rgb(173, 70, 255));
+            box-shadow: 0 8px 32px rgba(97, 95, 255, 0.3);
+        }
+
+        .o2o-step:nth-child(5) .o2o-icon {
+            background: linear-gradient(225deg, rgb(253, 114, 255), rgb(0, 147, 188));
+            box-shadow: 0 8px 32px rgba(253, 114, 255, 0.3);
+        }
+
+        /* 步骤之间的连接箭头 */
+        .o2o-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: -30px;
+            top: 42px;
+            width: 25.2px;
+            height: 25.2px;
+            background: linear-gradient(90deg, rgba(122, 122, 255, 0.2) 0%, rgba(122, 122, 255, 0.6) 100%);
+            -webkit-mask: url('images/arrow-badge-right.svg') no-repeat center;
+            mask: url('images/arrow-badge-right.svg') no-repeat center;
+            -webkit-mask-size: contain;
+            mask-size: contain;
+            filter: drop-shadow(0 0 8px rgba(122, 122, 255, 0.5));
+        }
+
+        .o2o-flow {
+            padding: 40px 0;
+        }
+
+        .o2o-summary {
+            text-align: center;
+            margin-top: 80px;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .o2o-summary p {
+            font-size: 20px;
+            line-height: 1.8;
+            font-weight: 400;
+            letter-spacing: -0.45px;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.7), rgb(122, 122, 255), rgb(168, 85, 247), rgba(255, 255, 255, 0.7));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .o2o-summary strong {
+            font-weight: 400;
+        }
+
+        .o2o-fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .o2o-fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* CTA Section */
@@ -3306,12 +3920,12 @@
                 <span class="badge-number gradient-green" style="font-size: 28px;">10%</span>
             </div>
 
-            <h2 class="section-title">用户在哪里 生意就在哪里</h2>
-            <p class="section-subtitle">短视频已成为全球最主流的营销方式</p>
+            <h2 class="section-title fade-in-element">用户在哪里 生意就在哪里</h2>
+            <p class="section-subtitle fade-in-element">短视频已成为全球最主流的营销方式</p>
 
             <div class="social-media-grid">
                 <!-- TikTok -->
-                <div class="social-card">
+                <div class="social-card fade-in-element">
                     <svg viewBox="0 0 48 48" fill="currentColor">
                         <path d="M34.145 8.28a8.67 8.67 0 01-2.145-5.78h-6.32v26.5a5.14 5.14 0 01-5.14 5.14 5.14 5.14 0 01-5.14-5.14 5.14 5.14 0 015.14-5.14c.53 0 1.04.08 1.52.23V17.8a11.44 11.44 0 00-1.52-.1 11.46 11.46 0 1011.46 11.46V18.36a15 15 0 008.72 2.78v-6.5a8.67 8.67 0 01-6.575-6.365z"/>
                     </svg>
@@ -3320,7 +3934,7 @@
                 </div>
 
                 <!-- YouTube -->
-                <div class="social-card">
+                <div class="social-card fade-in-element">
                     <svg viewBox="0 0 48 48" fill="currentColor">
                         <path d="M46.7 14.5s-.4-3.1-1.8-4.5c-1.7-1.8-3.6-1.8-4.5-1.9C33.8 7.5 24 7.5 24 7.5s-9.8 0-16.4.6c-.9.1-2.8.1-4.5 1.9-1.4 1.4-1.8 4.5-1.8 4.5S1 18 1 21.5v3.4c0 3.5.3 7 .3 7s.4 3.1 1.8 4.5c1.7 1.8 4 1.7 5 1.9 3.6.3 15.9.4 15.9.4s9.8 0 16.4-.5c.9-.1 2.8-.1 4.5-1.9 1.4-1.4 1.8-4.5 1.8-4.5s.3-3.5.3-7v-3.4c0-3.5-.3-7-.3-7zM19 30V17l13 6.5L19 30z"/>
                     </svg>
@@ -3334,38 +3948,38 @@
     <!-- Pain Points Section -->
     <section class="pain-points-section horizontal-section" id="pricing">
         <div class="container">
-            <h2 class="section-title">企业自己做的难点</h2>
-            <p class="section-subtitle">传统市场团队困境</p>
+            <h2 class="section-title fade-in-element">企业自己做的难点</h2>
+            <p class="section-subtitle fade-in-element">传统市场团队困境</p>
             <div class="pain-points-grid">
-                <div class="pain-card" role="article" data-color="pink">
+                <div class="pain-card fade-in-element" role="article" data-color="pink">
                     <div class="pain-icon" style="background: linear-gradient(225deg, rgb(255, 32, 86), rgb(246, 51, 154));">
                         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline><polyline points="7.5 19.79 7.5 14.6 3 12"></polyline><polyline points="21 12 16.5 14.6 16.5 19.79"></polyline><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
                     </div>
                     <h3 class="pain-title" data-color="pink" style="background: linear-gradient(135deg, rgb(246, 51, 154), rgb(255, 32, 86)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">✕ 素材乱</h3>
                     <p class="pain-description">海量素材散落各处<br>剪辑无从下手</p>
                 </div>
-                <div class="pain-card" role="article" data-color="orange">
+                <div class="pain-card fade-in-element" role="article" data-color="orange">
                     <div class="pain-icon" style="background: linear-gradient(225deg, rgb(254, 154, 0), rgb(255, 105, 0));">
                         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                     </div>
                     <h3 class="pain-title" data-color="orange" style="background: linear-gradient(135deg, rgb(255, 105, 0), rgb(254, 154, 0)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">✕ 语言难</h3>
                     <p class="pain-description">本地化语言要求高<br>跨语种难逾越</p>
                 </div>
-                <div class="pain-card" role="article" data-color="blue">
+                <div class="pain-card fade-in-element" role="article" data-color="blue">
                     <div class="pain-icon" style="background: linear-gradient(225deg, rgb(0, 184, 219), rgb(43, 127, 255));">
                         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
                     </div>
                     <h3 class="pain-title" data-color="blue" style="background: linear-gradient(135deg, rgb(43, 127, 255), rgb(0, 184, 219)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">✕ 剪辑慢</h3>
                     <p class="pain-description">人工产出效率极低<br>跟不上分发量</p>
                 </div>
-                <div class="pain-card" role="article" data-color="purple">
+                <div class="pain-card fade-in-element" role="article" data-color="purple">
                     <div class="pain-icon" style="background: linear-gradient(225deg, rgb(97, 95, 255), rgb(173, 70, 255));">
                         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                     </div>
                     <h3 class="pain-title" data-color="purple" style="background: linear-gradient(135deg, rgb(173, 70, 255), rgb(97, 95, 255)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">✕ 没运营</h3>
                     <p class="pain-description">空有账号无力维护<br>缺乏专业操盘</p>
                 </div>
-                <div class="pain-card" role="article" data-color="magenta">
+                <div class="pain-card fade-in-element" role="article" data-color="magenta">
                     <div class="pain-icon" style="background: linear-gradient(225deg, rgb(0, 147, 188), rgb(253, 114, 255));">
                         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
                     </div>
@@ -3567,13 +4181,14 @@
 
             <!-- Tab 切换 -->
             <div class="case-tabs fade-in-element">
-                <button class="case-tab active" data-tab="exhibit">展览展会</button>
+                <button class="case-tab active" data-tab="midea">美的</button>
+                <button class="case-tab" data-tab="exhibit">展览展会</button>
                 <button class="case-tab" data-tab="machinery">机械设备</button>
                 <button class="case-tab" data-tab="3c">3C数码</button>
             </div>
 
             <!-- 案例内容 - 展览展会 -->
-            <div class="case-content-item active case-content-wrapper fade-in-element" data-content="exhibit">
+            <div class="case-content-item case-content-wrapper fade-in-element" data-content="exhibit">
                 <div class="case-left">
                     <p class="case-company">某包装材料公司</p>
                     <h3 class="case-title">TikTok 全周期展会运营 <br>+ 社媒全域品牌塑造</h3>
@@ -3612,11 +4227,6 @@
                         <span class="case-tag">展会营销</span>
                         <span class="case-tag">社媒矩阵</span>
                     </div>
-
-                    <a href="#" class="case-cta">
-                        查看完整案例
-                        <img src="images/icon-arrow.svg" alt="">
-                    </a>
                 </div>
 
                 <div class="case-right">
@@ -3684,11 +4294,6 @@
                         <span class="case-tag">TikTok账号运营</span>
                         <span class="case-tag">内容营销</span>
                     </div>
-
-                    <a href="#" class="case-cta">
-                        查看完整案例
-                        <img src="images/icon-arrow.svg" alt="">
-                    </a>
                 </div>
             </div>
 
@@ -3741,89 +4346,237 @@
                         <span class="case-tag">业绩爆发</span>
                         <span class="case-tag">品牌重塑</span>
                     </div>
+                </div>
+            </div>
 
-                    <a href="#" class="case-cta">
-                        查看完整案例
-                        <img src="images/icon-arrow.svg" alt="">
-                    </a>
+            <!-- 案例内容 - 美的 -->
+            <div class="case-content-item active case-content-wrapper fade-in-element" data-content="midea">
+                <div class="case-right">
+                    <div class="case-midea-stack">
+                        <div class="midea-image midea-image-clips">
+                            <img src="images/midea-clips.jpg" alt="视频切片列表">
+                        </div>
+                        <div class="midea-image midea-image-editor">
+                            <img src="images/midea-editor.jpg" alt="编辑界面">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="case-left">
+                    <p class="case-company">美的集团</p>
+                    <h3 class="case-title">AI视频批量生成系统 <br>大幅降低物料制作成本</h3>
+
+                    <div class="case-stats">
+                        <div class="case-stat-item">
+                            <img src="images/icon-user.svg" alt="" class="case-stat-icon">
+                            <div class="case-stat-number">90<span style="font-size: 20px;">%+</span></div>
+                            <div class="case-stat-label">人力成本降低</div>
+                        </div>
+                        <div class="case-stat-item">
+                            <img src="images/icon-view.svg" alt="" class="case-stat-icon">
+                            <div class="case-stat-number">5<span style="font-size: 20px;">+类型</span></div>
+                            <div class="case-stat-label">视频批量生成</div>
+                        </div>
+                        <div class="case-stat-item">
+                            <img src="images/icon-hot.svg" alt="" class="case-stat-icon">
+                            <div class="case-stat-number" style="font-size: 20px; font-weight: 700;">一键分发</div>
+                            <div class="case-stat-label">全渠道同步</div>
+                        </div>
+                        <div class="case-stat-item">
+                            <img src="images/icon-growth.svg" alt="" class="case-stat-icon">
+                            <div class="case-stat-number" style="font-size: 20px; font-weight: 700;">秒级响应</div>
+                            <div class="case-stat-label">促销调价</div>
+                        </div>
+                    </div>
+
+                    <div class="case-description">
+                        <p>告别400人团队，实现自动化批量生产，</p>
+                        <p>口播、种草、品销、产品、企宣等各类视频。</p>
+                    </div>
+
+                    <div class="case-tags">
+                        <span class="case-tag">电商视频</span>
+                        <span class="case-tag">批量生成</span>
+                        <span class="case-tag">自动分发</span>
+                        <span class="case-tag">降本增效</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Team Section -->
-    <section class="team-section" id="about" aria-labelledby="team-title">
-        <div class="team-stars-container">
-            <div class="team-star"></div>
-            <div class="team-star"></div>
-            <div class="team-star"></div>
-            <div class="team-star"></div>
-            <div class="team-star"></div>
-            <div class="team-star"></div>
-            <div class="team-star"></div>
-            <div class="team-star"></div>
-            <div class="team-star"></div>
-            <div class="team-star"></div>
-            <div class="team-star"></div>
-            <div class="team-star"></div>
-            <div class="team-star"></div>
-            <div class="team-star"></div>
-            <div class="team-star"></div>
-            <div class="team-star"></div>
-            <div class="team-star"></div>
-            <div class="team-star"></div>
-        </div>
-        <div class="team-bg-glow team-bg-glow-1"></div>
-        <div class="team-bg-glow team-bg-glow-2"></div>
-        <div class="container" style="position: relative; z-index: 1;">
-            <h2 class="section-title fade-in-element" id="team-title">出海营销顶尖操盘团队</h2>
-            <p class="section-subtitle fade-in-element">深耕外贸营销与 AI 技术的领军团队</p>
-
-            <div class="team-grid fade-in-element">
-                <div class="team-member">
-                    <div class="team-avatar">
-                        <div class="team-avatar-inner">
-                            <img  src="images/何总.png" alt="何方 Frankie">
-                        </div>
-                    </div>
-                    <h3 class="team-name">何方 <span class="team-name-en">Frankie</span></h3>
-                    <div class="team-divider"></div>
-                    <p class="team-role">外贸市场营销10年+<br>累计花费超10亿</p>
-                    <div class="team-info">
-                        <p class="team-tag">70亿 ｜ 200人 ｜ 7个语种<br>2014年自贸区尽头电商平台<br>外贸SaaS平台、累计融资 6亿+</p>
-                    </div>
+    <div class="team-horizontal-wrapper team-section">
+        <div class="team-horizontal-spacer"></div>
+        <div class="team-horizontal-container">
+            <!-- 固定背景 -->
+            <div class="team-bg-fixed">
+                <div class="team-stars-container">
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
+                <div class="team-star"></div>
                 </div>
+                <div class="team-bg-glow team-bg-glow-1"></div>
+                <div class="team-bg-glow team-bg-glow-2"></div>
+            </div>
 
-                <div class="team-member">
-                    <div class="team-avatar">
-                        <div class="team-avatar-inner">
-                            <img  src="images/大师.png" alt="赵维杰 Jerry">
-                        </div>
-                    </div>
-                    <h3 class="team-name">赵维杰 <span class="team-name-en">Jerry</span></h3>
-                    <div class="team-divider"></div>
-                    <p class="team-role">顶级AI算法专家与架构师<br>1亿+用户级产品架构师</p>
-                    <div class="team-info">
-                        <p class="team-tag">前华为海思AI团队创始人<br>上海交大脑科学与AI实验室主任<br>市科委科技专家</p>
-                    </div>
-                </div>
-
-                <div class="team-member">
-                    <div class="team-avatar">
-                        <div class="team-avatar-inner">
-                            <img  src="images/tianyi.png" alt="蔡天懿 Tianyi">
-                        </div>
-                    </div>
-                    <h3 class="team-name">蔡天懿 <span class="team-name-en">Tianyi</span></h3>
-                    <div class="team-divider"></div>
-                    <p class="team-role">Versa 创始人兼首席执行官<br>连续创业家与数字创作领航者</p>
-                    <div class="team-info">
-                        <p class="team-tag">硅谷、中国连续成功创业者<br>前格瓦拉产品合伙人（操盘4000万级DAU）获得顶级风投（红杉/腾讯/真格/B站）10亿+融资</p>
-                    </div>
+            <!-- 固定标题 -->
+            <div class="team-fixed-header">
+                <div class="container">
+                    <h2 class="section-title fade-in-element" id="team-title">出海营销顶尖操盘团队</h2>
+                    <p class="section-subtitle fade-in-element">深耕外贸营销与 AI 技术的领军团队</p>
                 </div>
             </div>
+
+            <!-- 横向滑动内容 -->
+            <div class="team-horizontal-inner">
+                <!-- 第一页：4位核心成员 -->
+                <section class="team-horizontal-section">
+                    <div class="container">
+                        <div class="team-grid">
+                            <div class="team-member fade-in-element">
+                                <div class="team-avatar">
+                                    <div class="team-avatar-inner">
+                                        <img  src="images/郑伟.png" alt="郑伟">
+                                    </div>
+                                </div>
+                                <h3 class="team-name">郑伟</h3>
+                                <div class="team-divider"></div>
+                                <p class="team-role">米奥兰特高级副总裁<br>会展行业营销专家</p>
+                                <div class="team-info">
+                                    <p class="team-tag">深耕展会行业17年<br>数字外贸会展领域权威专家<br>米奥兰特AI慧展事业部领导者<br>智能化赋能标杆展商超300家</p>
+                                </div>
+                            </div>
+
+                            <div class="team-member fade-in-element">
+                                <div class="team-avatar">
+                                    <div class="team-avatar-inner">
+                                        <img  src="images/何总.png" alt="何方">
+                                    </div>
+                                </div>
+                                <h3 class="team-name">何方</h3>
+                                <div class="team-divider"></div>
+                                <p class="team-role">外贸市场营销10年+<br>累计花费超10亿</p>
+                                <div class="team-info">
+                                    <p class="team-tag">70亿 ｜ 200人 ｜ 7个语种<br>2014年自贸区尽头电商平台<br>外贸SaaS平台<br>累计融资 6亿+</p>
+                                </div>
+                            </div>
+
+                            <div class="team-member fade-in-element">
+                                <div class="team-avatar">
+                                    <div class="team-avatar-inner">
+                                        <img  src="images/大师.png" alt="赵维杰">
+                                    </div>
+                                </div>
+                                <h3 class="team-name">赵维杰</h3>
+                                <div class="team-divider"></div>
+                                <p class="team-role">顶级AI算法专家与架构师<br>1亿+用户级产品架构师</p>
+                                <div class="team-info">
+                                    <p class="team-tag">Versa创始人CTO<br>前华为海思AI团队创始人<br>上海交大脑科学与AI实验室主任<br>市科委科技专家</p>
+                                </div>
+                            </div>
+
+                            <div class="team-member fade-in-element">
+                                <div class="team-avatar">
+                                    <div class="team-avatar-inner">
+                                        <img  src="images/tianyi.png" alt="蔡天懿">
+                                    </div>
+                                </div>
+                                <h3 class="team-name">蔡天懿</h3>
+                                <div class="team-divider"></div>
+                                <p class="team-role">Versa 创始人兼首席执行官<br>连续创业家与数字创作领航者</p>
+                                <div class="team-info">
+                                    <p class="team-tag">Versa创始人 CEO<br>硅谷、中国连续成功创业者<br>前格瓦拉产品合伙人<br>获得红杉、真格等10亿+融资</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 第二页：3位成员 -->
+                <section class="team-horizontal-section">
+                    <div class="container">
+                        <div class="team-grid team-grid-3" style="margin-top: 0;">
+                            <div class="team-member fade-in-element">
+                                <div class="team-avatar">
+                                    <div class="team-avatar-inner">
+                                        <img src="images/陈杰.png" alt="陈杰">
+                                    </div>
+                                </div>
+                                <h3 class="team-name">陈杰</h3>
+                                <div class="team-divider"></div>
+                                <p class="team-role">AI事业部运营专家<br>精通数字化参展构建及运营</p>
+                                <div class="team-info">
+                                    <p class="team-tag">主导超过5000+企业<br>数字化展览服务</p>
+                                </div>
+                            </div>
+
+                            <div class="team-member fade-in-element">
+                                <div class="team-avatar">
+                                    <div class="team-avatar-inner">
+                                        <img src="images/董力贤.png" alt="董力贤">
+                                    </div>
+                                </div>
+                                <h3 class="team-name">董力贤</h3>
+                                <div class="team-divider"></div>
+                                <p class="team-role">平台规则运营制定者<br>来自硅谷的精英</p>
+                                <div class="team-info">
+                                    <p class="team-tag">曾就职于YouTube、谷歌<br>TK投放顾问</p>
+                                </div>
+                            </div>
+
+                            <div class="team-member fade-in-element">
+                                <div class="team-avatar">
+                                    <div class="team-avatar-inner">
+                                        <img src="images/谢蕾.png" alt="谢蕾">
+                                    </div>
+                                </div>
+                                <h3 class="team-name">谢蕾</h3>
+                                <div class="team-divider"></div>
+                                <p class="team-role">资深UI设计师<br>多次荣登 Apple store 精选</p>
+                                <div class="team-info">
+                                    <p class="team-tag">马卡龙玩图App获苹果年度最佳APP、十佳金米奖等<br>不咕剪辑App获红点奖、GMCA蝉鸣奖等</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </div>
-    </section>
+    </div>
 
     <!-- Pricing Section -->
     <section class="pricing-section" id="pricing" aria-labelledby="pricing-title" id="pricing">
@@ -4205,6 +4958,154 @@
         </div>
     </section>
 
+    <!-- O2O Section -->
+    <section class="o2o-section" id="o2o">
+        <div class="container" style="position: relative; z-index: 1;">
+            <h2 class="section-title o2o-fade-in">线上来曝光&nbsp;&nbsp;&nbsp;&nbsp;线下来见面</h2>
+            <p class="section-subtitle o2o-fade-in">从认知到成交的完整商务转化链路</p>
+
+            <div class="o2o-tabs o2o-fade-in">
+                <button class="o2o-tab active" data-tab="exhibitor">参展客户</button>
+                <button class="o2o-tab" data-tab="non-exhibitor">不参展客户</button>
+            </div>
+
+            <!-- 参展客户流程 -->
+            <div class="o2o-content o2o-fade-in active" data-content="exhibitor">
+                <div class="o2o-flow">
+                    <div class="o2o-step">
+                        <div class="o2o-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                <line x1="8" y1="21" x2="16" y2="21"></line>
+                                <line x1="12" y1="17" x2="12" y2="21"></line>
+                            </svg>
+                        </div>
+                        <h3 class="o2o-step-title">线上精准广告</h3>
+                        <p class="o2o-step-desc">基于数据精准触达</p>
+                    </div>
+
+                    <div class="o2o-step">
+                        <div class="o2o-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="5"></circle>
+                                <line x1="12" y1="1" x2="12" y2="3"></line>
+                                <line x1="12" y1="21" x2="12" y2="23"></line>
+                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                                <line x1="1" y1="12" x2="3" y2="12"></line>
+                                <line x1="21" y1="12" x2="23" y2="12"></line>
+                                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                            </svg>
+                        </div>
+                        <h3 class="o2o-step-title">品牌曝光触达</h3>
+                        <p class="o2o-step-desc">反复建立记忆点</p>
+                    </div>
+
+                    <div class="o2o-step">
+                        <div class="o2o-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 12h1m8 -9v1m8 8h1m-15.4 -6.4l.7 .7m12.1 -.7l-.7 .7" />
+                                <path d="M9 16a5 5 0 1 1 6 0a3.5 3.5 0 0 0 -1 3a2 2 0 0 1 -4 0a3.5 3.5 0 0 0 -1 -3" />
+                                <path d="M9.7 17l4.6 0" />
+                            </svg>
+                        </div>
+                        <h3 class="o2o-step-title">认知建立激活</h3>
+                        <p class="o2o-step-desc">完成唤醒定位</p>
+                    </div>
+
+                    <div class="o2o-step">
+                        <div class="o2o-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                        </div>
+                        <h3 class="o2o-step-title">线下见面商谈</h3>
+                        <p class="o2o-step-desc">面对面深度洽谈</p>
+                    </div>
+
+                    <div class="o2o-step">
+                        <div class="o2o-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
+                        <h3 class="o2o-step-title">商务成交转化</h3>
+                        <p class="o2o-step-desc">转化为真实订单</p>
+                    </div>
+                </div>
+
+                <div class="o2o-summary">
+                    <p>线上解决认知、线下建立信任，展会让客户<strong>72小时内</strong>坐到你面前真实对话</p>
+                </div>
+            </div>
+
+            <!-- 不参展客户流程 -->
+            <div class="o2o-content o2o-fade-in" data-content="non-exhibitor">
+                <div class="o2o-flow">
+                    <div class="o2o-step">
+                        <div class="o2o-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                <line x1="8" y1="21" x2="16" y2="21"></line>
+                                <line x1="12" y1="17" x2="12" y2="21"></line>
+                            </svg>
+                        </div>
+                        <h3 class="o2o-step-title">线上精准广告</h3>
+                        <p class="o2o-step-desc">基于数据精准触达</p>
+                    </div>
+
+                    <div class="o2o-step">
+                        <div class="o2o-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="5"></circle>
+                                <line x1="12" y1="1" x2="12" y2="3"></line>
+                                <line x1="12" y1="21" x2="12" y2="23"></line>
+                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                                <line x1="1" y1="12" x2="3" y2="12"></line>
+                                <line x1="21" y1="12" x2="23" y2="12"></line>
+                                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                            </svg>
+                        </div>
+                        <h3 class="o2o-step-title">品牌曝光触达</h3>
+                        <p class="o2o-step-desc">反复建立记忆点</p>
+                    </div>
+
+                    <div class="o2o-step">
+                        <div class="o2o-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 12h1m8 -9v1m8 8h1m-15.4 -6.4l.7 .7m12.1 -.7l-.7 .7" />
+                                <path d="M9 16a5 5 0 1 1 6 0a3.5 3.5 0 0 0 -1 3a2 2 0 0 1 -4 0a3.5 3.5 0 0 0 -1 -3" />
+                                <path d="M9.7 17l4.6 0" />
+                            </svg>
+                        </div>
+                        <h3 class="o2o-step-title">认知建立激活</h3>
+                        <p class="o2o-step-desc">完成唤醒定位</p>
+                    </div>
+
+                    <div class="o2o-step">
+                        <div class="o2o-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
+                            </svg>
+                        </div>
+                        <h3 class="o2o-step-title">TikTok站内闭环</h3>
+                        <p class="o2o-step-desc">站外多途径转化</p>
+                    </div>
+                </div>
+
+                <div class="o2o-summary">
+                    <p><strong>站内闭环 & 跳转站外</strong>多途径实现最佳转化，所见即所得</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section class="cta-section" id="cta" aria-labelledby="cta-title" id="contact">
         <div class="cta-gradient-bg"></div>
@@ -4312,11 +5213,13 @@
             }
             scrollTimeout = window.requestAnimationFrame(() => {
                 handleHorizontalScroll();
+                handleTeamScroll();
             });
         });
 
         // Initial call
         handleHorizontalScroll();
+        handleTeamScroll();
 
         // Navbar scroll effect
         const navbar = document.querySelector('.navbar');
@@ -4470,10 +5373,54 @@
         });
 
         // Observe sections with fade-in elements
-        const sectionsToAnimate = document.querySelectorAll('.ai-agents-section, .case-study-section, .team-section, .pricing-section, .cta-section');
+        const sectionsToAnimate = document.querySelectorAll('.ai-agents-section, .case-study-section, .team-section, .pricing-section, .cta-section, .stats-section, .pain-points-section');
         sectionsToAnimate.forEach(section => {
             fadeInObserver.observe(section);
         });
+
+        // Team scroll effect
+        function handleTeamScroll() {
+            // Disable on mobile
+            if (window.innerWidth <= 1200) return;
+
+            const wrapper = document.querySelector('.team-horizontal-wrapper');
+            const inner = document.querySelector('.team-horizontal-inner');
+
+            if (!wrapper || !inner) return;
+
+            const wrapperTop = wrapper.offsetTop;
+            const wrapperHeight = wrapper.offsetHeight;
+            const scrollY = window.scrollY;
+
+            // Calculate scroll progress within wrapper
+            const startScroll = wrapperTop;
+            const endScroll = wrapperTop + wrapperHeight - window.innerHeight;
+
+            // Split into 3 phases: pause on first screen, then slide, then pause on second screen
+            const totalScrollDistance = wrapperHeight - window.innerHeight;
+            const pauseFirst = totalScrollDistance * 0.33;  // 33% pause on first screen
+            const slideDistance = totalScrollDistance * 0.34; // 34% for sliding
+            const pauseSecond = totalScrollDistance * 0.33;  // 33% pause on second screen
+
+            const phase1End = startScroll + pauseFirst;
+            const phase2End = phase1End + slideDistance;
+
+            if (scrollY < startScroll) {
+                // Before wrapper
+                inner.style.transform = 'translateX(0%)';
+            } else if (scrollY >= startScroll && scrollY < phase1End) {
+                // Phase 1: Pause on first screen
+                inner.style.transform = 'translateX(0%)';
+            } else if (scrollY >= phase1End && scrollY < phase2End) {
+                // Phase 2: Sliding
+                const progress = (scrollY - phase1End) / slideDistance;
+                const translateX = -progress * 50;
+                inner.style.transform = `translateX(${translateX}%)`;
+            } else {
+                // Phase 3: Pause on second screen
+                inner.style.transform = 'translateX(-50%)';
+            }
+        }
 
         // Case study scroll effect
         function handleCaseStudyScroll() {
@@ -4823,7 +5770,7 @@
         }
 
         // 记录已经播放过动画的tab
-        const animatedTabs = new Set(['exhibit']); // 默认第一个tab会自动播放
+        const animatedTabs = new Set(['midea']); // 默认第一个tab会自动播放
 
         // Case study tabs switching
         document.querySelectorAll('.case-tab').forEach(tab => {
@@ -4874,6 +5821,42 @@
         if (caseStudySection) {
             caseStudyObserver.observe(caseStudySection);
         }
+
+        // O2O section fade-in animation
+        const o2oFadeElements = document.querySelectorAll('.o2o-fade-in');
+        const o2oObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 150);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        o2oFadeElements.forEach(element => {
+            o2oObserver.observe(element);
+        });
+
+        // O2O tabs switching
+        document.querySelectorAll('.o2o-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetTab = tab.getAttribute('data-tab');
+
+                // Update tab active states
+                document.querySelectorAll('.o2o-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                // Update content active states
+                document.querySelectorAll('.o2o-content').forEach(content => {
+                    if (content.getAttribute('data-content') === targetTab) {
+                        content.classList.add('active');
+                    } else {
+                        content.classList.remove('active');
+                    }
+                });
+            });
+        });
 
     </script>
 </body>
