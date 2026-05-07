@@ -32,6 +32,12 @@
             margin: 0;
         }
 
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
         .gradient-text {
             background-clip: text;
             -webkit-background-clip: text;
@@ -146,6 +152,404 @@
         .mobile-menu-btn {
             display: none;
         }
+
+        /* Pricing Tabs - hide on desktop */
+        .pricing-tabs {
+            display: none;
+        }
+
+        /* Desktop footer background */
+        footer {
+            background: #000;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 80px 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .footer-logo {
+            height: 32px;
+            margin-bottom: 16px;
+        }
+
+        .footer-tagline {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.4);
+            line-height: 1.6;
+            text-align: left;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .footer-column h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 16px;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .footer-links a {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 32px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .footer-copyright {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .footer-legal a {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.4);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-legal a:hover {
+            color: white;
+            transform: scale(1.05);
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            /* Nav container height */
+            .nav-container {
+                height: 60px !important;
+                padding: 0 16px !important;
+            }
+
+            /* Nav logo size */
+            .nav-logo img {
+                height: 20px !important;
+            }
+
+            /* Page title and subtitle */
+            .text-center.mb-20 {
+                margin-bottom: 0 !important;
+                margin-top: 0 !important;
+                padding-top: 0 !important;
+            }
+
+            .text-center.mb-20 h2 {
+                font-size: 28px !important;
+                line-height: 1.2 !important;
+                margin-bottom: 12px !important;
+            }
+
+            .text-center.mb-20 p {
+                font-size: 14px !important;
+                line-height: 1.4 !important;
+            }
+
+            /* Pricing tabs mobile - show only on mobile */
+            .pricing-tabs {
+                display: flex !important;
+                justify-content: center !important;
+                padding: 10px 20px !important;
+                margin: 10px 0 10px 0 !important;
+                gap: 6px !important;
+                position: relative !important;
+                z-index: 99 !important;
+                transition: background 0.2s ease, backdrop-filter 0.2s ease !important;
+                background: transparent !important;
+            }
+
+            .pricing-tabs.is-stuck {
+                position: fixed !important;
+                top: 60px !important;
+                left: 0 !important;
+                right: 0 !important;
+                margin: 0 !important;
+                padding: 10px 20px !important;
+                background: rgba(3, 3, 8, 0.95) !important;
+                backdrop-filter: blur(10px) !important;
+            }
+
+            .pricing-tab {
+                padding: 0 !important;
+                width: 100px !important;
+                height: 40px !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                text-align: center !important;
+                font-size: 13px !important;
+                font-weight: 400 !important;
+                color: rgba(255, 255, 255, 0.6) !important;
+                background: transparent !important;
+                border: none !important;
+                border-radius: 9999px !important;
+                cursor: pointer !important;
+                transition: all 0.3s ease !important;
+                white-space: nowrap !important;
+                flex: none !important;
+            }
+
+            .pricing-tab.active {
+                font-weight: 500 !important;
+                color: white !important;
+                background: rgba(122, 122, 255, 0.1) !important;
+                border: 1px solid rgba(122, 122, 255, 0.5) !important;
+                box-shadow: inset 0 0 16px rgba(122, 122, 255, 0.3) !important;
+            }
+
+            .pricing-tab:not(.active):hover {
+                color: rgba(255, 255, 255, 0.7) !important;
+            }
+
+            /* Parent container padding */
+            .max-w-7xl.mx-auto.px-8 {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+
+            /* Pricing cards horizontal scroll */
+            #pricing-grid {
+                display: flex !important;
+                overflow-x: auto !important;
+                overflow-y: visible !important;
+                scroll-snap-type: x mandatory !important;
+                gap: 16px !important;
+                -webkit-overflow-scrolling: touch !important;
+                scrollbar-width: none !important;
+                padding: 20px 20px 40px 20px !important;
+                margin: 0 !important;
+            }
+
+            #pricing-grid::-webkit-scrollbar {
+                display: none !important;
+            }
+
+            #pricing-grid > div {
+                flex: 0 0 304px !important;
+                min-width: 304px !important;
+                scroll-snap-align: center !important;
+                overflow: visible !important;
+                margin: 0 !important;
+            }
+
+            /* Price amount font size */
+            #pricing-grid .text-5xl {
+                font-size: 36px !important;
+            }
+
+            /* Pricing card titles */
+            #pricing-grid .text-xl {
+                font-size: 18px !important;
+            }
+
+            /* Remove top margin from bottom text */
+            .text-center.mb-24 p {
+                margin-top: 0 !important;
+            }
+
+            /* Pricing button style */
+            #pricing-grid a,
+            #pricing-grid button {
+                padding: 14px 24px !important;
+                font-size: 15px !important;
+                height: auto !important;
+            }
+
+            /* Section padding and overflow adjustments */
+            body section.relative.py-32.overflow-hidden {
+                padding-top: 120px !important;
+                padding-bottom: 40px !important;
+                min-height: auto !important;
+                overflow: clip !important;
+            }
+
+            /* Card order - Max first */
+            #pricing-grid > div[data-plan="max"] {
+                order: 1 !important;
+            }
+
+            #pricing-grid > div[data-plan="pro-plus"] {
+                order: 2 !important;
+            }
+
+            #pricing-grid > div[data-plan="pro"] {
+                order: 3 !important;
+            }
+
+            /* Mobile menu toggle button */
+            .mobile-menu-toggle {
+                display: flex !important;
+                flex-direction: column;
+                gap: 4px;
+                width: 20px;
+                height: 20px;
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 0;
+                justify-content: center;
+                position: relative;
+                top: -3px;
+            }
+
+            .mobile-menu-toggle span {
+                display: block;
+                width: 18px;
+                height: 2px;
+                background: white;
+                border-radius: 2px;
+                transition: all 0.3s;
+            }
+
+            .nav-menu {
+                display: none;
+                position: fixed;
+                top: 60px;
+                left: 0;
+                right: 0;
+                width: 100%;
+                background: rgba(3, 3, 8, 0.98);
+                backdrop-filter: blur(10px);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                padding: 20px 0;
+                z-index: 999;
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .nav-menu.active {
+                display: flex !important;
+            }
+
+            .nav-menu li {
+                width: 100%;
+            }
+
+            .nav-link {
+                display: block;
+                padding: 16px 24px;
+                width: 100%;
+                text-align: center;
+                font-size: 14px;
+                color: rgba(255, 255, 255, 0.9);
+                text-decoration: none;
+                transition: color 0.2s;
+            }
+
+            .nav-link::after {
+                display: none !important;
+            }
+
+            .nav-link:hover,
+            .nav-link:active,
+            .nav-link:focus {
+                color: rgba(255, 255, 255, 0.8) !important;
+            }
+
+            /* Footer padding */
+            footer {
+                padding: 40px 0 !important;
+            }
+
+            /* Mobile footer layout */
+            .footer-grid {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 0 !important;
+                margin-bottom: 0 !important;
+                text-align: center !important;
+            }
+
+            .footer-brand {
+                margin-bottom: 0 !important;
+            }
+
+            .footer-brand .footer-tagline {
+                display: none !important;
+            }
+
+            .footer-logo {
+                height: 24px !important;
+                margin-bottom: 0 !important;
+            }
+
+            .footer-column {
+                display: none !important;
+            }
+
+            .footer-bottom {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 12px !important;
+                margin-top: 0 !important;
+                padding-top: 12px !important;
+                text-align: center !important;
+            }
+
+            .footer-bottom::before {
+                content: '功能特性 ｜ 定价方案 ｜ 联系我们 ｜ 隐私政策';
+                display: block;
+                font-size: 12px;
+                color: rgba(255, 255, 255, 0.5);
+                margin-bottom: 0px;
+            }
+
+            .footer-copyright {
+                color: rgba(255, 255, 255, 0.5);
+                margin: 0 !important;
+                font-size: 12px !important;
+                line-height: 12px !important;
+            }
+
+            .footer-icp {
+                order: 2;
+            }
+
+            .footer-legal {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -155,6 +559,11 @@
             <a href="index.html" class="nav-logo">
                 <img src="images/创视星擎.svg" alt="星擎">
             </a>
+            <button class="mobile-menu-toggle" aria-label="菜单">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <ul class="nav-menu">
                 <li><a href="index.html#solution" class="nav-link">解决方案</a></li>
                 <li><a href="product.html" class="nav-link">产品</a></li>
@@ -192,11 +601,20 @@
                 </h2>
                 <p style="font-size: 20px; font-weight: 400; color: rgba(255, 255, 255, 0.5);">深入了解每个套餐的完整权益与服务内容</p>
             </div>
+        </div>
 
+        <!-- Pricing Tabs -->
+        <div class="pricing-tabs">
+            <button class="pricing-tab active" data-plan="max">Max 旗舰版</button>
+            <button class="pricing-tab" data-plan="pro-plus">Pro+ 专业版</button>
+            <button class="pricing-tab" data-plan="pro">Pro 正式版</button>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-8 relative z-10">
             <!-- Pricing Cards (使用首页样式) -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="pricing-grid">
                 <!-- Pro -->
-                <div class="p-8 flex flex-col" style="border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.10); background: rgba(255, 255, 255, 0.05);">
+                <div class="p-8 flex flex-col" data-plan="pro" style="border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.10); background: rgba(255, 255, 255, 0.05);">
                     <h3 class="text-xl font-bold mb-3">Pro 正式版</h3>
                     <div class="flex items-baseline mb-3">
                         <span class="text-sm text-white/60">¥</span>
@@ -282,11 +700,11 @@
                         </div>
                     </div>
 
-                    <a href="https://xingqing.tradechina.com/login" class="w-full bg-white/10 hover:bg-white/20 rounded-2xl py-4 transition font-medium mt-auto block text-center" style="font-size: 18px; text-decoration: none;">立即订阅</a>
+                    <a href="https://xingqing.ultronx.tech/login" class="w-full bg-white/10 hover:bg-white/20 rounded-2xl py-4 transition font-medium mt-auto block text-center" style="font-size: 18px; text-decoration: none;">立即订阅</a>
                 </div>
 
                 <!-- Pro+ -->
-                <div class="p-8 flex flex-col" style="border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.10); background: rgba(255, 255, 255, 0.05);">
+                <div class="p-8 flex flex-col" data-plan="pro-plus" style="border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.10); background: rgba(255, 255, 255, 0.05);">
                     <h3 class="text-xl font-bold mb-3">Pro+ 专业版</h3>
                     <div class="flex items-baseline mb-3">
                         <span class="text-sm text-white/60">¥</span>
@@ -372,11 +790,11 @@
                         </div>
                     </div>
 
-                    <a href="https://xingqing.tradechina.com/login" class="w-full bg-white/10 hover:bg-white/20 rounded-2xl py-4 transition font-medium mt-auto block text-center" style="font-size: 18px; text-decoration: none;">立即订阅</a>
+                    <a href="https://xingqing.ultronx.tech/login" class="w-full bg-white/10 hover:bg-white/20 rounded-2xl py-4 transition font-medium mt-auto block text-center" style="font-size: 18px; text-decoration: none;">立即订阅</a>
                 </div>
 
                 <!-- Max -->
-                <div class="p-8 relative flex flex-col" style="border-radius: 24px; border: 2px solid rgba(122, 122, 255, 0.8); background: linear-gradient(180deg, rgba(122, 122, 255, 0.10) 0%, rgba(0, 0, 0, 0.00) 100%); box-shadow: 0 25px 50px -12px rgba(122, 122, 255, 0.20); overflow: visible;">
+                <div class="p-8 relative flex flex-col" data-plan="max" style="border-radius: 24px; border: 2px solid rgba(122, 122, 255, 0.8); background: linear-gradient(180deg, rgba(122, 122, 255, 0.10) 0%, rgba(0, 0, 0, 0.00) 100%); box-shadow: 0 25px 50px -12px rgba(122, 122, 255, 0.20); overflow: visible;">
                     <div class="absolute inset-x-0 flex justify-center" style="top: -14px;">
                         <span class="rounded-full px-5 py-1.5 text-sm font-bold flex items-center gap-1.5" style="background: linear-gradient(90deg, #7A7AFF 0%, #A855F7 100%);">
                             <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -480,7 +898,7 @@
                         </div>
                     </div>
 
-                    <a href="https://xingqing.tradechina.com/login" class="w-full rounded-2xl py-4 transition font-medium mt-auto block text-center" style="background: #7A7AFF; color: #fff; font-size: 18px; text-decoration: none;" onmouseover="this.style.background='#6A6AEE'" onmouseout="this.style.background='#7A7AFF'">立即订阅</a>
+                    <a href="https://xingqing.ultronx.tech/login" class="w-full rounded-2xl py-4 transition font-medium mt-auto block text-center" style="background: #7A7AFF; color: #fff; font-size: 18px; text-decoration: none;" onmouseover="this.style.background='#6A6AEE'" onmouseout="this.style.background='#7A7AFF'">立即订阅</a>
                 </div>
             </div>
 
@@ -492,36 +910,34 @@
     </section>
 
     <!-- Footer -->
-    <footer class="border-t border-white/5 py-20" style="background: #000;">
-        <div class="max-w-6xl mx-auto px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-                <div>
-                    <img src="images/创视星擎.svg" alt="星擎" class="h-8 mb-4">
-                    <p class="text-sm text-white/40">重新定义短视频创作，让AI为您的创意赋能</p>
+    <footer role="contentinfo" aria-label="页脚导航和信息">
+        <div class="max-w-7xl mx-auto px-8">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="images/创视星擎.svg" alt="星擎" class="footer-logo">
+                    <p class="footer-tagline">重新定义短视频创作，让AI为您的创意赋能</p>
                 </div>
 
-                <div>
-                    <h4 class="font-semibold mb-4">产品</h4>
-                    <ul class="space-y-3">
-                        <li><a href="product.html" class="text-sm text-white/60 hover:text-white transition">功能特性</a></li>
-                        <li><a href="pricing.html" class="text-sm text-white/60 hover:text-white transition">定价方案</a></li>
+                <div class="footer-column">
+                    <h4>产品</h4>
+                    <ul class="footer-links">
+                        <li><a href="#product">功能特性</a></li>
+                        <li><a href="#pricing">定价方案</a></li>
                     </ul>
                 </div>
 
-                <div>
-                    <h4 class="font-semibold mb-4">关于</h4>
-                    <ul class="space-y-3">
-                        <li><a href="index.html#contact" class="text-sm text-white/60 hover:text-white transition">联系我们</a></li>
-                        <li><a href="#" class="text-sm text-white/60 hover:text-white transition">隐私政策</a></li>
+                <div class="footer-column">
+                    <h4>关于</h4>
+                    <ul class="footer-links">
+                        <li><a href="#contact">联系我们</a></li>
+                        <li><a href="#">隐私政策</a></li>
                     </ul>
                 </div>
             </div>
 
-            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-                <p class="text-sm text-white/40">© 2026 星擎科技. All rights reserved.</p>
-                <div class="flex items-center justify-end">
-                    <a href="#" class="text-sm text-white/40 hover:text-white transition">服务条款</a>
-                </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2026 星擎科技. All rights reserved.</p>
+                <p class="footer-copyright footer-icp">浙ICP备2026015297号-1</p>
             </div>
         </div>
     </footer>
@@ -536,6 +952,90 @@
                 navbar.classList.remove('scrolled');
             }
         });
+
+        // Mobile menu toggle
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        if (mobileMenuToggle) {
+            mobileMenuToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Pricing tabs functionality
+        const pricingTabs = document.querySelectorAll('.pricing-tab');
+        const pricingGrid = document.querySelector('#pricing-grid');
+
+        pricingTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const plan = tab.dataset.plan;
+
+                // Update tab state
+                pricingTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                // Scroll to corresponding card on mobile
+                if (window.innerWidth <= 768 && pricingGrid) {
+                    const targetCard = pricingGrid.querySelector(`[data-plan="${plan}"]`);
+                    if (targetCard) {
+                        const scrollLeft = targetCard.offsetLeft - (pricingGrid.offsetWidth / 2) + (targetCard.offsetWidth / 2);
+                        pricingGrid.scrollTo({
+                            left: scrollLeft,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Fixed pricing tabs with background on scroll
+        const pricingTabsEl = document.querySelector('.pricing-tabs');
+        if (pricingTabsEl && window.innerWidth <= 768) {
+            // Create placeholder to prevent layout shift
+            const placeholder = document.createElement('div');
+            placeholder.style.height = pricingTabsEl.offsetHeight + 'px';
+            placeholder.style.display = 'none';
+            pricingTabsEl.parentNode.insertBefore(placeholder, pricingTabsEl.nextSibling);
+
+            const tabsOriginalTop = pricingTabsEl.offsetTop;
+            let ticking = false;
+
+            const updateTabs = () => {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                // If scrolled past tabs position
+                if (scrollTop >= tabsOriginalTop - 60) {
+                    if (!pricingTabsEl.classList.contains('is-stuck')) {
+                        // Calculate exact height before fixing position
+                        const tabsHeight = pricingTabsEl.offsetHeight;
+                        placeholder.style.height = tabsHeight + 'px';
+                        placeholder.style.display = 'block';
+                        pricingTabsEl.classList.add('is-stuck');
+                    }
+                } else {
+                    if (pricingTabsEl.classList.contains('is-stuck')) {
+                        pricingTabsEl.classList.remove('is-stuck');
+                        placeholder.style.display = 'none';
+                    }
+                }
+                ticking = false;
+            };
+
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(updateTabs);
+                    ticking = true;
+                }
+            }, { passive: true });
+        }
     </script>
 </body>
 </html>
