@@ -2735,6 +2735,11 @@
             overflow: hidden;
         }
 
+        /* 桌面端隐藏定价tabs */
+        .pricing-tabs {
+            display: none;
+        }
+
         .pricing-card {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border-radius: 24px;
@@ -3528,6 +3533,49 @@
 
 
         @media (max-width: 768px) {
+            /* ===== 防止整页横向滚动 ===== */
+            html {
+                overflow-x: hidden !important;
+                max-width: 100vw !important;
+            }
+
+            body {
+                overflow-x: hidden !important;
+                max-width: 100vw !important;
+                position: relative !important;
+            }
+
+            /* 移动端淡入动画 - 使用CSS动画确保在移动端可靠触发 */
+            .fade-in-element {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            .fade-in-element.visible {
+                animation: fadeInUp 0.4s ease-out forwards;
+            }
+
+            @keyframes fadeInUp {
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            /* 卡片元素 */
+            .agent-card,
+            .pain-card,
+            .pricing-card {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            .agent-card.visible,
+            .pain-card.visible,
+            .pricing-card.visible {
+                animation: fadeInUp 0.4s ease-out forwards;
+            }
+
             /* ===== 导航栏优化 ===== */
             .nav-container {
                 height: 60px;
@@ -3812,8 +3860,8 @@
             }
 
             .case-tags {
-                width: 100vw !important;
-                margin-left: calc(-50vw + 50%) !important;
+                width: 100% !important;
+                margin-left: 0 !important;
                 justify-content: center !important;
                 flex-wrap: wrap !important;
                 padding: 0 16px !important;
@@ -3993,14 +4041,12 @@
             }
 
             .team-member.fade-in-element {
-                opacity: 0 !important;
-                transform: translateY(20px) !important;
-                transition: opacity 0.6s ease, transform 0.6s ease !important;
+                opacity: 0;
+                transform: translateY(15px);
             }
 
             .team-member.fade-in-element.visible {
-                opacity: 1 !important;
-                transform: translateY(0) !important;
+                animation: fadeInUp 0.4s ease-out forwards;
             }
 
             /* 定价区域顶部间距 */
@@ -4133,8 +4179,8 @@
                 gap: 20px !important;
                 align-items: center !important;
                 padding: 0 16px !important;
-                width: 100vw !important;
-                margin-left: calc(-50vw + 50%) !important;
+                width: 100% !important;
+                margin-left: 0 !important;
             }
 
             .o2o-step {
@@ -4418,8 +4464,8 @@
 
             /* Feature tags 圆角按钮在页面居中 */
             .feature-tags {
-                width: 100vw !important;
-                margin-left: calc(-50vw + 50%) !important;
+                width: 100% !important;
+                margin-left: 0 !important;
                 justify-content: center !important;
                 flex-wrap: nowrap !important;
                 gap: 6px !important;
@@ -4546,8 +4592,8 @@
                 margin-bottom: 16px !important;
                 white-space: nowrap !important;
                 text-align: center !important;
-                width: 100vw !important;
-                margin-left: calc(-50vw + 50%) !important;
+                width: 100% !important;
+                margin-left: 0 !important;
             }
 
             .capabilities-grid {
@@ -4655,10 +4701,10 @@
                 flex-shrink: 0;
                 opacity: 0;
                 transform: translateY(20px);
-                transition: opacity 0.6s ease, transform 0.6s ease;
+                transition: opacity 0.5s ease-out, transform 0.5s ease-out;
             }
 
-            .social-card.fade-in-element.visible {
+            .social-card.visible {
                 opacity: 1;
                 transform: translateY(0);
             }
@@ -6648,7 +6694,7 @@
             </div>
 
             <div class="footer-bottom">
-                <p class="footer-copyright">© 2026 星擎科技. All rights reserved.</p>
+                <p class="footer-copyright">© 2026 奥创天下. All rights reserved.</p>
                 <p class="footer-copyright footer-icp">浙ICP备2026015297号-1</p>
             </div>
         </div>
@@ -6874,31 +6920,59 @@
             socialObserver.observe(socialGrid);
         }
 
-        // Fade-in animation for sections
+        // Fade-in animation for sections - 按从上到下顺序快速出现
+        function animateSection(section) {
+            // 收集所有需要动画的元素，严格按DOM顺序
+            const elementsToAnimate = [];
+
+            // 使用通用选择器，获取section内所有需要动画的元素
+            const allPossibleElements = section.querySelectorAll(
+                '.hero-tag, .hero-title, .hero-subtitle, .hero-buttons, ' +
+                '.section-title, .section-subtitle, ' +
+                '.fade-in-element, ' +
+                '.social-card, .pain-card, .agent-card, .pricing-card, ' +
+                '.case-content-wrapper, .team-member'
+            );
+
+            // 转换为数组并过滤已显示的元素
+            Array.from(allPossibleElements).forEach(el => {
+                if (!el.classList.contains('visible')) {
+                    elementsToAnimate.push(el);
+                }
+            });
+
+            // 为每个元素设置CSS动画延迟，一次性添加visible类
+            elementsToAnimate.forEach((element, index) => {
+                // 通过CSS animation-delay实现延迟，而不是JavaScript setTimeout
+                element.style.animationDelay = (index * 0.05) + 's'; // 50ms间隔
+                element.classList.add('visible');
+            });
+        }
+
         const fadeInObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // Get all fade-in elements within the section
-                    const section = entry.target;
-                    const fadeElements = section.querySelectorAll('.fade-in-element');
-
-                    fadeElements.forEach((element, index) => {
-                        setTimeout(() => {
-                            element.classList.add('visible');
-                        }, index * 150); // 150ms delay between each element
-                    });
+                    animateSection(entry.target);
                 }
             });
         }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+            threshold: 0.05,
+            rootMargin: '0px 0px -30px 0px'
         });
 
         // Observe sections with fade-in elements
-        const sectionsToAnimate = document.querySelectorAll('.ai-agents-section, .case-study-section, .team-section, .pricing-section, .cta-section, .stats-section, .pain-points-section');
+        const sectionsToAnimate = document.querySelectorAll('.hero, .ai-agents-section, .case-study-section, .team-section, .pricing-section, .cta-section, .stats-section, .pain-points-section, .o2o-section');
         sectionsToAnimate.forEach(section => {
             fadeInObserver.observe(section);
         });
+
+        // 页面加载后立即触发首屏动画
+        setTimeout(() => {
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                animateSection(hero);
+            }
+        }, 100);
 
         // Team scroll effect
         function handleTeamScroll() {
