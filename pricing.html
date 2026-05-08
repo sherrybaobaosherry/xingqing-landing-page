@@ -110,7 +110,7 @@
         }
 
         .nav-logo img {
-            height: 28px;
+            height: 40px;
             width: auto;
         }
 
@@ -181,7 +181,7 @@
         }
 
         .footer-logo {
-            height: 32px;
+            height: 48px;
             margin-bottom: 16px;
         }
 
@@ -258,12 +258,12 @@
             /* Nav container height */
             .nav-container {
                 height: 60px !important;
-                padding: 0 16px !important;
+                padding: 0 20px !important;
             }
 
             /* Nav logo size */
             .nav-logo img {
-                height: 20px !important;
+                height: 28px !important;
             }
 
             /* Page title and subtitle */
@@ -492,16 +492,21 @@
 
             /* Mobile footer layout */
             .footer-grid {
-                display: flex !important;
-                flex-direction: column !important;
-                align-items: center !important;
-                gap: 0 !important;
-                margin-bottom: 0 !important;
+                display: block !important;
                 text-align: center !important;
+                margin-bottom: 0 !important;
+            }
+
+            .footer-grid > div:not(.footer-brand) {
+                display: inline-block !important;
+                vertical-align: top !important;
             }
 
             .footer-brand {
-                margin-bottom: 0 !important;
+                margin-bottom: 16px !important;
+                width: 100% !important;
+                text-align: center !important;
+                display: block !important;
             }
 
             .footer-brand .footer-tagline {
@@ -509,12 +514,46 @@
             }
 
             .footer-logo {
-                height: 24px !important;
+                height: 36px !important;
                 margin-bottom: 0 !important;
+                display: block !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
             }
 
             .footer-column {
+                display: inline-block !important;
+                margin: 0 !important;
+                vertical-align: top !important;
+            }
+
+            .footer-column h4 {
                 display: none !important;
+            }
+
+            .footer-column ul.footer-links {
+                display: inline-block !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            .footer-column ul.footer-links li {
+                display: inline-block !important;
+                margin: 0 !important;
+            }
+
+            .footer-column ul.footer-links li a {
+                font-size: 12px !important;
+            }
+
+            .footer-column ul.footer-links li::after {
+                content: ' | ';
+                color: rgba(255, 255, 255, 0.5);
+                margin: 0 4px;
+            }
+
+            .footer-column:last-of-type ul.footer-links li:last-child::after {
+                content: '';
             }
 
             .footer-bottom {
@@ -525,14 +564,11 @@
                 margin-top: 0 !important;
                 padding-top: 12px !important;
                 text-align: center !important;
+                border-top: none !important;
             }
 
             .footer-bottom::before {
-                content: '功能特性 ｜ 定价方案 ｜ 联系我们 ｜ 隐私政策';
-                display: block;
-                font-size: 12px;
-                color: rgba(255, 255, 255, 0.5);
-                margin-bottom: 0px;
+                display: none !important;
             }
 
             .footer-copyright {
@@ -557,7 +593,7 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="nav-logo">
-                <img src="images/创视星擎.svg" alt="星擎">
+                <img src="images/aochuang-logo.png" alt="奥创天下">
             </a>
             <button class="mobile-menu-toggle" aria-label="菜单">
                 <span></span>
@@ -565,10 +601,8 @@
                 <span></span>
             </button>
             <ul class="nav-menu">
-                <li><a href="index.html#solution" class="nav-link">解决方案</a></li>
-                <li><a href="product.html" class="nav-link">产品</a></li>
+                <li><a href="product.html" class="nav-link">星擎</a></li>
                 <li><a href="pricing.html" class="nav-link">定价</a></li>
-                <li><a href="index.html#about" class="nav-link">关于</a></li>
             </ul>
         </div>
     </nav>
@@ -914,15 +948,15 @@
         <div class="max-w-7xl mx-auto px-8">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <img src="images/创视星擎.svg" alt="星擎" class="footer-logo">
+                    <img src="images/aochuang-logo.png" alt="奥创天下" class="footer-logo">
                     <p class="footer-tagline">重新定义短视频创作，让AI为您的创意赋能</p>
                 </div>
 
                 <div class="footer-column">
                     <h4>产品</h4>
                     <ul class="footer-links">
-                        <li><a href="#product">功能特性</a></li>
-                        <li><a href="#pricing">定价方案</a></li>
+                        <li><a href="product.html">功能特性</a></li>
+                        <li><a href="pricing.html">定价方案</a></li>
                     </ul>
                 </div>
 

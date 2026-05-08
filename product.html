@@ -703,7 +703,7 @@
         }
 
         .nav-logo img {
-            height: 28px;
+            height: 40px;
             width: auto;
         }
 
@@ -1254,7 +1254,7 @@
         }
 
         .footer-logo {
-            height: 32px;
+            height: 48px;
             margin-bottom: 16px;
         }
 
@@ -1400,7 +1400,7 @@
             }
 
             .nav-logo img {
-                height: 20px !important;
+                height: 28px !important;
             }
 
             ul.nav-menu,
@@ -1576,16 +1576,21 @@
 
             /* Mobile footer layout */
             .footer-grid {
-                display: flex !important;
-                flex-direction: column !important;
-                align-items: center !important;
-                gap: 0 !important;
-                margin-bottom: 0 !important;
+                display: block !important;
                 text-align: center !important;
+                margin-bottom: 0 !important;
+            }
+
+            .footer-grid > div:not(.footer-brand) {
+                display: inline-block !important;
+                vertical-align: top !important;
             }
 
             .footer-brand {
-                margin-bottom: 0 !important;
+                margin-bottom: 16px !important;
+                width: 100% !important;
+                text-align: center !important;
+                display: block !important;
             }
 
             .footer-brand .footer-tagline {
@@ -1593,12 +1598,46 @@
             }
 
             .footer-logo {
-                height: 24px !important;
+                height: 36px !important;
                 margin-bottom: 0 !important;
+                display: block !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
             }
 
             .footer-column {
+                display: inline-block !important;
+                margin: 0 !important;
+                vertical-align: top !important;
+            }
+
+            .footer-column h4 {
                 display: none !important;
+            }
+
+            .footer-column ul.footer-links {
+                display: inline-block !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            .footer-column ul.footer-links li {
+                display: inline-block !important;
+                margin: 0 !important;
+            }
+
+            .footer-column ul.footer-links li a {
+                font-size: 12px !important;
+            }
+
+            .footer-column ul.footer-links li::after {
+                content: ' | ';
+                color: rgba(255, 255, 255, 0.5);
+                margin: 0 4px;
+            }
+
+            .footer-column:last-of-type ul.footer-links li:last-child::after {
+                content: '';
             }
 
             .footer-bottom {
@@ -1609,14 +1648,11 @@
                 margin-top: 0 !important;
                 padding-top: 12px !important;
                 text-align: center !important;
+                border-top: none !important;
             }
 
             .footer-bottom::before {
-                content: '功能特性 ｜ 定价方案 ｜ 联系我们 ｜ 隐私政策';
-                display: block;
-                font-size: 12px;
-                color: rgba(255, 255, 255, 0.5);
-                margin-bottom: 0px;
+                display: none !important;
             }
 
             .footer-copyright {
@@ -2384,14 +2420,39 @@
                 flex-shrink: 0 !important;
             }
 
-            /* SVG icon确保可见 */
-            .social-badge svg {
+            /* SVG icon颜色 - 分别设置 */
+            .social-badge:nth-child(1) svg {
                 color: #ef4444 !important;
+            }
+
+            .social-badge:nth-child(2) svg {
+                color: #3b82f6 !important;
+            }
+
+            .social-badge:nth-child(3) svg {
+                color: #10b981 !important;
+            }
+
+            .social-badge:nth-child(4) svg {
+                color: #A78BFA !important;
             }
 
             .social-badge svg path {
                 fill: currentColor !important;
                 opacity: 1 !important;
+            }
+
+            /* 播放量icon - 眼睛外轮廓用stroke，中心圈用黑色填充 */
+            .social-badge:nth-child(3) svg path:first-child {
+                fill: none !important;
+                stroke: #10b981 !important;
+                stroke-width: 2 !important;
+            }
+
+            .social-badge:nth-child(3) svg path:last-child {
+                fill: #000000 !important;
+                stroke: #10b981 !important;
+                stroke-width: 1 !important;
             }
 
             /* 隐藏Figma img，用伪元素SVG替换 */
@@ -2411,19 +2472,24 @@
                 flex-shrink: 0 !important;
             }
 
-            /* 分享icon - 蓝色 */
+            /* 点赞icon - 红色 */
+            .social-badge:nth-child(1)::before {
+                background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ef4444"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') !important;
+            }
+
+            /* 分享icon - 蓝色描边 */
             .social-badge:nth-child(2)::before {
-                background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%233b82f6" stroke="%233b82f6" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>') !important;
+                background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%233b82f6" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>') !important;
             }
 
-            /* 播放量icon - 绿色 */
+            /* 播放量icon - 绿色描边，黑色中心圈 */
             .social-badge:nth-child(3)::before {
-                background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2310b981"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>') !important;
+                background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%2310b981" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3" fill="%23000000" stroke="%2310b981"/></svg>') !important;
             }
 
-            /* 评论icon - 紫色 */
+            /* 评论icon - 紫色填充 (与web端一致) */
             .social-badge:nth-child(4)::before {
-                background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23a855f7"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>') !important;
+                background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23A78BFA"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>') !important;
             }
 
             .social-badge span {
@@ -2447,7 +2513,7 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="nav-logo">
-                <img src="images/创视星擎.svg" alt="星擎" width="120" height="32">
+                <img src="images/aochuang-logo.png" alt="奥创天下">
             </a>
             <button class="mobile-menu-toggle" aria-label="菜单">
                 <span></span>
@@ -2455,10 +2521,8 @@
                 <span></span>
             </button>
             <ul class="nav-menu">
-                <li><a href="index.html#solution" class="nav-link">解决方案</a></li>
-                <li><a href="product.html" class="nav-link">产品</a></li>
+                <li><a href="product.html" class="nav-link">星擎</a></li>
                 <li><a href="pricing.html" class="nav-link">定价</a></li>
-                <li><a href="index.html#about" class="nav-link">关于</a></li>
             </ul>
         </div>
     </nav>
@@ -3414,15 +3478,15 @@
         <div class="container" style="max-width: 1280px; margin: 0 auto; padding: 0 20px; box-sizing: border-box;">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <img src="images/创视星擎.svg" alt="星擎" class="footer-logo">
+                    <img src="images/aochuang-logo.png" alt="奥创天下" class="footer-logo">
                     <p class="footer-tagline">重新定义短视频创作，让AI为您的创意赋能</p>
                 </div>
 
                 <div class="footer-column">
                     <h4>产品</h4>
                     <ul class="footer-links">
-                        <li><a href="#product">功能特性</a></li>
-                        <li><a href="#pricing">定价方案</a></li>
+                        <li><a href="product.html">功能特性</a></li>
+                        <li><a href="pricing.html">定价方案</a></li>
                     </ul>
                 </div>
 
