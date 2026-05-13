@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>星擎 - 您的全自动AI海外市场部</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
     <style>
 
         /* Smooth scrolling with performance */
@@ -155,7 +156,7 @@
         }
 
         .nav-logo img {
-            height: 40px;
+            height: 30px;
             width: auto;
         }
 
@@ -397,13 +398,20 @@
             box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
         }
 
+        /* Web端隐藏首屏立即体验按钮 */
+        @media (min-width: 769px) {
+            .hero .btn-primary {
+                display: none;
+            }
+        }
+
         .btn-primary:hover {
             transform: translateY(-2px) scale(1.05);
             box-shadow: 0 8px 30px rgba(255, 255, 255, 0.3);
         }
 
         .btn-secondary {
-            padding: 20px 40px;
+            padding: 20px 50px;
             background: transparent;
             color: white;
             border: 2px solid rgba(255, 255, 255, 0.2);
@@ -3447,7 +3455,7 @@
         }
 
         .footer-logo {
-            height: 48px;
+            height: 30px;
             margin-bottom: 16px;
         }
 
@@ -3455,7 +3463,9 @@
             font-size: 14px;
             color: rgba(255, 255, 255, 0.4);
             line-height: 1.6;
-            text-align: left;
+            text-align: justify;
+            text-align-last: justify;
+            width: 142px;
         }
 
         .footer-column {
@@ -3483,7 +3493,7 @@
 
         .footer-links a {
             font-size: 14px;
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(255, 255, 255, 0.4);
             text-decoration: none;
             transition: all 0.3s;
         }
@@ -3577,65 +3587,33 @@
             }
 
             .nav-logo img {
-                height: 28px;
+                height: 24px;
             }
 
             .nav-menu {
-                display: none;
+                display: flex !important;
+                position: static !important;
+                flex-direction: row !important;
+                gap: 12px !important;
+                background: transparent !important;
+                backdrop-filter: none !important;
+                border: none !important;
+                padding: 0 !important;
+                z-index: auto !important;
             }
 
             .mobile-menu-toggle {
-                display: flex !important;
-                flex-direction: column;
-                gap: 4px;
-                width: 20px;
-                height: 20px;
-                background: none;
-                border: none;
-                cursor: pointer;
-                padding: 0;
-                justify-content: center;
-                position: relative;
-                top: -3px;
-            }
-
-            .mobile-menu-toggle span {
-                display: block;
-                width: 18px;
-                height: 2px;
-                background: white;
-                border-radius: 2px;
-                transition: all 0.3s;
-            }
-
-            .nav-menu {
-                display: none;
-                position: fixed;
-                top: 60px;
-                left: 0;
-                right: 0;
-                width: 100%;
-                background: rgba(3, 3, 8, 0.98);
-                backdrop-filter: blur(10px);
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                padding: 20px 0;
-                z-index: 999;
-                flex-direction: column;
-                gap: 0;
-            }
-
-            .nav-menu.active {
-                display: flex !important;
+                display: none !important;
             }
 
             .nav-menu li {
-                width: 100%;
+                width: auto !important;
             }
 
             .nav-link {
                 display: block;
-                padding: 16px 24px;
-                width: 100%;
+                padding: 8px 12px !important;
+                width: auto !important;
                 text-align: center;
                 font-size: 14px;
             }
@@ -4043,6 +4021,11 @@
                 animation: fadeInUp 0.4s ease-out forwards;
             }
 
+            /* 第一页4个团队成员往左移动10px */
+            .team-horizontal-section:first-child .team-grid {
+                margin-left: -10px !important;
+            }
+
             /* 定价区域顶部间距 */
             .pricing-section {
                 padding-top: 60px !important;
@@ -4143,6 +4126,11 @@
                 padding: 60px 0 60px 0 !important;
             }
 
+            .o2o-section::before,
+            .o2o-section::after {
+                display: none !important;
+            }
+
             /* O2O tab样式同案例tab */
             .o2o-tabs {
                 gap: 12px !important;
@@ -4187,6 +4175,8 @@
                 align-items: flex-start !important;
                 width: 280px !important;
                 text-align: left !important;
+                position: relative !important;
+                padding-bottom: 30px !important;
             }
 
             .o2o-icon {
@@ -4251,14 +4241,6 @@
                 background-clip: text !important;
             }
 
-            .o2o-step {
-                position: relative !important;
-                padding-bottom: 30px !important;
-            }
-
-            .o2o-icon {
-                position: relative !important;
-            }
 
             /* CTA Section */
             .cta-section {
@@ -4946,7 +4928,7 @@
             }
 
             .footer-logo {
-                height: 36px !important;
+                height: 24px !important;
                 margin-bottom: 0 !important;
                 display: block !important;
                 margin-left: auto !important;
@@ -4980,7 +4962,7 @@
 
             .footer-column ul.footer-links li::after {
                 content: ' | ';
-                color: rgba(255, 255, 255, 0.5);
+                color: rgba(255, 255, 255, 0.4);
                 margin: 0 4px;
             }
 
@@ -5008,7 +4990,7 @@
             }
 
             .footer-copyright {
-                color: rgba(255, 255, 255, 0.5);
+                color: rgba(255, 255, 255, 0.4);
                 margin: 0 !important;
                 font-size: 12px !important;
                 line-height: 12px !important;
@@ -5223,7 +5205,11 @@
             }
 
             .gradient-orb-1,
-            .gradient-orb-2,
+            .gradient-orb-2 {
+                animation: none !important;
+                opacity: 0.6;
+            }
+
             .star,
             .shooting-star,
             .team-star {
@@ -5279,7 +5265,7 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="nav-logo">
-                <img src="images/aochuang-logo.png" alt="奥创天下">
+                <img src="images/xingqing-logo.svg" alt="创视星擎">
             </a>
             <ul class="nav-menu">
                 <li><a href="product.html" class="nav-link">星擎</a></li>
@@ -6000,6 +5986,20 @@
                             <div class="team-member fade-in-element">
                                 <div class="team-avatar">
                                     <div class="team-avatar-inner">
+                                        <img  src="images/大师.png" alt="赵维杰">
+                                    </div>
+                                </div>
+                                <h3 class="team-name">赵维杰</h3>
+                                <div class="team-divider"></div>
+                                <p class="team-role">百亿级人工智能企业创始人<br>AI科学家与企业AI增长领军者</p>
+                                <div class="team-info">
+                                    <p class="team-tag">奥创天下总经理<br>Versa创始人CTO<br>上海交大脑科学与AI联合实验室主任<br>上海市科委专家</p>
+                                </div>
+                            </div>
+
+                            <div class="team-member fade-in-element">
+                                <div class="team-avatar">
+                                    <div class="team-avatar-inner">
                                         <img  src="images/郑伟.png" alt="郑伟">
                                     </div>
                                 </div>
@@ -6028,28 +6028,14 @@
                             <div class="team-member fade-in-element">
                                 <div class="team-avatar">
                                     <div class="team-avatar-inner">
-                                        <img  src="images/大师.png" alt="赵维杰">
-                                    </div>
-                                </div>
-                                <h3 class="team-name">赵维杰</h3>
-                                <div class="team-divider"></div>
-                                <p class="team-role">顶级AI算法专家与架构师<br>1亿+用户级产品架构师</p>
-                                <div class="team-info">
-                                    <p class="team-tag">Versa创始人CTO<br>前华为海思AI团队创始人<br>上海交大脑科学与AI实验室主任<br>市科委科技专家</p>
-                                </div>
-                            </div>
-
-                            <div class="team-member fade-in-element">
-                                <div class="team-avatar">
-                                    <div class="team-avatar-inner">
                                         <img  src="images/tianyi.png" alt="蔡天懿">
                                     </div>
                                 </div>
                                 <h3 class="team-name">蔡天懿</h3>
                                 <div class="team-divider"></div>
-                                <p class="team-role">Versa 创始人兼首席执行官<br>连续创业家与数字创作领航者</p>
+                                <p class="team-role">AI连续创业者获十亿+投资<br>企业AI增长产品行业领袖</p>
                                 <div class="team-info">
-                                    <p class="team-tag">Versa创始人 CEO<br>硅谷、中国连续成功创业者<br>前格瓦拉产品合伙人<br>获得红杉、真格等10亿+融资</p>
+                                    <p class="team-tag">Versa创始人 CEO<br>硅谷、中国连续成功创业者<br>上海市千人计划<br>获红杉/腾讯/B站等10亿+投资</p>
                                 </div>
                             </div>
                         </div>
@@ -6147,7 +6133,7 @@
     </div>
 
     <!-- Pricing Section -->
-    <section class="pricing-section" id="pricing" aria-labelledby="pricing-title" id="pricing">
+    <section class="pricing-section" id="pricing" aria-labelledby="pricing-title" id="pricing" style="display: none;">
         <!-- Background Gradient -->
         <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;">
             <div style="position: relative; width: 1600px; height: 1000px;">
@@ -6707,8 +6693,8 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <img src="images/aochuang-logo.png" alt="奥创天下" class="footer-logo">
-                    <p class="footer-tagline">重新定义短视频创作，让AI为您的创意赋能</p>
+                    <img src="images/xingqing-logo.svg" alt="创视星擎" class="footer-logo">
+                    <p class="footer-tagline">重新定义短视频创作</p>
                 </div>
 
                 <div class="footer-column">
