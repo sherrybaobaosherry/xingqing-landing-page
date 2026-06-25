@@ -2148,7 +2148,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 200px 0 80px 0;
+            padding: 280px 0 80px 0;
         }
 
         .team-horizontal-section .container {
@@ -2264,6 +2264,27 @@
         .team-stars-container .team-star:nth-child(34) { width: 1px; height: 1px; left: 62%; top: 32%; animation-duration: 4.1s; animation-delay: 3.7s; }
         .team-stars-container .team-star:nth-child(35) { width: 2px; height: 2px; left: 78%; top: 55%; animation-duration: 4.8s; animation-delay: 4.6s; }
         .team-stars-container .team-star:nth-child(36) { width: 1.2px; height: 1.2px; left: 26%; top: 62%; animation-duration: 3.8s; animation-delay: 2s; }
+
+        /* 针对1080及以下高度屏幕优化 */
+        @media (max-height: 1080px) {
+            .team-fixed-header {
+                padding-top: 80px;
+            }
+
+            .team-horizontal-section {
+                padding: 240px 0 80px 0;
+            }
+        }
+
+        @media (max-height: 900px) {
+            .team-fixed-header {
+                padding-top: 60px;
+            }
+
+            .team-horizontal-section {
+                padding: 200px 0 60px 0;
+            }
+        }
 
         @media (prefers-reduced-motion: reduce) {
             .team-star {
@@ -5689,7 +5710,7 @@
                 <img src="images/视星擎.svg" alt="创视星擎">
             </a>
             <ul class="nav-menu">
-                <li><a href="https://xingqing.ultronx.tech/login" class="nav-link">星擎</a></li>
+                <li><a href="https://xingqing.ultronx.tech/login" class="nav-link" id="xingqing-login-link">星擎</a></li>
                 <li><a href="pricing.html" class="nav-link">定价</a></li>
             </ul>
             <button class="mobile-menu-toggle" aria-label="打开菜单">
@@ -6647,7 +6668,7 @@
                                 <div class="team-divider"></div>
                                 <p class="team-role">米奥兰特高级副总裁<br>会展行业营销专家</p>
                                 <div class="team-info">
-                                    <p class="team-tag">深耕展会行业17年<br>数字外贸会展领域权威专家<br>米奥兰特AI慧展事业部领导者<br>智能化赋能标杆展商超300家</p>
+                                    <p class="team-tag">深耕展会行业17年<br>数字外贸会展领域权威专家<br>米奥兰特AI事业部领导者<br>智能化赋能标杆展商超300家</p>
                                 </div>
                             </div>
 
@@ -7882,6 +7903,40 @@
                 }, { threshold: 0.5 });
                 observer.observe(video);
             }
+        })();
+
+        // 星擎登录链接智能跳转（桌面端/移动端）
+        (function() {
+            const loginLink = document.getElementById('xingqing-login-link');
+            if (!loginLink) return;
+
+            loginLink.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                // 检测是否为移动设备
+                const userAgent = navigator.userAgent;
+                const screenWidth = window.innerWidth;
+                const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+                const isMobileScreen = screenWidth <= 768;
+                const isMobile = isMobileUA || isMobileScreen;
+
+                // 调试信息（可以在控制台查看）
+                console.log('设备检测信息:');
+                console.log('User-Agent:', userAgent);
+                console.log('屏幕宽度:', screenWidth);
+                console.log('UA检测为移动端:', isMobileUA);
+                console.log('屏幕检测为移动端:', isMobileScreen);
+                console.log('最终判断为移动端:', isMobile);
+
+                // 根据设备类型跳转
+                if (isMobile) {
+                    console.log('跳转到移动端:', 'https://m.ultronx.tech/login');
+                    window.location.href = 'https://m.ultronx.tech/login';
+                } else {
+                    console.log('跳转到桌面端:', 'https://xingqing.ultronx.tech/login');
+                    window.location.href = 'https://xingqing.ultronx.tech/login';
+                }
+            });
         })();
 
     </script>
