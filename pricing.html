@@ -635,7 +635,7 @@
                 <span></span>
             </button>
             <ul class="nav-menu">
-                <li><a href="https://xingqing.ultronx.tech/login" class="nav-link">星擎</a></li>
+                <li><a href="https://xingqing.ultronx.tech/login" class="nav-link" id="xingqing-login-link">星擎</a></li>
                 <li><a href="pricing.html" class="nav-link">定价</a></li>
             </ul>
         </div>
@@ -1131,6 +1131,27 @@
                 });
             }
         }
+
+        // 星擎登录链接智能跳转（桌面端/移动端）
+        (function() {
+            const loginLink = document.getElementById('xingqing-login-link');
+            if (!loginLink) return;
+
+            loginLink.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                // 检测是否为移动设备
+                const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+                              || window.innerWidth <= 768;
+
+                // 根据设备类型跳转
+                if (isMobile) {
+                    window.location.href = 'https://m.ultronx.tech/login';
+                } else {
+                    window.location.href = 'https://xingqing.ultronx.tech/login';
+                }
+            });
+        })();
     </script>
 </body>
 </html>
