@@ -1,0 +1,3868 @@
+<!DOCTYPE html>
+<html lang="zh-CN" style="color-scheme: dark;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+    <title>星帆 - TikTok Shop 智能电商全托管</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+        @font-face {
+            font-family: 'DIN Alternate';
+            src: local('DIN Alternate Bold'), local('DINAlternate-Bold');
+            font-weight: bold;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+        }
+
+        html {
+            overflow-y: scroll;
+            overflow-x: hidden;
+            scrollbar-gutter: stable;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            margin: 0;
+        }
+
+        /* Hide scrollbar on mobile */
+        @media (max-width: 768px) {
+            html::-webkit-scrollbar {
+                display: none;
+            }
+
+            html {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+        }
+
+        /* 修复渐变文字 */
+        .gradient-text {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+
+        /* Scroll animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .animate-on-scroll.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 移动端专用换行符在桌面端隐藏 */
+        .mobile-only-br {
+            display: none;
+        }
+
+        /* Hover animations - 排除Hero按钮 */
+        button:not(.hero-btn) {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        button:not(.hero-btn):hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.3);
+        }
+
+        button:not(.hero-btn):active {
+            transform: translateY(0) scale(1);
+        }
+
+        /* Hero 按钮特殊效果 */
+        .hero-btn:active {
+            transform: translateY(-1px) scale(0.98) !important;
+        }
+
+        /* Hero标题显示控制 - Web端显示desktop版本，隐藏mobile版本 */
+        .hero-title-desktop {
+            display: block;
+        }
+
+        .hero-title-mobile {
+            display: none;
+        }
+
+        /* Agent cards hover effect */
+        .agent-card {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .agent-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .agent-hover-trigger {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .agent-hover-trigger:hover {
+            transform: translateY(-8px);
+        }
+
+        /* Agent avatar hover scale */
+        .agent-card:hover .glow-pulse,
+        .agent-hover-trigger:hover .glow-pulse {
+            transform: scale(1.15);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glow-pulse {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Social media cards hover */
+        .social-card {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .social-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Pricing cards hover */
+        .pricing-card {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(139, 92, 246, 0.3);
+        }
+
+        .pricing-card.active-card {
+            border: 2px solid rgba(122, 122, 255, 0.8) !important;
+        }
+
+        /* Feature items fade in */
+        .feature-item {
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+
+        .feature-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Floating animation for badges */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .floating-badge {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Gradient text animation */
+        @keyframes gradient-shift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .gradient-text {
+            background-size: 200% auto;
+        }
+
+        /* Pulse animation for "最受欢迎" badge */
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        /* Background gradient breathing animation */
+        @keyframes breathe {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.8;
+            }
+        }
+
+        .gradient-breathe {
+            animation: breathe 8s ease-in-out infinite;
+        }
+
+        /* Floating animation for agent icons - DISABLED */
+        @keyframes float-agent {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(0px);
+            }
+        }
+
+        .agent-float {
+            /* animation removed */
+        }
+
+        /* Glow pulse animation */
+        @keyframes glow-pulse {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(139, 92, 246, 0.6);
+            }
+        }
+
+        .glow-pulse {
+            animation: glow-pulse 3s ease-in-out infinite;
+        }
+
+        /* Number count animation */
+        .number-count {
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+
+        /* Fade up animation */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-up {
+            animation: fadeUp 0.8s ease-out forwards;
+        }
+
+        /* Stagger children animations */
+        .stagger-children > * {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .stagger-children.animate > *:nth-child(1) { transition-delay: 0.1s; }
+        .stagger-children.animate > *:nth-child(2) { transition-delay: 0.2s; }
+        .stagger-children.animate > *:nth-child(3) { transition-delay: 0.3s; }
+        .stagger-children.animate > *:nth-child(4) { transition-delay: 0.4s; }
+        .stagger-children.animate > *:nth-child(5) { transition-delay: 0.5s; }
+        .stagger-children.animate > *:nth-child(6) { transition-delay: 0.6s; }
+        .stagger-children.animate > *:nth-child(7) { transition-delay: 0.7s; }
+
+        .stagger-children.animate > * {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Shimmer effect for pricing cards */
+        @keyframes shimmer {
+            0% {
+                background-position: -1000px 0;
+            }
+            100% {
+                background-position: 1000px 0;
+            }
+        }
+
+        .shimmer {
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            background-size: 1000px 100%;
+            animation: shimmer 3s infinite;
+        }
+
+        /* Parallax blur */
+        .parallax-blur {
+            will-change: transform;
+            transition: transform 0.1s ease-out;
+        }
+
+        /* 页面加载淡入动画 */
+        body {
+            animation: pageLoadFadeIn 1.2s ease-out;
+        }
+
+        @keyframes pageLoadFadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* 光标悬停放大效果 */
+        nav a, footer a {
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        nav a:hover, footer a:hover {
+            transform: scale(1.05);
+        }
+
+        button:not(.bg-white):not([class*="border-2"]) {
+            transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* 视频链接按钮样式 */
+        a[href*=".mp4"] {
+            text-decoration: none;
+        }
+
+        /* 标题文字逐字显现 */
+        .char-animate {
+            display: inline-block;
+            opacity: 0;
+            animation: charFadeIn 0.5s ease forwards;
+        }
+
+        @keyframes charFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 围绕中心缓慢旋转的背景渐变效果 */
+        .gradient-orbit {
+            animation: orbitRotate 40s linear infinite;
+            transform-origin: center center;
+            will-change: transform;
+        }
+
+        @keyframes orbitRotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* 渐变色块的透明度嬉戏动画 + 缩放 */
+        .gradient-fade-1 {
+            animation: fadePlay1 25s ease-in-out infinite;
+            transform-origin: center center;
+        }
+
+        .gradient-fade-2 {
+            animation: fadePlay2 25s ease-in-out infinite;
+            transform-origin: center center;
+        }
+
+        @keyframes fadePlay1 {
+            0%, 100% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.2;
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes fadePlay2 {
+            0%, 100% {
+                opacity: 0.2;
+                transform: scale(1.2);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+        }
+
+        /* ── 首屏底图缓慢漂移（只动 transform，合成层，不上重排/重绘） ── */
+        .hero-bg-image {
+            animation: heroBgDrift 48s ease-in-out infinite alternate, heroBgBreathe 24s ease-in-out infinite;
+            transform-origin: center center;
+            will-change: transform, opacity;
+        }
+        @keyframes heroBgBreathe {
+            0%, 100% { opacity: 0.76; }
+            50%      { opacity: 0.9; }
+        }
+
+        /* 手机端：底图按宽度铺满，避免 cover 把底部地图放大裁碎 */
+        @media (max-width: 768px) {
+            .hero-bg-image {
+                background-image: url('images/xingfan-hero-mobile-v2.jpg') !important;
+                background-size: cover !important;
+                background-position: center bottom !important;
+            }
+        }
+
+        /* ── 首屏底部地图层（只保留地图，无商品） ── */
+        .hero-map-layer {
+            position: absolute; left: 0; right: 0; bottom: 0; height: 42%;
+            background-image: url('images/xingfan-hero-map.jpg');
+            background-repeat: no-repeat;
+            background-position: center bottom;
+            background-size: 100% auto;
+            pointer-events: none;
+            animation: heroMapBreathe 24s ease-in-out infinite;
+        }
+        @keyframes heroMapBreathe {
+            0%, 100% { opacity: 0.84; }
+            50%      { opacity: 1; }
+        }
+        @media (max-width: 768px) { .hero-map-layer { background-size: 170% auto; } }
+        @keyframes heroBgDrift {
+            0%   { transform: scale(1.06) translate3d(0, 0, 0); }
+            100% { transform: scale(1.13) translate3d(0, -1.5%, 0); }
+        }
+
+        /* ── 首屏 TK 装饰元素：极慢浮动 ── */
+        .tk-float-a { animation: tkFloatA 18s ease-in-out infinite; will-change: transform; }
+        .tk-float-b { animation: tkFloatB 26s ease-in-out infinite; will-change: transform; }
+        @keyframes tkFloatA {
+            0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+            50%      { transform: translate3d(0, -16px, 0) rotate(3deg); }
+        }
+        @keyframes tkFloatB {
+            0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+            50%      { transform: translate3d(0, 14px, 0) rotate(-2.5deg); }
+        }
+        @media (max-width: 900px) { .tk-deco { display: none; } }
+
+        /* ── 区块背景光晕缓慢呼吸（只动 opacity） ── */
+        .glow-breathe { animation: glowBreathe 18s ease-in-out infinite; }
+        @keyframes glowBreathe {
+            0%, 100% { opacity: 0.42; }
+            50%      { opacity: 0.64; }
+        }
+
+        /* Hero 内容从上到下加载动画 */
+        .hero-item {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: heroFadeIn 0.8s ease forwards;
+        }
+
+        @keyframes heroFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 数字翻滚效果 */
+        .number-flip {
+            display: inline-block;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.1s ease;
+        }
+
+        /* 确保渐变文字效果正确应用 */
+        .number-flip.gradient-text {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* 滚动指示器动画 */
+        .scroll-indicator {
+            animation: scrollBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollBounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(8px);
+            }
+        }
+
+        /* 特性卡片向上渐现动画 */
+        .feature-card-left,
+        .feature-card-right {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .feature-card-left.animate-in,
+        .feature-card-right.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Agent hover 详情显示 */
+        .agent-hover-trigger {
+            cursor: pointer;
+        }
+
+        .agent-details {
+            position: relative;
+            padding: 24px;
+            border-radius: 24px;
+        }
+
+        .agent-details.show {
+            opacity: 1 !important;
+        }
+
+        /* 社交媒体背景旋转 */
+        .social-bg-orbit {
+            animation: socialOrbitRotate 60s linear infinite;
+            transform-origin: center center;
+            will-change: transform;
+        }
+
+        @keyframes socialOrbitRotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* 社交媒体浮动徽章动画 */
+        .social-badge {
+            transform: scale(0) translateY(20px);
+            transition: opacity 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .social-badge.show {
+            opacity: 0.7 !important;
+            transform: scale(1) translateY(0);
+        }
+
+        .social-badge:nth-child(2).show {
+            opacity: 0.5 !important;
+        }
+
+        .social-badge:nth-child(3).show {
+            opacity: 0.5 !important;
+        }
+
+        .social-badge:nth-child(4).show {
+            opacity: 0.8 !important;
+        }
+
+        /* 社交媒体第二行动画 */
+        .social-row-2 > * {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .social-row-2.animate > *:nth-child(1) {
+            transition-delay: 0.1s;
+        }
+
+        .social-row-2.animate > *:nth-child(2) {
+            transition-delay: 0.2s;
+        }
+
+        .social-row-2.animate > * {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 工作流步骤交互 */
+        .workflow-step {
+            position: relative;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            cursor: pointer !important;
+            user-select: none;
+        }
+
+        .workflow-step:hover {
+            /* 移除背景色 */
+        }
+
+        .workflow-step .step-text {
+            transition: color 0.3s ease;
+            pointer-events: none;
+        }
+
+        .workflow-step .step-underline {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .workflow-step.active {
+            position: relative;
+        }
+
+        .workflow-step.active .step-text {
+            color: white !important;
+        }
+
+        .workflow-step.active .step-underline {
+            opacity: 1 !important;
+        }
+
+        .workflow-step:hover .step-text {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Dashboard animations */
+        @keyframes fadeInFloat {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .data-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .dashboard-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(77, 159, 255, 0.3);
+            border-color: rgba(77, 159, 255, 0.4);
+        }
+
+        /* CTA section orbital rotation */
+        .cta-orbit {
+            animation: ctaOrbitRotate 50s linear infinite;
+            transform-origin: center center;
+        }
+
+        @keyframes ctaOrbitRotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .cta-gradient-1 {
+            position: absolute;
+            top: 5%;
+            left: 25%;
+            margin-left: -350px;
+            animation: ctaFade1 30s ease-in-out infinite;
+        }
+
+        .cta-gradient-2 {
+            position: absolute;
+            bottom: 10%;
+            right: 20%;
+            margin-right: -325px;
+            animation: ctaFade2 30s ease-in-out infinite;
+        }
+
+        @keyframes ctaFade1 {
+            0%, 100% {
+                opacity: 0.4;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.7;
+                transform: scale(1.1);
+            }
+        }
+
+        @keyframes ctaFade2 {
+            0%, 100% {
+                opacity: 0.7;
+                transform: scale(1.1);
+            }
+            50% {
+                opacity: 0.4;
+                transform: scale(1);
+            }
+        }
+
+        /* 尾屏标签：桌面强制一行；手机端保持自然换行（不强制） */
+        @media (min-width: 769px) {
+            .cta-tags { flex-wrap: nowrap; }
+        }
+
+        /* 星帆是什么 段落：换行只在桌面生效 */
+        .intro-br { display: none; }
+        @media (min-width: 769px) { .intro-br { display: inline; } }
+
+        /* 手机端：核心交付 / 星擎+星帆 / 真实数据 —— 一行 2 块 */
+        @media (max-width: 768px) {
+            #xf-core-grid, #xf-dual-grid, #xf-data-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 12px !important;
+            }
+            #xf-core-grid > div, #xf-dual-grid > div { padding: 18px !important; border-radius: 20px !important; }
+            #xf-core-grid h3, #xf-dual-grid h3 { font-size: 16px !important; margin-bottom: 6px !important; }
+            #xf-core-grid p, #xf-dual-grid p { font-size: 13px !important; line-height: 20px !important; }
+            #xf-core-grid svg { width: 24px !important; height: 24px !important; }
+            #xf-data-grid figcaption span:first-child { font-size: 16px !important; }
+            #xf-data-grid figcaption span:last-child { font-size: 12px !important; line-height: 18px !important; }
+        }
+
+        /* 首屏副标题：手机端在这里换行 */
+        .sub-br { display: none; }
+        @media (max-width: 768px) { .sub-br { display: inline; } }
+
+        @media (max-width: 768px) {
+            /* 首屏 4 个数字：一行 2 个（标签不再挤断行）+ 数字与标签拉开 */
+            #hero-stats { grid-template-columns: repeat(2, 1fr) !important; gap: 26px 18px !important; margin-top: 44px !important; }
+            #hero-stats div[class*="text-5xl"], #hero-stats .number-flip { margin-bottom: 6px !important; }
+            #hero-stats div[class*="text-5xl"] + div, #hero-stats .number-flip + div { font-size: 13px !important; margin-top: 4px !important; }
+            /* 5 个 Agent：上排 3、下排 2 */
+            #xf-agents-a { grid-template-columns: repeat(3, 1fr) !important; gap: 10px !important; }
+            #xf-agents-b { grid-template-columns: repeat(2, 1fr) !important; gap: 10px !important; }
+            #xf-agents-a > div, #xf-agents-b > div { padding: 14px !important; border-radius: 18px !important; }
+            #xf-agents-a > div > div:first-child, #xf-agents-b > div > div:first-child {
+                width: 40px !important; height: 40px !important; border-radius: 12px !important; margin-bottom: 10px !important;
+            }
+            #xf-agents-a h3, #xf-agents-b h3 { font-size: 14px !important; margin-bottom: 4px !important; }
+            #xf-agents-a p, #xf-agents-b p { font-size: 11px !important; line-height: 16px !important; }
+            /* 真实数据 / 星擎+星帆：手机端横向滑动，避免「2+1 右边空一格」 */
+            #xf-data-grid, #xf-dual-grid {
+                display: flex !important; overflow-x: auto !important; scroll-snap-type: x mandatory !important;
+                gap: 12px !important; padding: 4px 2px 10px 2px !important; margin: 0 !important; max-width: 100% !important;
+                -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important;
+            }
+            #xf-data-grid::-webkit-scrollbar, #xf-dual-grid::-webkit-scrollbar { display: none !important; }
+            #xf-data-grid > figure { flex: 0 0 74% !important; scroll-snap-align: center !important; }
+            #xf-dual-grid > div { flex: 0 0 74% !important; scroll-snap-align: center !important; }
+            /* 适合谁：2 个一行 */
+            #xf-who-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; }
+        }
+
+        @media (max-width: 768px) {
+            /* ① 首屏：副标题与 4 个数字之间的间距收小 */
+            #hero-sub { margin-bottom: 30px !important; }
+            #hero-stats { margin-top: 0 !important; }
+            /* ② 真实业务数据：滑动时通栏（去掉左右边距） */
+            #xf-data-grid { margin-left: -20px !important; margin-right: -20px !important; padding-left: 0 !important; padding-right: 0 !important; }
+            /* ③ 星擎 + 星帆：改成 1 + 2（第一张独占一行 = 最重要那张） */
+            #xf-dual-grid { display: grid !important; grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; overflow: visible !important; padding: 0 !important; margin: 0 !important; }
+            #xf-dual-grid > div { flex: none !important; }
+            #xf-dual-grid > div:first-child { grid-column: 1 / -1 !important; }
+            /* ④ 适合谁：勾放到文字上方，文字能更宽 */
+            #xf-who-grid > div { display: block !important; padding: 18px !important; }
+            #xf-who-grid > div > svg { margin: 0 0 8px 0 !important; display: block !important; }
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+            box-sizing: border-box;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .nav-logo img {
+            height: 30px;
+            width: auto;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 400;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: white;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -28px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, rgb(122, 122, 255), rgb(77, 159, 255));
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        /* Common Section Styles */
+        .container {
+            max-width: 1280px !important;
+            margin: 0 auto !important;
+            padding: 0 20px !important;
+            box-sizing: border-box !important;
+        }
+
+        .section-title {
+            font-size: 72px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 24px;
+            background: linear-gradient(180deg, rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0.6) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 0.12px;
+        }
+
+        .section-subtitle {
+            font-size: 20px;
+            font-weight: 400;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 80px;
+        }
+
+        .fade-in-element {
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in-element.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            padding: 128px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Pricing Tabs - 不置顶 */
+        .pricing-tabs {
+            display: none;
+            justify-content: center;
+            gap: 12px;
+            margin: 10px 0 10px 0;
+        }
+
+        .pricing-tab {
+            padding: 10px 0;
+            width: 100px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.6);
+            background: transparent;
+            border: none;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-tab.active {
+            font-weight: 500;
+            color: white;
+            background: rgba(122, 122, 255, 0.1);
+            border: 1px solid rgba(122, 122, 255, 0.5);
+            box-shadow: inset 0 0 16px rgba(122, 122, 255, 0.3);
+        }
+
+        .pricing-tab:not(.active):hover {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .pricing-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(139, 92, 246, 0.3);
+        }
+
+        .pricing-card.active-card {
+            border: 2px solid rgba(122, 122, 255, 0.8) !important;
+            background: linear-gradient(180deg, rgba(122, 122, 255, 0.10) 0%, rgba(0, 0, 0, 0.00) 100%);
+            box-shadow: 0 25px 50px -12px rgba(122, 122, 255, 0.20);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, #7A7AFF 0%, #A855F7 100%);
+            border-radius: 9999px;
+            padding: 6px 20px;
+            font-size: 14px;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-top: 80px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Max卡片排第一 */
+        .pricing-card[data-plan="max"] {
+            order: 1;
+        }
+
+        .pricing-card[data-plan="pro-plus"] {
+            order: 2;
+        }
+
+        .pricing-card[data-plan="pro"] {
+            order: 3;
+        }
+
+        /* 移动端横向滚动 */
+        @media (max-width: 768px) {
+            /* Hero标题显示控制 - 移动端隐藏desktop版本，显示mobile版本 */
+            .hero-title-desktop {
+                display: none !important;
+            }
+
+            .hero-title-mobile {
+                display: block !important;
+            }
+
+            /* Hero section buttons */
+            .hero-try-btn {
+                display: none !important;
+            }
+
+            .hero-buttons {
+                justify-content: center !important;
+            }
+
+            .pricing-tabs {
+                display: flex !important;
+                padding: 0 20px !important;
+                margin: 30px 0 30px 0 !important;
+                gap: 6px !important;
+            }
+
+            .pricing-tab {
+                font-size: 14px !important;
+                white-space: nowrap !important;
+                text-align: center !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                padding: 8px 0 !important;
+                width: auto !important;
+                flex: 1 !important;
+                min-width: 0 !important;
+            }
+
+            .pricing-grid {
+                display: flex !important;
+                overflow-x: auto !important;
+                overflow-y: visible !important;
+                scroll-snap-type: x mandatory !important;
+                gap: 16px !important;
+                -webkit-overflow-scrolling: touch !important;
+                scrollbar-width: none !important;
+                padding: 20px 16px 20px 16px !important;
+                margin: 0 -16px !important;
+            }
+
+            .pricing-grid::-webkit-scrollbar {
+                display: none !important;
+            }
+
+            .pricing-card {
+                flex: 0 0 85% !important;
+                scroll-snap-align: center !important;
+                overflow: visible !important;
+            }
+        }
+
+        .pricing-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .pricing-price {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 12px;
+        }
+
+        .pricing-price-currency {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .pricing-price-amount {
+            font-size: 48px;
+            font-weight: 700;
+            font-family: 'DIN Alternate', 'Inter', sans-serif;
+            margin: 0 4px;
+        }
+
+        .pricing-price-period {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.4);
+            margin-left: 4px;
+        }
+
+        .pricing-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .pricing-meta-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+
+        .pricing-meta-label {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .pricing-meta-value {
+            color: rgba(255, 255, 255, 0.8);
+            text-align: right;
+        }
+
+        .pricing-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 24px 0;
+        }
+
+        .pricing-features-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .pricing-features-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            flex-grow: 1;
+        }
+
+        .pricing-feature-row {
+            display: flex;
+            justify-content: space-between;
+            color: rgba(255, 255, 255, 0.8);
+            align-items: flex-start;
+        }
+
+        .pricing-feature-label {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .pricing-feature-row .text-right {
+            text-align: right;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .text-white\/40 {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .text-white\/60 {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .text-white\/80 {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+        }
+
+        .leading-relaxed {
+            line-height: 1.625;
+        }
+
+        .inline-block {
+            display: inline-block;
+        }
+
+        .align-text-bottom {
+            vertical-align: text-bottom;
+        }
+
+        .cursor-help {
+            cursor: help;
+        }
+
+        .ml-1 {
+            margin-left: 0.25rem;
+        }
+
+        .mb-1 {
+            margin-bottom: 0.25rem;
+        }
+
+        .whitespace-nowrap {
+            white-space: nowrap;
+        }
+
+        .rounded {
+            border-radius: 0.25rem;
+        }
+
+        .z-50 {
+            z-index: 50;
+        }
+
+        .text-xs {
+            font-size: 0.75rem;
+            line-height: 1rem;
+        }
+
+        .text-left {
+            text-align: left;
+        }
+
+        .w-4 {
+            width: 1rem;
+        }
+
+        .h-4 {
+            height: 1rem;
+        }
+
+        .align-middle {
+            vertical-align: middle;
+        }
+
+        .relative {
+            position: relative;
+        }
+
+        .absolute {
+            position: absolute;
+        }
+
+        .bottom-full {
+            bottom: 100%;
+        }
+
+        .left-0 {
+            left: 0;
+        }
+
+        .px-3 {
+            padding-left: 0.75rem;
+            padding-right: 0.75rem;
+        }
+
+        .py-1\.5 {
+            padding-top: 0.375rem;
+            padding-bottom: 0.375rem;
+        }
+
+        .bg-black\/80 {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .backdrop-blur-xl {
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .group:hover .group-hover\:block {
+            display: block;
+        }
+
+        .min-w-\[280px\] {
+            min-width: 280px;
+        }
+
+        .pricing-btn {
+            width: 100%;
+            padding: 16px;
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            margin-top: auto;
+        }
+
+        .pricing-btn-default {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .pricing-btn-default:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .pricing-btn-primary {
+            background: #7A7AFF;
+            color: white;
+        }
+
+        .pricing-btn-primary:hover {
+            background: #6A6AEE;
+        }
+
+        .info-icon {
+            display: inline-block;
+            position: relative;
+            cursor: help;
+            margin-left: 4px;
+        }
+
+        .tooltip {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            left: 0;
+            margin-bottom: 4px;
+            padding: 6px 12px;
+            font-size: 12px;
+            color: white;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 4px;
+            white-space: nowrap;
+            z-index: 50;
+        }
+
+        .info-icon:hover .tooltip {
+            display: block;
+        }
+
+        footer {
+            background: #000;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 80px 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .footer-logo {
+            height: 30px;
+            margin-bottom: 16px;
+        }
+
+        .footer-tagline {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.4);
+            line-height: 1.6;
+            text-align: justify;
+            text-align-last: justify;
+            width: 142px;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .footer-column h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 16px;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .footer-links a {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.4);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 32px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .footer-copyright {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .footer-icp {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .footer-legal a {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.4);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-legal a:hover {
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .pricing-footer {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .pricing-footer-text {
+            font-size: 18px;
+            line-height: 28px;
+            color: white;
+            margin-bottom: 24px;
+        }
+
+        .pricing-footer-btn {
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 9999px;
+            padding: 24px 48px;
+            font-size: 18px;
+            text-decoration: none;
+            display: inline-block;
+            transition: border-color 0.3s, background 0.3s;
+        }
+
+        .pricing-footer-btn:hover {
+            border-color: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Respect user motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+
+            .animate-on-scroll,
+            .hero-item,
+            .feature-card-left,
+            .feature-card-right,
+            .social-badge,
+            .stagger-children > * {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        }
+
+        /* Mobile Navigation Styles */
+        .mobile-menu-toggle {
+            display: none;
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            /* Navigation */
+            .navbar {
+                height: 60px !important;
+            }
+
+            .nav-container {
+                height: 60px !important;
+                padding: 0 20px !important;
+                box-sizing: border-box !important;
+            }
+
+            .nav-logo img {
+                height: 24px !important;
+            }
+
+            ul.nav-menu,
+            .nav-menu {
+                display: flex !important;
+                position: static !important;
+                flex-direction: row !important;
+                gap: 12px !important;
+                background: transparent !important;
+                backdrop-filter: none !important;
+                border: none !important;
+                padding: 0 !important;
+                z-index: auto !important;
+            }
+
+            .mobile-menu-toggle {
+                display: none !important;
+            }
+
+            .nav-menu li {
+                width: auto !important;
+            }
+
+            .nav-link {
+                display: block;
+                padding: 8px 12px !important;
+                width: auto !important;
+                text-align: center;
+                font-size: 14px;
+            }
+
+            .nav-link::after {
+                display: none !important;
+            }
+
+            .nav-link:hover,
+            .nav-link:active,
+            .nav-link:focus {
+                color: rgba(255, 255, 255, 0.8) !important;
+            }
+
+            /* Hero Section */
+            section.h-screen,
+            section.relative.h-screen {
+                min-height: 100vh !important;
+                height: auto !important;
+                padding: 80px 20px 60px 20px !important;
+            }
+
+            section .hero-item[style*="font-size: 24px"] {
+                font-size: 18px !important;
+                margin-top: -100px !important;
+            }
+
+            h1.gradient-text,
+            h1[style*="font-size: 96px"] {
+                font-size: 56px !important;
+                line-height: 1.2 !important;
+                letter-spacing: -1px !important;
+                margin-bottom: 24px !important;
+                white-space: nowrap !important;
+            }
+
+            p.hero-item[style*="font-size: 20px"] {
+                font-size: 18px !important;
+            }
+
+            button.hero-btn,
+            a.hero-btn {
+                width: auto !important;
+                height: 56px !important;
+                padding: 14px 28px !important;
+                line-height: 24px !important;
+                white-space: nowrap !important;
+            }
+
+            a.hero-btn:not(.hero-video-btn) {
+                font-size: 16px !important;
+            }
+
+            /* Hero video button - must come after a.hero-btn */
+            a.hero-btn.hero-video-btn {
+                width: auto !important;
+                padding: 0 40px !important;
+            }
+
+            a.hero-btn.hero-video-btn span {
+                font-size: 16px !important;
+            }
+
+            /* Pricing footer button */
+            .pricing-footer-btn {
+                font-size: 16px !important;
+                padding: 14px 28px !important;
+                height: 56px !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+            }
+
+            /* CTA section spacing */
+            .cta-section {
+                padding: 120px 20px !important;
+                min-height: auto !important;
+            }
+
+            /* CTA badges text size */
+            .cta-section .bg-white\/5 span {
+                font-size: 12px !important;
+            }
+
+            /* CTA footer text size */
+            .cta-footer-text {
+                font-size: 12px !important;
+            }
+
+            /* CTA badges no wrap */
+            .cta-section .bg-white\/5 {
+                padding: 6px 16px !important;
+            }
+
+            .cta-section .bg-white\/5 span {
+                white-space: nowrap !important;
+            }
+
+            /* CTA title size */
+            .cta-section h2 {
+                font-size: 48px !important;
+                line-height: 1.2 !important;
+            }
+
+            /* Hide CTA start button */
+            .cta-start-btn {
+                display: none !important;
+            }
+
+            /* CTA 标签：窄屏允许换行并缩小 */
+            .cta-tags { gap: 10px !important; }
+            .cta-tags > div { padding: 10px 16px !important; }
+            .cta-tags span { font-size: 13px !important; }
+
+            /* Footer padding */
+            footer {
+                padding: 40px 0 !important;
+            }
+
+            /* Mobile footer layout */
+            .footer-grid {
+                display: block !important;
+                text-align: center !important;
+                margin-bottom: 0 !important;
+            }
+
+            .footer-grid > div:not(.footer-brand) {
+                display: inline-block !important;
+                vertical-align: top !important;
+            }
+
+            .footer-brand {
+                margin-bottom: 16px !important;
+                width: 100% !important;
+                text-align: center !important;
+                display: block !important;
+            }
+
+            .footer-brand .footer-tagline {
+                display: none !important;
+            }
+
+            .footer-logo {
+                height: 24px !important;
+                margin-bottom: 0 !important;
+                display: block !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+
+            .footer-column {
+                display: inline-block !important;
+                margin: 0 !important;
+                vertical-align: top !important;
+            }
+
+            .footer-column h4 {
+                display: none !important;
+            }
+
+            .footer-column ul.footer-links {
+                display: inline-block !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            .footer-column ul.footer-links li {
+                display: inline-block !important;
+                margin: 0 !important;
+            }
+
+            .footer-column ul.footer-links li a {
+                font-size: 12px !important;
+            }
+
+            .footer-column ul.footer-links li::after {
+                content: ' | ';
+                color: rgba(255, 255, 255, 0.4);
+                margin: 0 4px;
+            }
+
+            .footer-column:last-of-type ul.footer-links li:last-child::after {
+                content: '';
+            }
+
+            .footer-bottom {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 12px !important;
+                margin-top: 0 !important;
+                padding-top: 12px !important;
+                text-align: center !important;
+                border-top: none !important;
+            }
+
+            .footer-bottom::before {
+                display: none !important;
+            }
+
+            .footer-copyright {
+                color: rgba(255, 255, 255, 0.4);
+                margin: 0 !important;
+                font-size: 12px !important;
+                line-height: 12px !important;
+            }
+
+            .footer-icp {
+                order: 2;
+            }
+
+            .footer-legal {
+                display: none !important;
+            }
+
+            /* Hero Stats Numbers */
+            .grid.grid-cols-2,
+            .grid[class*="grid-cols"] {
+                grid-template-columns: repeat(4, 1fr) !important;
+                gap: 16px !important;
+                margin-top: 48px !important;
+            }
+
+            .number-flip,
+            div[class*="text-5xl"] {
+                font-size: 32px !important;
+                margin-bottom: 2px !important;
+            }
+
+            div[class*="text-5xl"] + div,
+            .number-flip + div {
+                font-size: 12px !important;
+                margin-top: -10px !important;
+            }
+
+            /* General Sections */
+            section.py-32 {
+                padding: 60px 20px !important;
+            }
+
+            .section-title {
+                font-size: 28px !important;
+                line-height: 1.2 !important;
+            }
+
+            .section-subtitle {
+                font-size: 14px !important;
+                margin-bottom: 20px !important;
+            }
+
+            /* Pricing section的subtitle特殊处理 */
+            .pricing-section .section-subtitle {
+                margin-bottom: 0 !important;
+            }
+
+            /* 统一所有section标题 - 强制覆盖inline styles */
+            section h2 {
+                font-size: 28px !important;
+                line-height: 36.4px !important;
+                margin: 0 0 12px 0 !important;
+                padding: 0 !important;
+            }
+
+            /* 针对所有可能的class组合 */
+            h2.text-6xl,
+            h2.md\\:text-7xl,
+            h2.font-bold.mb-6,
+            h2[class*="text-"],
+            h2[class*="font-bold"] {
+                font-size: 28px !important;
+                line-height: 36.4px !important;
+                margin-bottom: 12px !important;
+            }
+
+            /* 统一所有section副标题 */
+            section p.text-xl,
+            section p.text-white\\/40,
+            section p.font-light,
+            section p[style*="font-size: 20px"],
+            section p[style*="line-height: 28px"],
+            section .text-center > p {
+                font-size: 14px !important;
+                line-height: 22.4px !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            /* Title containers - 副标题容器到下一个元素32px */
+            section .text-center.mb-20,
+            section .text-center.mb-6,
+            section .text-center.mb-12 {
+                margin-bottom: 32px !important;
+                padding: 0 !important;
+            }
+
+            /* 标题容器间距 - 确保标题到副标题紧凑 */
+            section .text-center.mb-6:has(h2) {
+                margin-bottom: 0 !important;
+            }
+
+            .workflow-step {
+                height: 36px !important;
+            }
+
+            .workflow-step .step-text {
+                font-size: 14px !important;
+            }
+
+            .flex.items-center.justify-center.gap-3 {
+                gap: 4px !important;
+                margin-bottom: 24px !important;
+                flex-wrap: nowrap !important;
+                overflow-x: hidden !important;
+            }
+
+            .flex.items-center.justify-center.gap-3::-webkit-scrollbar {
+                display: none !important;
+            }
+
+            .workflow-step .flex.items-center.px-4 {
+                padding: 0 !important;
+            }
+
+            .flex.items-center.justify-center[style*="width: 16px"] img {
+                width: 6px !important;
+                height: 6px !important;
+            }
+
+            .border.border-white\/10.rounded-3xl {
+                border-radius: 24px !important;
+            }
+
+            #workflow-image {
+                max-height: 300px !important;
+                object-fit: contain !important;
+            }
+
+            .relative.max-w-5xl.mx-auto {
+                display: block !important;
+                position: relative !important;
+                padding-bottom: 120px !important;
+                padding-left: 24px !important;
+                padding-right: 24px !important;
+            }
+
+            .relative.border.border-white\/10 {
+                position: relative !important;
+            }
+
+            /* Feature cards - positioned relative to image */
+            #feature-card-left,
+            #feature-card-right {
+                display: block !important;
+                position: absolute !important;
+                margin: 0 !important;
+                width: 48% !important;
+                max-width: none !important;
+                padding: 8px !important;
+                z-index: 10 !important;
+                border-radius: 24px !important;
+            }
+
+            #feature-card-left {
+                bottom: -20px !important;
+                left: 0 !important;
+                right: auto !important;
+                top: auto !important;
+            }
+
+            #feature-card-right {
+                bottom: -20px !important;
+                right: 0 !important;
+                left: auto !important;
+                top: auto !important;
+            }
+
+            #feature-card-left .flex.items-center.gap-4,
+            #feature-card-right .flex.items-center.gap-4 {
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 8px !important;
+                padding-top: 5px !important;
+            }
+
+            #feature-card-left div > div,
+            #feature-card-right div > div {
+                white-space: nowrap !important;
+                text-align: center !important;
+            }
+
+            .feature-card-left .flex.items-center.gap-4,
+            .feature-card-right .flex.items-center.gap-4 {
+                gap: 12px !important;
+            }
+
+            .feature-card-left [id$="-icon-bg"],
+            .feature-card-right [id$="-icon-bg"] {
+                width: 32px !important;
+                height: 32px !important;
+                border-radius: 8px !important;
+            }
+
+            .feature-card-left svg,
+            .feature-card-right svg {
+                width: 16px !important;
+                height: 16px !important;
+            }
+
+            .feature-card-left [id$="-card-title"],
+            .feature-card-right [id$="-card-title"] {
+                font-size: 14px !important;
+            }
+
+            .feature-card-left [id$="-card-desc"],
+            .feature-card-right [id$="-card-desc"] {
+                font-size: 11px !important;
+            }
+
+            /* AI Agents Section */
+            section.relative.py-32:has(h2:contains("Agent")) {
+                padding: 80px 16px 60px 16px !important;
+            }
+
+            /* Remove excessive container padding */
+            div[style*="width: 1280px"] {
+                width: 100% !important;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+
+            /* Agent grid gap */
+            section:has(#agent-details) .grid {
+                margin-top: 0 !important;
+                margin-bottom: 24px !important;
+            }
+
+            /* Agent grid - 4 columns, 2 rows */
+            .grid[class*="grid-cols-7"],
+            .grid.lg\\:grid-cols-7,
+            .grid.md\\:grid-cols-4.lg\\:grid-cols-7 {
+                display: grid !important;
+                grid-template-columns: repeat(4, 1fr) !important;
+                gap: 16px 12px !important;
+                margin-bottom: 24px !important;
+                margin-top: 0 !important;
+            }
+
+            /* Agent cards sizing */
+            .text-center.agent-hover-trigger,
+            .text-center[data-agent] {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                justify-content: flex-start !important;
+            }
+
+            /* Agent avatars - 64px */
+            .agent-hover-trigger .w-24.h-24,
+            [data-agent] .w-24.h-24 {
+                width: 64px !important;
+                height: 64px !important;
+                min-width: 64px !important;
+                min-height: 64px !important;
+                margin-bottom: 8px !important;
+            }
+
+            /* Agent avatar inner divs - including glow */
+            .agent-hover-trigger .w-24.h-24 > div,
+            [data-agent] .w-24.h-24 > div {
+                width: 64px !important;
+                height: 64px !important;
+            }
+
+            /* Glow blur background - align with 64px avatar */
+            .agent-hover-trigger .w-24.h-24 .absolute.inset-0,
+            [data-agent] .w-24.h-24 .absolute.inset-0 {
+                width: 64px !important;
+                height: 64px !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: auto !important;
+                bottom: auto !important;
+            }
+
+            /* Agent names - 13px */
+            .agent-hover-trigger > .font-semibold,
+            [data-agent] > .font-semibold {
+                font-size: 13px !important;
+                line-height: 1.2 !important;
+                margin-top: 0 !important;
+                margin-bottom: 4px !important;
+            }
+
+            /* Agent roles - 11px */
+            .agent-hover-trigger > .text-xs,
+            [data-agent] > .text-xs {
+                font-size: 11px !important;
+                line-height: 1.2 !important;
+            }
+
+            /* 更多Agent卡片 - 统一头像和文字样式 */
+            .text-center:not(.agent-hover-trigger):not([data-agent]) .w-24.h-24 {
+                width: 64px !important;
+                height: 64px !important;
+                margin-bottom: 8px !important;
+            }
+
+            .text-center:not(.agent-hover-trigger):not([data-agent]) .font-semibold {
+                font-size: 13px !important;
+                line-height: 1.2 !important;
+                margin-bottom: 4px !important;
+            }
+
+            .text-center:not(.agent-hover-trigger):not([data-agent]) .text-xs {
+                font-size: 11px !important;
+                line-height: 1.2 !important;
+            }
+
+            /* 更多Agent内部小头像缩小 */
+            .text-center:not(.agent-hover-trigger):not([data-agent]) div[style*="width: 60px"] {
+                width: 40px !important;
+                height: 40px !important;
+            }
+
+            .text-center:not(.agent-hover-trigger):not([data-agent]) div[style*="width: 50px"] {
+                width: 33px !important;
+                height: 33px !important;
+            }
+
+            /* 粉色头像 - 向上10px向左10px */
+            .text-center:not(.agent-hover-trigger):not([data-agent]) div[style*="width: 36px"][style*="top: 48px"] {
+                width: 24px !important;
+                height: 24px !important;
+                top: 38px !important;
+                right: 10px !important;
+            }
+
+            /* Fix avatar border (glow) alignment for all agents */
+            .agent-hover-trigger .w-24.h-24,
+            [data-agent] .w-24.h-24 {
+                padding: 0 !important;
+            }
+
+            /* Outer gradient border should be slightly larger than inner */
+            .agent-hover-trigger .w-24.h-24,
+            [data-agent] .w-24.h-24 {
+                width: 64px !important;
+                height: 64px !important;
+            }
+
+            /* Inner image container */
+            .agent-hover-trigger .w-24.h-24 > div.relative,
+            [data-agent] .w-24.h-24 > div.relative {
+                width: calc(100% - 1px) !important;
+                height: calc(100% - 1px) !important;
+                margin: 0.5px !important;
+            }
+
+            /* Agent details box - reduce top spacing */
+            #agent-details {
+                margin-top: -40px !important;
+                padding-top: 16px !important;
+            }
+
+            /* Agent description - adjust spacing */
+            #agent-desc.mb-6 {
+                font-size: 14px !important;
+                line-height: 20px !important;
+                margin-top: 20px !important;
+                margin-bottom: 20px !important;
+            }
+
+            /* Agent features - vertical layout with icons */
+            #agent-features {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 8px !important;
+                margin-top: 0 !important;
+                margin-bottom: 16px !important;
+            }
+
+            #agent-features > div {
+                display: flex !important;
+                flex-direction: row !important;
+                align-items: center !important;
+                gap: 10px !important;
+                padding: 10px 14px !important;
+            }
+
+            /* Icon container - checkmark background circle */
+            #agent-features .w-4.h-4.rounded-full {
+                width: 20px !important;
+                height: 20px !important;
+                min-width: 20px !important;
+                min-height: 20px !important;
+                flex-shrink: 0 !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                position: relative !important;
+            }
+
+            #agent-features span {
+                font-size: 13px !important;
+                white-space: normal !important;
+                line-height: 1.4 !important;
+            }
+
+            /* Agent tags - horizontal nowrap, reduce height */
+            #agent-tags {
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                justify-content: center !important;
+                gap: 6px !important;
+                overflow-x: auto !important;
+                padding: 0 8px !important;
+            }
+
+            #agent-tags > div {
+                white-space: nowrap !important;
+                flex-shrink: 0 !important;
+                padding: 6px 12px !important;
+                height: auto !important;
+            }
+
+            #agent-tags span {
+                font-size: 11px !important;
+                line-height: 1.2 !important;
+                white-space: nowrap !important;
+            }
+
+            /* Hero Stats - 保持4列 */
+            .grid.grid-cols-2.md\\:grid-cols-4:not([class*="grid-cols-7"]) {
+                grid-template-columns: repeat(4, 1fr) !important;
+                gap: 16px !important;
+            }
+
+            /* Grid Layouts - 其他grid改为单列 */
+            .grid:not(.grid-cols-2):not([class*="grid-cols-4"]):not([class*="grid-cols-7"]) {
+                grid-template-columns: 1fr !important;
+                gap: 24px !important;
+            }
+
+            /* 数据看板section - 整体上边距120px */
+            .data-dashboard-section.py-32 {
+                padding-top: 120px !important;
+            }
+
+            section:has(img[alt="数据看板"]) .stagger-children {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 12px !important;
+                margin-top: 40px !important;
+            }
+
+            /* 更强选择器确保覆盖 */
+            section:has(img[alt="数据看板"]) > .max-w-6xl > .stagger-children {
+                margin-top: 40px !important;
+            }
+
+            /* 数据统计卡片高度和内边距减小 */
+            section:has(img[alt="数据看板"]) .stagger-children > div {
+                padding: 12px 16px !important;
+                min-height: auto !important;
+                border-radius: 24px !important;
+            }
+
+            /* 卡片内的装饰性SVG图标变小 */
+            section:has(img[alt="数据看板"]) .stagger-children svg.absolute {
+                width: 80px !important;
+                height: 80px !important;
+                bottom: -15px !important;
+                right: -15px !important;
+            }
+
+            /* 卡片内的小图标 */
+            section:has(img[alt="数据看板"]) .stagger-children .w-4.h-4 {
+                width: 12px !important;
+                height: 12px !important;
+            }
+
+            /* 数据统计数字变小 */
+            section:has(img[alt="数据看板"]) .stagger-children .text-4xl {
+                font-size: 24px !important;
+                line-height: 1.2 !important;
+            }
+
+            /* 数据统计标题文字 */
+            section:has(img[alt="数据看板"]) .stagger-children .text-white\/60 {
+                font-size: 12px !important;
+                margin-bottom: 4px !important;
+            }
+
+            /* 数据统计百分比 */
+            section:has(img[alt="数据看板"]) .stagger-children .text-sm {
+                font-size: 11px !important;
+            }
+
+            /* 数据统计数字和百分比之间的间距 */
+            section:has(img[alt="数据看板"]) .stagger-children .flex.items-baseline {
+                margin-bottom: 4px !important;
+            }
+
+            /* 隐藏数据看板图片周围的模糊背景 */
+            section:has(img[alt="数据看板"]) .max-w-5xl > .absolute.-inset-40 {
+                display: none !important;
+            }
+
+            /* 数据看板图片最外层容器减少下边距 */
+            section:has(img[alt="数据看板"]) .relative.max-w-5xl {
+                margin-bottom: 0 !important;
+                padding-bottom: 0 !important;
+            }
+
+            section:has(img[alt="数据看板"]) > .max-w-6xl > .max-w-5xl {
+                margin-bottom: 0 !important;
+            }
+
+            /* 图片本身去除下边距 */
+            section:has(img[alt="数据看板"]) img[alt="数据看板"] {
+                margin-bottom: 0 !important;
+                display: block !important;
+            }
+
+            /* 图片的父容器 */
+            section:has(img[alt="数据看板"]) .border.border-white\/10 {
+                margin-bottom: 0 !important;
+            }
+
+            /* 隐藏查看完整数据报告按钮 */
+            section:has(img[alt="数据看板"]) .text-center button {
+                display: none !important;
+            }
+
+            /* 深度洞察文字不加粗 */
+            section:has(img[alt="数据看板"]) .text-center.mt-16 p {
+                font-weight: 400 !important;
+                font-size: 14px !important;
+                line-height: 1.6 !important;
+                margin-bottom: 0 !important;
+            }
+
+            /* CTA区域上边距 - 距离4个块40px */
+            section:has(img[alt="数据看板"]) .text-center.mt-16 {
+                margin-top: 40px !important;
+            }
+
+            /* Pricing Cards */
+            .pricing-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            .pricing-card {
+                padding: 32px 24px !important;
+            }
+
+            /* Buttons */
+            button, a.btn {
+                padding: 14px 28px !important;
+                font-size: 16px !important;
+            }
+
+            /* Text Sizes */
+            p, li {
+                font-size: 14px !important;
+            }
+
+            h2 {
+                font-size: 28px !important;
+            }
+
+            h3 {
+                font-size: 20px !important;
+            }
+
+            /* Max widths - remove excessive nested padding */
+            .max-w-6xl, .max-w-7xl, .max-w-5xl {
+                max-width: 100% !important;
+            }
+
+            section.py-32 > .max-w-6xl,
+            section.py-32 > .max-w-7xl,
+            section.py-32 > .max-w-5xl {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+
+            .px-8 {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+
+            /* Social Media Section - 5个卡片保持不变，移动badges到下方 */
+            /* 5个卡片 - 高度自适应内容 */
+            .social-card {
+                width: 110px !important;
+                height: auto !important;
+                min-height: 100px !important;
+                padding: 20px 8px 12px 8px !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                justify-content: flex-start !important;
+            }
+
+            .social-card svg {
+                width: 28px !important;
+                height: 28px !important;
+                min-width: 28px !important;
+                min-height: 28px !important;
+                margin-bottom: 6px !important;
+                display: block !important;
+                opacity: 1 !important;
+            }
+
+            .social-card svg.opacity-60 {
+                opacity: 0.6 !important;
+            }
+
+            .social-card h3 {
+                font-size: 14px !important;
+                margin-bottom: 4px !important;
+            }
+
+            .social-card h3.opacity-60 {
+                opacity: 0.6 !important;
+            }
+
+            .social-card p {
+                font-size: 11px !important;
+            }
+
+            /* 社交媒体section - 防止超出屏幕 */
+            section:has(.social-badge) {
+                padding-left: 16px !important;
+                padding-right: 16px !important;
+                overflow-x: hidden !important;
+            }
+
+            /* 父容器 */
+            section:has(.social-badge) > .max-w-6xl {
+                max-width: 100% !important;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+
+            /* 标题 order 1 */
+            section:has(.social-badge) .text-center.mb-20 {
+                order: 1 !important;
+            }
+
+            /* 5个卡片的外层容器 order 2 */
+            section:has(.social-badge) > .max-w-6xl > .max-w-6xl {
+                order: 2 !important;
+                display: block !important;
+            }
+
+            /* 5个卡片行的gap减小 */
+            section:has(.social-badge) .flex.gap-6 {
+                gap: 8px !important;
+            }
+
+            /* Badges容器 - 不需要额外margin，用grid row-gap控制 */
+            .social-badge:first-of-type {
+                margin-top: 0 !important;
+            }
+
+            /* Badges - 2行2列网格布局，增加row-gap */
+            section:has(.social-badge) > .max-w-6xl.mx-auto.px-8 {
+                display: grid !important;
+                grid-template-columns: 1fr !important;
+                grid-template-rows: auto auto auto auto !important;
+                row-gap: 30px !important;
+            }
+
+            /* 标题 row 1 */
+            section:has(.social-badge) .text-center.mb-20 {
+                grid-row: 1 !important;
+                margin-bottom: 0 !important;
+            }
+
+            /* 5个卡片容器 row 2 */
+            section:has(.social-badge) > .max-w-6xl > .max-w-6xl {
+                grid-row: 2 !important;
+            }
+
+            /* Badges - 统一高度确保对齐 */
+            .social-badge {
+                position: static !important;
+                display: flex !important;
+                width: auto !important;
+                height: 32px !important;
+                min-height: 32px !important;
+                max-height: 32px !important;
+                padding: 6px 12px !important;
+                margin: 6px !important;
+                max-width: 160px !important;
+                opacity: 1 !important;
+                justify-self: center !important;
+                align-items: center !important;
+            }
+
+            .social-badge span {
+                font-size: 12px !important;
+                line-height: 1 !important;
+                white-space: nowrap !important;
+            }
+
+            /* 确保所有badges高度一致 */
+            .social-badge::before {
+                margin-right: 6px !important;
+            }
+
+            .social-badge svg {
+                margin-right: 6px !important;
+            }
+
+            /* 第一行 - 点赞和分享对齐 */
+            .social-badge:nth-child(1) {
+                grid-row: 3 !important;
+                grid-column: 1 !important;
+                justify-self: start !important;
+                margin-left: 5% !important;
+                margin-top: 0 !important;
+                margin-bottom: -18px !important;
+            }
+
+            .social-badge:nth-child(2) {
+                grid-row: 3 !important;
+                grid-column: 1 !important;
+                justify-self: end !important;
+                margin-right: 5% !important;
+                margin-top: 0 !important;
+                margin-bottom: -18px !important;
+            }
+
+            /* 第二行 - 播放量和评论 */
+            .social-badge:nth-child(3) {
+                grid-row: 4 !important;
+                grid-column: 1 !important;
+                justify-self: start !important;
+                margin-left: 5% !important;
+                margin-top: 0 !important;
+            }
+
+            .social-badge:nth-child(4) {
+                grid-row: 4 !important;
+                grid-column: 1 !important;
+                justify-self: end !important;
+                margin-right: 5% !important;
+                margin-top: 0 !important;
+            }
+
+            .social-badge img,
+            .social-badge svg {
+                width: 20px !important;
+                height: 20px !important;
+                min-width: 20px !important;
+                min-height: 20px !important;
+                display: block !important;
+                opacity: 1 !important;
+                flex-shrink: 0 !important;
+            }
+
+            /* SVG icon颜色 - 分别设置 */
+            .social-badge:nth-child(1) svg {
+                color: #ef4444 !important;
+            }
+
+            .social-badge:nth-child(2) svg {
+                color: #3b82f6 !important;
+            }
+
+            .social-badge:nth-child(3) svg {
+                color: #10b981 !important;
+            }
+
+            .social-badge:nth-child(4) svg {
+                color: #A78BFA !important;
+            }
+
+            .social-badge svg path {
+                fill: currentColor !important;
+                opacity: 1 !important;
+            }
+
+            /* 播放量icon - 眼睛外轮廓用stroke，中心圈用黑色填充 */
+            .social-badge:nth-child(3) svg path:first-child {
+                fill: none !important;
+                stroke: #10b981 !important;
+                stroke-width: 2 !important;
+            }
+
+            .social-badge:nth-child(3) svg path:last-child {
+                fill: #000000 !important;
+                stroke: #10b981 !important;
+                stroke-width: 1 !important;
+            }
+
+            /* 隐藏Figma img，用伪元素SVG替换 */
+            .social-badge img {
+                display: none !important;
+            }
+
+            .social-badge:has(img)::before {
+                content: '' !important;
+                width: 20px !important;
+                height: 20px !important;
+                min-width: 20px !important;
+                display: block !important;
+                background-size: contain !important;
+                background-repeat: no-repeat !important;
+                background-position: center !important;
+                flex-shrink: 0 !important;
+            }
+
+            /* 点赞icon - 红色 */
+            .social-badge:nth-child(1)::before {
+                background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ef4444"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') !important;
+            }
+
+            /* 分享icon - 蓝色描边 */
+            .social-badge:nth-child(2)::before {
+                background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%233b82f6" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>') !important;
+            }
+
+            /* 播放量icon - 绿色描边，黑色中心圈 */
+            .social-badge:nth-child(3)::before {
+                background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%2310b981" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3" fill="%23000000" stroke="%2310b981"/></svg>') !important;
+            }
+
+            /* 评论icon - 紫色填充 (与web端一致) */
+            .social-badge:nth-child(4)::before {
+                background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23A78BFA"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>') !important;
+            }
+
+            .social-badge span {
+                font-size: 13px !important;
+                white-space: nowrap !important;
+            }
+
+            /* Remove excessive spacing */
+            .space-y-12 > * + * {
+                margin-top: 2rem !important;
+            }
+
+            .space-y-8 > * + * {
+                margin-top: 1.5rem !important;
+            }
+
+            /* 云手机section - 移动端功能点标题文字缩小 */
+            section:has(#cloudPhoneVideo) h3.text-xl {
+                font-size: 16px !important;
+                margin-bottom: 4px !important;
+            }
+
+            /* 云手机section - 移动端描述文字缩小 */
+            section:has(#cloudPhoneVideo) p.text-sm {
+                font-size: 13px !important;
+            }
+
+            /* 云手机视频容器 - 移动端缩小 */
+            section:has(#cloudPhoneVideo) .fade-in-element.lg\\:flex-shrink-0 {
+                max-width: 300px !important;
+            }
+
+            section:has(#cloudPhoneVideo) #cloudPhoneVideo {
+                max-width: 300px !important;
+            }
+
+            /* 数据看板section - 文字与按钮间距 */
+            .data-dashboard-section .text-center.mt-16 p[style] {
+                margin-bottom: 24px !important;
+            }
+
+            /* 移动端首屏和底部CTA背景更浅 */
+            .gradient-orbit .gradient-fade-1 > div,
+            .gradient-orbit .gradient-fade-2 > div {
+                opacity: 0.5 !important;
+            }
+
+            .cta-orbit .cta-gradient-1 > div,
+            .cta-orbit .cta-gradient-2 > div {
+                opacity: 0.5 !important;
+            }
+
+            /* 隐藏4步工作流箭头并增加间距 */
+            .workflow-step + div:has(img) {
+                display: none !important;
+            }
+
+            .workflow-step {
+                margin-right: 12px !important;
+            }
+
+            .workflow-step:last-of-type {
+                margin-right: 0 !important;
+            }
+
+            /* 底部CTA区域移动端样式 */
+            section:has(.cta-orbit) h2 {
+                font-size: 24px !important;
+                line-height: 1.6 !important;
+                margin-bottom: 32px !important;
+            }
+
+            .mobile-only-br {
+                display: inline !important;
+            }
+
+            section:has(.cta-orbit) p {
+                font-size: 14px !important;
+                line-height: 24px !important;
+            }
+
+            section:has(.cta-orbit) .flex-wrap {
+                gap: 8px !important;
+            }
+
+            section:has(.cta-orbit) .flex-wrap > div {
+                padding: 12px 16px !important;
+            }
+
+            section:has(.cta-orbit) .flex-wrap span {
+                font-size: 13px !important;
+            }
+
+            /* 调整CTA标签顺序：移动端让数据驱动在第二行第一个 */
+            .cta-tags {
+                display: flex !important;
+                flex-wrap: wrap !important;
+            }
+
+            section:has(.cta-orbit) .flex-wrap > div {
+                flex: 0 0 45% !important;
+                max-width: 45% !important;
+            }
+
+            .cta-tag-1 {
+                order: 1;
+            }
+
+            .cta-tag-2 {
+                order: 2;
+            }
+
+            .cta-tag-3 {
+                order: 3;
+            }
+
+            .cta-tag-4 {
+                order: 4;
+            }
+        }
+
+        /* 卡片圆角统一：24px（web + H5 同值） */
+        .agent-card {
+            border-radius: 24px;
+        }
+
+        /* ===== 星帆（xingfan）：在星擎同一套版式语言内，建立自己的识别度 ===== */
+        :root {
+            --xf-accent-1: rgb(56, 189, 248);  /* 天蓝 */
+            --xf-accent-2: rgb(37, 99, 235);   /* 科技蓝 */
+            --xf-radius: 24px;                 /* 与全站卡片圆角一致 */
+        }
+        /* 字体层级（先在此页统一，之后回推星擎） */
+        .xf-kicker     { font-size: 14px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(125, 211, 252); }
+        .xf-h2         { font-size: 56px; line-height: 1.12; font-weight: 700; }
+        .xf-sub        { font-size: 20px; line-height: 1.5; font-weight: 400; color: rgba(255,255,255,0.45); }
+        .xf-cardtitle  { font-size: 20px; line-height: 1.4; font-weight: 700; }
+        .xf-cardtitle-s{ font-size: 18px; line-height: 1.4; font-weight: 700; }
+        .xf-body       { font-size: 15px; line-height: 1.75; color: rgba(255,255,255,0.5); }
+        .xf-note       { font-size: 13px; font-weight: 500; letter-spacing: 0.04em; color: rgba(255,255,255,0.4); }
+        .xf-tile       { background: linear-gradient(135deg, var(--xf-accent-1), var(--xf-accent-2)); }
+        .xf-shot       { border-radius: var(--xf-radius); border: 1px solid rgba(255,255,255,0.12); background: #08080d; overflow: hidden; }
+        .xf-shot img   { display: block; width: 100%; height: auto; }
+        @media (max-width: 768px) {
+            .xf-h2 { font-size: 32px; }
+            .xf-sub { font-size: 16px; }
+        }
+
+            /* ⑤ 尾屏标题（放在样式表最末，确保覆盖所有通用 h2 规则） */
+        @media (max-width: 768px) {
+            .cta-section h2, .cta-section h2.text-3xl, .cta-section h2[class*="text-"] {
+                font-size: 34px !important;
+                line-height: 1.3 !important;
+                white-space: normal !important;
+            }
+        }
+            /* ② 真实业务数据：滑动行真正通栏（解除 max-width 限制，左右各 -20px 之外再补满） */
+        @media (max-width: 768px) {
+            #xf-data-grid { max-width: none !important; width: calc(100% + 40px) !important; }
+        }
+            /* ④ 尾屏标题断行点（只有手机端断） */
+        .cta-br { display: none; }
+
+        @media (max-width: 768px) {
+            /* ① 首屏：副标题↔数字间距加大；左右两组之间的列间距收小 */
+            #hero-sub { margin-bottom: 52px !important; }
+            #hero-stats { gap: 26px 10px !important; }
+            /* ② 真实数据：默认左边留边距、右边通栏；滑动时左右都贴屏 */
+            #xf-data-grid { padding-left: 20px !important; padding-right: 0 !important; }
+            /* ③ 星擎+星帆：回到横向 3 块（可左右滑动） */
+            #xf-dual-grid {
+                display: flex !important; overflow-x: auto !important; scroll-snap-type: x mandatory !important;
+                gap: 12px !important; width: calc(100% + 40px) !important; max-width: none !important;
+                margin-left: -20px !important; margin-right: -20px !important;
+                padding-left: 20px !important; padding-right: 0 !important;
+                scrollbar-width: none !important; -webkit-overflow-scrolling: touch !important;
+            }
+            #xf-dual-grid::-webkit-scrollbar { display: none !important; }
+            #xf-dual-grid > div { flex: 0 0 74% !important; scroll-snap-align: center !important; grid-column: auto !important; }
+            /* ④ 手机端断行 */
+            .cta-br { display: inline; }
+        }
+            /* ③ 星擎 + 星帆：手机端竖排 3 块（不滑动）——覆盖前面的横滑规则 */
+        @media (max-width: 768px) {
+            #xf-dual-grid {
+                display: grid !important;
+                grid-template-columns: 1fr !important;
+                gap: 12px !important;
+                overflow: visible !important;
+                width: auto !important;
+                max-width: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            #xf-dual-grid > div { flex: none !important; scroll-snap-align: none !important; }
+            #xf-dual-grid > div:first-child { grid-column: auto !important; }
+        }
+            /* ① 星擎 + 星帆：手机端换成专用的竖版底图（和首屏同一套做法） */
+        @media (max-width: 768px) {
+            #xf-dual-bg {
+                background-image: linear-gradient(180deg, rgba(0,0,0,0.90) 0%, rgba(0,0,0,0.30) 26%, rgba(0,0,0,0.30) 72%, rgba(0,0,0,0.55) 88%, rgba(0,0,0,0.98) 100%), url('images/xingfan-hero-bg-mobile.jpg') !important;
+                background-size: cover, cover !important;
+                background-position: center center, center calc(50% + 170px) !important;
+                background-repeat: no-repeat, no-repeat !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+<nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="images/视星擎.svg" alt="创视星擎">
+            </a>
+            <button class="mobile-menu-toggle" aria-label="打开菜单">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="https://xingqing.ultronx.tech/login" class="nav-link" id="xingqing-login-link">星擎</a></li>
+                <li><a href="xingfan.html" class="nav-link">星帆</a></li>
+                <li><a href="pricing.html" class="nav-link">定价</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden" style="background: #000;">
+        <div class="absolute inset-0 hero-bg-image" style="background-image: url('images/xingfan-hero-map-user3.jpg'); background-size: cover; background-position: center bottom; background-repeat: no-repeat; opacity: 0.92;"></div>
+        <div class="absolute inset-0 flex items-center justify-center">
+            <div class="relative w-[1350px] h-[1350px] gradient-orbit">
+                <div class="absolute top-[4%] left-[50%] w-[600px] h-[600px] gradient-fade-1" style="margin-left: -300px;">
+                    <div class="w-full h-full rounded-full blur-[80px]" style="background: radial-gradient(circle, rgba(56,189,248,0.95) 0%, rgba(2,90,140,0.6) 40%, rgba(0,0,0,0) 70%);"></div>
+                </div>
+                <div class="absolute bottom-[4%] left-[50%] w-[600px] h-[600px] gradient-fade-2" style="margin-left: -300px;">
+                    <div class="w-full h-full rounded-full blur-[80px]" style="background: radial-gradient(circle, rgba(37,99,235,0.95) 0%, rgba(15,50,140,0.6) 40%, rgba(0,0,0,0) 70%);"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="relative z-10 text-center px-8 max-w-6xl mx-auto w-full" style="padding-top: 80px;">
+            <p class="xf-kicker mb-6 hero-item" style="font-size: 24px; font-weight: 500; letter-spacing: 0.46px; animation-delay: 0.2s;">星帆 · TikTok Shop 智能电商</p>
+
+            <h1 class="hero-title-desktop font-bold mb-8 gradient-text hero-item" style="font-size: 96px; line-height: 96px; letter-spacing: 0.16em; text-indent: 0.16em; background-image: linear-gradient(171deg, #ffffff 0%, #cfe8ff 50%, #8ec9ff 100%); animation-delay: 0.4s;">
+                从开店到出单
+            </h1>
+
+            <h1 class="hero-title-mobile font-bold mb-8 gradient-text hero-item" style="font-size: 64px; line-height: 72px; letter-spacing: 0.16em; text-indent: 0.16em; background-image: linear-gradient(171deg, #ffffff 0%, #cfe8ff 50%, #8ec9ff 100%); animation-delay: 0.4s;">
+                从开店<br>到出单
+            </h1>
+
+            <p id="hero-sub" class="text-gray-300 font-light mb-32 hero-item" style="font-size: 20px; font-weight: 400; letter-spacing: -0.45px; animation-delay: 0.6s;">消费品出海 · TikTok Shop 全托管<br class="sub-br"> · AI Agent 全链路驱动</p>
+
+            
+
+            <div id="hero-stats" class="grid grid-cols-2 md:grid-cols-4 gap-12 max-w-4xl mx-auto">
+                <div class="text-center hero-item" style="animation-delay: 1s;">
+                    <div class="text-5xl font-bold mb-3" style="font-family: 'DIN Alternate', 'Inter', sans-serif; background: linear-gradient(154deg, #ffffff 0%, #8ec9ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">5</div>
+                    <div class="text-lg text-white/50">AI Agent 协作</div>
+                </div>
+                <div class="text-center hero-item" style="animation-delay: 1.1s;">
+                    <div class="text-5xl font-bold mb-3" style="font-family: 'DIN Alternate', 'Inter', sans-serif; background: linear-gradient(164deg, #ffffff 0%, #8ec9ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">6</div>
+                    <div class="text-lg text-white/50">大交付环节</div>
+                </div>
+                <div class="text-center hero-item" style="animation-delay: 1.2s;">
+                    <div class="text-5xl font-bold mb-3" style="font-family: 'DIN Alternate', 'Inter', sans-serif; background: linear-gradient(151deg, #ffffff 0%, #8ec9ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">7×24</div>
+                    <div class="text-lg text-white/50">客服与履约</div>
+                </div>
+                <div class="text-center hero-item" style="animation-delay: 1.3s;">
+                    <div class="text-5xl font-bold mb-3" style="font-family: 'DIN Alternate', 'Inter', sans-serif; background: linear-gradient(152deg, #ffffff 0%, #8ec9ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">1</div>
+                    <div class="text-lg text-white/50">支全托管团队</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="scroll-indicator" class="absolute left-1/2 -translate-x-1/2 flex items-start justify-center border-2 border-white/20 rounded-full z-20 transition-opacity duration-500" style="bottom: 50px; width: 24px; height: 40px; padding: 19px 0 0 0;">
+            <div class="bg-white/50 rounded-full scroll-indicator" style="width: 4px; height: 8px;"></div>
+        </div>
+    </section>
+
+    <!-- 定位 -->
+    <section class="relative py-32 overflow-hidden" style="background: #000;">
+        <div class="absolute inset-0 flex items-center justify-center"><div class="absolute w-[70%] h-[70%] rounded-[16777200px] glow-breathe" style="opacity: 0.74; background: linear-gradient(90deg, rgba(56, 189, 248, 0.27) 0%, rgba(37, 99, 235, 0.27) 50%, rgba(37, 99, 235, 0.19) 100%); filter: blur(120px);"></div></div>
+        <div class="max-w-6xl mx-auto px-8 relative z-10">
+            <div class="text-center mb-20">
+                <h2 class="xf-h2 gradient-text fade-in-element mb-6" style="background-image: linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.4) 100%);">
+                    星帆是什么
+                </h2>
+                <p class="xf-sub fade-in-element">消费品出海的 TikTok Shop 全托管</p>
+            </div>
+            <div class="max-w-4xl mx-auto text-center">
+                <p class="text-white fade-in-element" style="font-size: 20px; line-height: 36px;">
+                    面向 <strong class="text-white">消费品 / DTC 品牌</strong>，星帆提供 <strong class="text-white">TikTok Shop 全托管运营</strong>：<br class="intro-br">从开店到出单，一条 <strong class="text-white">AI Agent 全链路</strong>把选品到履约串成可持续的增长闭环。
+                </p>
+                <p class="xf-sub fade-in-element mt-6 mb-10">五个 Agent 分工协作，覆盖从选品到复盘的完整环节</p>
+                <div id="xf-agents-a" class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left" style="text-align: left;">
+                    <div class="relative bg-white/5 border border-white/10 rounded-3xl p-8 fade-in-element">
+                        <div class="flex items-center justify-center mb-6" style="width: 56px; height: 56px; border-radius: 18px; background: linear-gradient(135deg, rgb(246,51,154), rgb(255,32,86)); box-shadow: 0 14px 30px -16px rgba(246,51,154,0.85), inset 0 1px 0 rgba(255,255,255,0.38);">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg>
+                        </div>
+                        <h3 class="xf-cardtitle mb-3">洞察 Agent</h3>
+                        <p class="text-white/50 leading-relaxed" style="font-size: 15px;">市场与选品洞察 —— 热卖品类挖掘、竞品定价监控、趋势预判，锁定高潜力品类。</p>
+                    </div>
+                    <div class="relative bg-white/5 border border-white/10 rounded-3xl p-8 fade-in-element">
+                        <div class="flex items-center justify-center mb-6" style="width: 56px; height: 56px; border-radius: 18px; background: linear-gradient(135deg, rgb(254,154,0), rgb(255,105,0)); box-shadow: 0 14px 30px -16px rgba(254,154,0,0.85), inset 0 1px 0 rgba(255,255,255,0.38);">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 0 1 2-2h9l5 5v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"></path><polyline points="14 3 14 8 19 8"></polyline></svg>
+                        </div>
+                        <h3 class="xf-cardtitle mb-3">策划 Agent</h3>
+                        <p class="text-white/50 leading-relaxed" style="font-size: 15px;">商品与活动策划 —— 标题 / 主图 / 详情页优化、定价策略与促销活动设计，完成商品表达优化。</p>
+                    </div>
+                    <div class="relative bg-white/5 border border-white/10 rounded-3xl p-8 fade-in-element">
+                        <div class="flex items-center justify-center mb-6" style="width: 56px; height: 56px; border-radius: 18px; background: linear-gradient(135deg, rgb(43,127,255), rgb(0,184,219)); box-shadow: 0 14px 30px -16px rgba(43,127,255,0.85), inset 0 1px 0 rgba(255,255,255,0.38);">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+                        </div>
+                        <h3 class="xf-cardtitle mb-3">制作 Agent</h3>
+                        <p class="text-white/50 leading-relaxed" style="font-size: 15px;">内容与素材生产 —— 产品短视频制作、带货脚本与 A/B 测试素材批量生产，保障持续日更产能。</p>
+                    </div>
+            </div>
+            <div id="xf-agents-b" class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 md:max-w-4xl md:mx-auto text-left" style="text-align: left;">
+                    <div class="relative bg-white/5 border border-white/10 rounded-3xl p-8 fade-in-element">
+                        <div class="flex items-center justify-center mb-6" style="width: 56px; height: 56px; border-radius: 18px; background: linear-gradient(135deg, rgb(173,70,255), rgb(97,95,255)); box-shadow: 0 14px 30px -16px rgba(173,70,255,0.85), inset 0 1px 0 rgba(255,255,255,0.38);">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.6" y1="10.5" x2="15.4" y2="6.5"></line><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"></line></svg>
+                        </div>
+                        <h3 class="xf-cardtitle mb-3">分发 Agent</h3>
+                        <p class="text-white/50 leading-relaxed" style="font-size: 15px;">投放与达人分发 —— 广告投流执行、达人筛选建联、商品卡流量优化，放大内容与商品流量。</p>
+                    </div>
+                    <div class="relative bg-white/5 border border-white/10 rounded-3xl p-8 fade-in-element">
+                        <div class="flex items-center justify-center mb-6" style="width: 56px; height: 56px; border-radius: 18px; background: linear-gradient(135deg, rgb(0,201,80), rgb(0,188,125)); box-shadow: 0 14px 30px -16px rgba(0,201,80,0.8), inset 0 1px 0 rgba(255,255,255,0.38);">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="20" x2="20" y2="20"></line><rect x="6" y="12" width="3" height="8"></rect><rect x="11" y="8" width="3" height="12"></rect><rect x="16" y="4" width="3" height="16"></rect></svg>
+                        </div>
+                        <h3 class="xf-cardtitle mb-3">数据 Agent</h3>
+                        <p class="text-white/50 leading-relaxed" style="font-size: 15px;">效果复盘与归因 —— GMV / ROI 追踪、转化漏斗分析、投流效果归因，投放效果可追溯。</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- 核心交付 -->
+    <section class="relative py-32 overflow-hidden" style="background: #000;">
+        <div class="absolute inset-0 flex items-center justify-center"><div class="absolute w-[70%] h-[70%] rounded-[16777200px] glow-breathe" style="opacity: 0.74; background: linear-gradient(90deg, rgba(56, 189, 248, 0.27) 0%, rgba(37, 99, 235, 0.27) 50%, rgba(37, 99, 235, 0.19) 100%); filter: blur(120px);"></div></div>
+        <div class="max-w-6xl mx-auto px-8 relative z-10">
+            <div class="text-center mb-20">
+                <h2 class="xf-h2 gradient-text fade-in-element mb-6" style="background-image: linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.4) 100%);">
+                    核心交付
+                </h2>
+                <p class="xf-sub fade-in-element">六项核心交付，一支全托管团队</p>
+            </div>
+            <div id="xf-core-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="relative bg-white/5 border border-white/10 rounded-3xl p-8 fade-in-element">
+                        <div class="flex items-center justify-center mb-5" style="width: 56px; height: 56px; border-radius: 50%; background: rgba(246,51,154,0.14); border: 1.5px solid rgba(246,51,154,0.5); box-shadow: inset 0 0 20px rgba(246,51,154,0.10);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgb(246,51,154)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 9.5 5 4h14l1.5 5.5"></path><path d="M4 9.5V19a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9.5"></path><path d="M9.5 20v-6h5v6"></path></svg></div>
+                        <h3 class="xf-cardtitle-s mb-2">店铺注册与开通</h3>
+                        <p class="text-white/50" style="font-size: 15px; line-height: 26px;">美国本土店 / 跨境店，把店先落地</p>
+                    </div>
+                    <div class="relative bg-white/5 border border-white/10 rounded-3xl p-8 fade-in-element">
+                        <div class="flex items-center justify-center mb-5" style="width: 56px; height: 56px; border-radius: 50%; background: rgba(255,105,0,0.14); border: 1.5px solid rgba(255,105,0,0.5); box-shadow: inset 0 0 20px rgba(255,105,0,0.10);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgb(255,105,0)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3.5" width="16" height="17" rx="2"></rect><line x1="8" y1="8.5" x2="16" y2="8.5"></line><line x1="8" y1="12.5" x2="16" y2="12.5"></line><line x1="8" y1="16.5" x2="12" y2="16.5"></line></svg></div>
+                        <h3 class="xf-cardtitle-s mb-2">上架与详情页优化</h3>
+                        <p class="text-white/50" style="font-size: 15px; line-height: 26px;">标题、主图、详情页 + A / B 持续测试</p>
+                    </div>
+                    <div class="relative bg-white/5 border border-white/10 rounded-3xl p-8 fade-in-element">
+                        <div class="flex items-center justify-center mb-5" style="width: 56px; height: 56px; border-radius: 50%; background: rgba(43,127,255,0.14); border: 1.5px solid rgba(43,127,255,0.5); box-shadow: inset 0 0 20px rgba(43,127,255,0.10);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgb(43,127,255)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6" width="13" height="12" rx="2"></rect><polygon points="15.5 10.5 21.5 7.5 21.5 16.5 15.5 13.5"></polygon></svg></div>
+                        <h3 class="xf-cardtitle-s mb-2">短视频素材 + 小黄车</h3>
+                        <p class="text-white/50" style="font-size: 15px; line-height: 26px;">带货短视频制作与商品卡挂载</p>
+                    </div>
+                    <div class="relative bg-white/5 border border-white/10 rounded-3xl p-8 fade-in-element">
+                        <div class="flex items-center justify-center mb-5" style="width: 56px; height: 56px; border-radius: 50%; background: rgba(255,137,4,0.14); border: 1.5px solid rgba(255,137,4,0.5); box-shadow: inset 0 0 20px rgba(255,137,4,0.10);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgb(255,137,4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 7"></polyline><polyline points="14 7 21 7 21 14"></polyline></svg></div>
+                        <h3 class="xf-cardtitle-s mb-2">广告投放与 ROI 优化</h3>
+                        <p class="text-white/50" style="font-size: 15px; line-height: 26px;">投流策略制定、预算分配、持续调优</p>
+                    </div>
+                    <div class="relative bg-white/5 border border-white/10 rounded-3xl p-8 fade-in-element">
+                        <div class="flex items-center justify-center mb-5" style="width: 56px; height: 56px; border-radius: 50%; background: rgba(173,70,255,0.14); border: 1.5px solid rgba(173,70,255,0.5); box-shadow: inset 0 0 20px rgba(173,70,255,0.10);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgb(173,70,255)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"></circle><path d="M3.5 20a5.5 5.5 0 0 1 11 0"></path><circle cx="17.5" cy="9.5" r="2.6"></circle><path d="M15.8 20a5 5 0 0 1 5.7-4.6"></path></svg></div>
+                        <h3 class="xf-cardtitle-s mb-2">达人筛选与建联</h3>
+                        <p class="text-white/50" style="font-size: 15px; line-height: 26px;">找对的达人，追带货效果</p>
+                    </div>
+                    <div class="relative bg-white/5 border border-white/10 rounded-3xl p-8 fade-in-element">
+                        <div class="flex items-center justify-center mb-5" style="width: 56px; height: 56px; border-radius: 50%; background: rgba(0,201,80,0.14); border: 1.5px solid rgba(0,201,80,0.5); box-shadow: inset 0 0 20px rgba(0,201,80,0.10);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgb(0,201,80)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13v-1.5a8 8 0 0 1 16 0V13"></path><rect x="2.5" y="12.5" width="4" height="6.5" rx="2"></rect><rect x="17.5" y="12.5" width="4" height="6.5" rx="2"></rect><path d="M19.5 19a4 4 0 0 1-4 4H13"></path></svg></div>
+                        <h3 class="xf-cardtitle-s mb-2">客服 · 履约 · 评价</h3>
+                        <p class="text-white/50" style="font-size: 15px; line-height: 26px;">24 小时在线客服 + 履约监控 + 评价管理</p>
+                    </div>
+            </div>
+            <div class="relative bg-white/5 border border-white/10 rounded-3xl p-8 mt-8 fade-in-element">
+                <h3 class="xf-cardtitle-s mb-3">专业团队配置</h3>
+                <p class="text-white/60" style="font-size: 16px; line-height: 30px;">店铺运营经理 · 商品运营 · 内容制作 · 投流优化师 · 达人合作 · 客服履约 —— 完整电商运营小组配置，非单人兼顾。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 真实在跑 -->
+    <section class="relative py-32 overflow-hidden" style="background: #000;">
+        <div class="absolute inset-0 flex items-center justify-center"><div class="absolute w-[70%] h-[70%] rounded-[16777200px] glow-breathe" style="opacity: 0.74; background: linear-gradient(90deg, rgba(56, 189, 248, 0.27) 0%, rgba(37, 99, 235, 0.27) 50%, rgba(37, 99, 235, 0.19) 100%); filter: blur(120px);"></div></div>
+        <div class="max-w-6xl mx-auto px-8 relative z-10">
+            <div class="text-center mb-20">
+                <h2 class="xf-h2 gradient-text fade-in-element mb-6" style="background-image: linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.4) 100%);">
+                    真实业务数据
+                </h2>
+                <p class="xf-sub fade-in-element">账号资产、买家互动与店铺出单，全链路数据可查</p>
+            </div>
+            <div id="xf-data-grid" class="grid grid-cols-1 md:grid-cols-3 gap-10 md:max-w-4xl md:mx-auto">
+                <figure class="fade-in-element">
+                    <div class="xf-shot"><img src="images/3c-account-data.jpg" alt="账号资产" loading="lazy"></div>
+                    <figcaption class="mt-5" style="text-align: center;"><span class="xf-cardtitle-s">账号资产</span><br><span class="xf-note">粉丝、互动与账号资料沉淀为可复用资产</span></figcaption>
+                </figure>
+                <figure class="fade-in-element">
+                    <div class="xf-shot"><img src="images/3c-comments.jpg" alt="买家互动" loading="lazy"></div>
+                    <figcaption class="mt-5" style="text-align: center;"><span class="xf-cardtitle-s">买家互动</span><br><span class="xf-note">评论区即询盘入口，AI 自动筛选高意向买家</span></figcaption>
+                </figure>
+                <figure class="fade-in-element">
+                    <div class="xf-shot"><img src="images/3c-sold-data.jpg" alt="店铺出单" loading="lazy"></div>
+                    <figcaption class="mt-5" style="text-align: center;"><span class="xf-cardtitle-s">店铺出单</span><br><span class="xf-note">商品卡销量持续累积</span></figcaption>
+                </figure>
+            </div>
+                    </div>
+    </section>
+
+    <!-- 星擎 + 星帆 -->
+    <section class="relative py-32 overflow-hidden" style="background: #000;">
+        <div id="xf-dual-bg" class="absolute inset-0" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.52) 28%, rgba(0,0,0,0.58) 60%, rgba(0,0,0,0.985) 100%), url('images/xingfan-hero-bg.jpg'); background-size: cover, cover; background-position: center center, center calc(50% + 40px); background-repeat: no-repeat, no-repeat;"></div>
+        <div class="absolute inset-0 flex items-center justify-center"><div class="absolute w-[70%] h-[70%] rounded-[16777200px] glow-breathe" style="opacity: 0.74; background: linear-gradient(90deg, rgba(56, 189, 248, 0.27) 0%, rgba(37, 99, 235, 0.27) 50%, rgba(37, 99, 235, 0.19) 100%); filter: blur(120px);"></div></div>
+        <div class="max-w-6xl mx-auto px-8 relative z-10">
+            <div class="text-center mb-20">
+                <h2 class="xf-h2 gradient-text fade-in-element mb-6" style="background-image: linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.4) 100%);">
+                    星擎 + 星帆
+                </h2>
+                <p class="xf-sub fade-in-element">B2B 获客与 B2C 出单，覆盖海外市场双模式</p>
+            </div>
+            <div id="xf-dual-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="relative bg-white/5 border border-white/10 rounded-3xl p-8 fade-in-element" style="background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.14); backdrop-filter: blur(18px) saturate(1.25); -webkit-backdrop-filter: blur(18px) saturate(1.25);">
+                    <div class="xf-tile flex items-center justify-center mb-5" style="width: 56px; height: 56px; border-radius: 18px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><path d="M3.5 12h17"></path><path d="M12 3.5a15 15 0 0 1 0 17a15 15 0 0 1 0-17z"></path></svg></div>
+                    <h3 class="xf-cardtitle mb-3">B2B + B2C</h3>
+                    <p class="xf-body">星擎做线索获客，星帆做电商出单，同一片海外市场，双模式覆盖。</p>
+                </div>
+                <div class="relative bg-white/5 border border-white/10 rounded-3xl p-8 fade-in-element" style="background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.14); backdrop-filter: blur(18px) saturate(1.25); -webkit-backdrop-filter: blur(18px) saturate(1.25);">
+                    <div class="xf-tile flex items-center justify-center mb-5" style="width: 56px; height: 56px; border-radius: 18px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5.5" r="2.6"></circle><circle cx="6" cy="12" r="2.6"></circle><circle cx="18" cy="18.5" r="2.6"></circle><line x1="8.3" y1="10.8" x2="15.7" y2="6.7"></line><line x1="8.3" y1="13.2" x2="15.7" y2="17.3"></line></svg></div>
+                    <h3 class="xf-cardtitle mb-3">数据互通</h3>
+                    <p class="xf-body">星擎沉淀的海外买家画像，让星帆选品与投流更准；星帆的消费者行为数据，反过来喂养 B 端内容策略。</p>
+                </div>
+                <div class="relative bg-white/5 border border-white/10 rounded-3xl p-8 fade-in-element" style="background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.14); backdrop-filter: blur(18px) saturate(1.25); -webkit-backdrop-filter: blur(18px) saturate(1.25);">
+                    <div class="xf-tile flex items-center justify-center mb-5" style="width: 56px; height: 56px; border-radius: 18px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 3.5 8 12 12.5 20.5 8z"></path><path d="M3.5 12.5 12 17l8.5-4.5"></path><path d="M3.5 16.5 12 21l8.5-4.5"></path></svg></div>
+                    <h3 class="xf-cardtitle mb-3">同一套底座</h3>
+                    <p class="xf-body">都由 ArcModel™ 与同一套 AI Agent 框架驱动 —— 一次建模，两个产品同步受益。</p>
+                </div>
+            </div>
+            <div class="text-center mt-6 fade-in-element">
+                <a href="product.html" class="inline-flex items-center gap-2 text-white/70 hover:text-white transition" style="font-size: 16px; border-bottom: 1px solid rgba(255,255,255,0.25); padding-bottom: 4px;">看看星擎能做什么 <img src="images/arrow-right.svg" alt="" aria-hidden="true" style="width: 16px; height: 16px; filter: invert(1); opacity: 0.7;"></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 适合谁 -->
+    <section class="relative py-32 overflow-hidden" style="background: #000;">
+        <div class="absolute inset-0 flex items-center justify-center"><div class="absolute w-[70%] h-[70%] rounded-[16777200px] glow-breathe" style="opacity: 0.74; background: linear-gradient(90deg, rgba(56, 189, 248, 0.27) 0%, rgba(37, 99, 235, 0.27) 50%, rgba(37, 99, 235, 0.19) 100%); filter: blur(120px);"></div></div>
+        <div class="max-w-6xl mx-auto px-8 relative z-10">
+            <div class="text-center mb-20">
+                <h2 class="xf-h2 gradient-text fade-in-element mb-6" style="background-image: linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.4) 100%);">
+                    适合谁
+                </h2>
+                <p class="xf-sub fade-in-element">适配这样的企业</p>
+            </div>
+            <div id="xf-who-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="relative bg-white/5 border border-white/10 rounded-3xl p-8 fade-in-element flex items-start gap-4">
+                    <svg class="flex-shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgb(56,189,248)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-top: 5px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <p class="text-white" style="font-size: 17px; line-height: 30px;"><strong class="text-white">消费品 / DTC 品牌</strong> —— 家居、美妆、3C 配件、服饰、宠物、户外等，面向海外消费者直接销售。</p>
+                </div>
+                <div class="relative bg-white/5 border border-white/10 rounded-3xl p-8 fade-in-element flex items-start gap-4">
+                    <svg class="flex-shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgb(56,189,248)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-top: 5px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <p class="text-white" style="font-size: 17px; line-height: 30px;">已在或计划在 <strong class="text-white">TikTok Shop</strong> 开店 —— 想做出单，而不只是做曝光。</p>
+                </div>
+                <div class="relative bg-white/5 border border-white/10 rounded-3xl p-8 fade-in-element flex items-start gap-4">
+                    <svg class="flex-shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgb(56,189,248)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-top: 5px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <p class="text-white" style="font-size: 17px; line-height: 30px;">有稳定<strong class="text-white">供应链或货源</strong> —— 能配合备货、发货与售后。</p>
+                </div>
+                <div class="relative bg-white/5 border border-white/10 rounded-3xl p-8 fade-in-element flex items-start gap-4">
+                    <svg class="flex-shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgb(56,189,248)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-top: 5px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <p class="text-white" style="font-size: 17px; line-height: 30px;">接受用<strong class="text-white">内容 + 投流 + 达人</strong>的组合打法 —— 愿意让 AI 先把跑量的部分做扎实。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="relative overflow-hidden flex items-center cta-section" style="background: #000; min-height: 818px;">
+        <div class="absolute inset-0 flex items-center justify-center">
+            <div class="relative w-[1200px] h-[1200px] cta-orbit">
+                <div class="absolute w-[700px] h-[700px] cta-gradient-1">
+                    <div class="w-full h-full rounded-full" style="background: radial-gradient(circle, rgba(56, 189, 248, 0.55) 0%, rgba(2, 90, 140, 0.38) 40%, transparent 70%); filter: blur(100px);"></div>
+                </div>
+                <div class="absolute w-[650px] h-[650px] cta-gradient-2">
+                    <div class="w-full h-full rounded-full" style="background: radial-gradient(circle, rgba(37, 99, 235, 0.55) 0%, rgba(15, 50, 140, 0.36) 40%, transparent 70%); filter: blur(100px);"></div>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-4xl mx-auto px-8 text-center relative z-10">
+            <h2 class="text-3xl md:text-5xl font-bold mb-8 fade-in-element" style="line-height: 1.5; font-weight: 600; background-image: linear-gradient(180deg, #ffffff 0%, #cfe8ff 46%, #7dbeff 100%); background-size: 100% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                从开店到出单 <br class="cta-br">让增长可复制
+            </h2>
+            <p class="text-white mb-12 fade-in-element" style="font-size: 18px; line-height: 28px;">以 AI Agent 全链路托管，支撑消费品牌稳定出单</p>
+                        <div class="cta-tags fade-in-element" style="display: flex; align-items: center; justify-content: center; gap: 12px;">
+                <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 9999px; padding: 14px 26px; white-space: nowrap;"><span style="font-size: 15px; color: rgba(255,255,255,0.72); white-space: nowrap;">全托管运营</span></div>
+                <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 9999px; padding: 14px 26px; white-space: nowrap;"><span style="font-size: 15px; color: rgba(255,255,255,0.72); white-space: nowrap;">AI Agent 全链路</span></div>
+                <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 9999px; padding: 14px 26px; white-space: nowrap;"><span style="font-size: 15px; color: rgba(255,255,255,0.72); white-space: nowrap;">内容 · 投流 · 达人</span></div>
+                <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 9999px; padding: 14px 26px; white-space: nowrap;"><span style="font-size: 15px; color: rgba(255,255,255,0.72); white-space: nowrap;">GMV / ROI 可回溯</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer role="contentinfo" aria-label="页脚导航和信息">
+        <div class="container" style="max-width: 1280px; margin: 0 auto; padding: 0 20px; box-sizing: border-box;">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="images/视星擎.svg" alt="创视星擎" class="footer-logo">
+                    <p class="footer-tagline">重新定义短视频创作</p>
+                </div>
+
+                <div class="footer-column">
+                    <h4>产品</h4>
+                    <ul class="footer-links">
+                        <li><a href="product.html">功能特性</a></li>
+                        <li><a href="pricing.html">定价方案</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>关于</h4>
+                    <ul class="footer-links">
+                        <li><a href="product.html#contact">联系我们</a></li>
+                        <li><a href="product.html#">隐私政策</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2026 奥创天下. All rights reserved.</p>
+                <p class="footer-copyright footer-icp">浙ICP备2026015297号-1</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 滚动指示器渐隐效果
+        document.addEventListener('DOMContentLoaded', () => {
+            const scrollIndicator = document.getElementById('scroll-indicator');
+
+            if (scrollIndicator) {
+                window.addEventListener('scroll', () => {
+                    const scrolled = window.pageYOffset;
+
+                    // 当滚动超过50px时开始渐隐
+                    if (scrolled > 50) {
+                        scrollIndicator.style.opacity = '0';
+                        scrollIndicator.style.pointerEvents = 'none';
+                    } else {
+                        scrollIndicator.style.opacity = '1';
+                        scrollIndicator.style.pointerEvents = 'auto';
+                    }
+                });
+            }
+        });
+
+        // 特性卡片向上渐现动画
+        document.addEventListener('DOMContentLoaded', () => {
+            const leftCard = document.querySelector('.feature-card-left');
+            const rightCard = document.querySelector('.feature-card-right');
+
+            if (leftCard && rightCard) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            // 左边卡片先出现
+                            setTimeout(() => {
+                                leftCard.classList.add('animate-in');
+                            }, 200);
+
+                            // 右边卡片延迟出现
+                            setTimeout(() => {
+                                rightCard.classList.add('animate-in');
+                            }, 500);
+
+                            observer.disconnect();
+                        }
+                    });
+                }, { threshold: 0.3 });
+
+                // 观察图片容器
+                const imageContainer = leftCard.parentElement;
+                if (imageContainer) {
+                    observer.observe(imageContainer);
+                }
+            }
+        });
+
+        // 数字翻滚动画
+        document.addEventListener('DOMContentLoaded', () => {
+            const numberElements = document.querySelectorAll('.number-flip');
+
+            numberElements.forEach((element, index) => {
+                const target = parseInt(element.dataset.target);
+                const delay = parseFloat(element.parentElement.style.animationDelay || '1s') * 1000 + 300;
+
+                setTimeout(() => {
+                    animateNumberFlip(element, target);
+                }, delay);
+            });
+        });
+
+        function animateNumberFlip(element, target) {
+            const duration = 2000;
+            const fps = 60;
+            const totalFrames = (duration / 1000) * fps;
+            let frame = 0;
+
+            function easeOutExpo(t) {
+                return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+            }
+
+            function animate() {
+                frame++;
+                const progress = frame / totalFrames;
+                const easedProgress = easeOutExpo(progress);
+                const current = Math.floor(target * easedProgress);
+
+                // 根据不同的数字格式化输出
+                if (target === 100) {
+                    element.textContent = current + 'w+';
+                } else if (target === 5) {
+                    element.textContent = current + 'k+';
+                } else {
+                    element.textContent = current + '+';
+                }
+
+                // 添加翻滚效果（在变化时）
+                if (frame % 2 === 0) {
+                    element.style.transform = 'translateY(-3px)';
+                } else {
+                    element.style.transform = 'translateY(0)';
+                }
+
+                if (frame < totalFrames) {
+                    requestAnimationFrame(animate);
+                } else {
+                    element.style.transform = 'translateY(0)';
+                    // 最终值
+                    if (target === 100) {
+                        element.textContent = target + 'w+';
+                    } else if (target === 5) {
+                        element.textContent = target + 'k+';
+                    } else {
+                        element.textContent = target + '+';
+                    }
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        // 标题文字逐字显现动画
+        document.addEventListener('DOMContentLoaded', () => {
+            // Hero区域的h1标题 - 整体淡入而不是逐字显现
+            const heroH1 = document.querySelector('section.min-h-screen h1');
+
+            if (heroH1) {
+                // 不需要额外的样式，已经通过 hero-item 类控制了
+            }
+
+            // 为其他重要的h2标题添加整体淡入动画
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
+                        entry.target.classList.add('animated');
+                        entry.target.style.opacity = '0';
+                        entry.target.style.transform = 'translateY(30px)';
+                        entry.target.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+
+                        setTimeout(() => {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }, 100);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            // 为"各大AI Agent协作"标题单独添加淡入效果
+            const agentTitle = Array.from(document.querySelectorAll('h2')).find(h2 =>
+                h2.textContent.includes('各大AI Agent协作')
+            );
+            if (agentTitle) {
+                const agentObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
+                            entry.target.classList.add('animated');
+                            entry.target.style.opacity = '0';
+                            entry.target.style.transform = 'translateY(30px)';
+                            entry.target.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+
+                            setTimeout(() => {
+                                entry.target.style.opacity = '1';
+                                entry.target.style.transform = 'translateY(0)';
+                            }, 100);
+                        }
+                    });
+                }, { threshold: 0.5 });
+                agentObserver.observe(agentTitle);
+            }
+
+            // 观察除了hero区域外的其他h2标题
+            document.querySelectorAll('section:not(.min-h-screen) .text-center > h2').forEach(h2 => {
+                // 排除"各大AI Agent协作"标题
+                if (!h2.textContent.includes('各大AI Agent协作')) {
+                    observer.observe(h2);
+                }
+            });
+        });
+
+        // 增强的视差滚动效果（排除有动画的背景元素）
+        document.addEventListener('DOMContentLoaded', () => {
+            const parallaxElements = document.querySelectorAll('[data-parallax]');
+
+            let ticking = false;
+
+            function updateParallax() {
+                const scrolled = window.pageYOffset;
+
+                parallaxElements.forEach(el => {
+                    // 跳过有旋转动画的容器
+                    if (el.classList.contains('gradient-orbit')) {
+                        return;
+                    }
+
+                    const speed = parseFloat(el.dataset.parallax) || 0.5;
+                    const yPos = -(scrolled * speed);
+
+                    // 添加一些缩放效果
+                    const scale = 1 + (scrolled * 0.0002);
+                    const clampedScale = Math.min(scale, 1.2); // 限制最大缩放
+                    el.style.transform = `translateY(${yPos}px) scale(${clampedScale})`;
+                });
+
+                ticking = false;
+            }
+
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(updateParallax);
+                    ticking = true;
+                }
+            });
+
+            // 初始化视差效果
+            updateParallax();
+        });
+
+        // 添加主要内容区域的轻微视差效果
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section');
+
+            let ticking = false;
+
+            function updateSectionParallax() {
+                const scrolled = window.pageYOffset;
+
+                sections.forEach((section, index) => {
+                    const rect = section.getBoundingClientRect();
+                    const sectionTop = rect.top + scrolled;
+                    const sectionScroll = scrolled - sectionTop + window.innerHeight;
+
+                    if (rect.top < window.innerHeight && rect.bottom > 0) {
+                        // 为不同区域添加微妙的视差
+                        const speed = 0.05;
+                        const yPos = -sectionScroll * speed;
+
+                        const backgrounds = section.querySelectorAll('.absolute:not([data-parallax])');
+                        backgrounds.forEach(bg => {
+                            if (bg.style.background && bg.style.background.includes('gradient')) {
+                                bg.style.transform = `translateY(${yPos}px)`;
+                            }
+                        });
+                    }
+                });
+
+                ticking = false;
+            }
+
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(updateSectionParallax);
+                    ticking = true;
+                }
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+
+                    // Add stagger animation to children
+                    if (entry.target.classList.contains('stagger-children')) {
+                        entry.target.classList.add('animate');
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements with animate-on-scroll class
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+            document.querySelectorAll('.stagger-children').forEach(el => observer.observe(el));
+        });
+
+        // Number counting animation
+        function animateNumber(element, target, duration = 2000) {
+            const start = 0;
+            const increment = target / (duration / 16);
+            let current = start;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target.toLocaleString();
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current).toLocaleString();
+                }
+            }, 16);
+        }
+
+        // Trigger number animations when elements are visible
+        const numberObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+                    entry.target.classList.add('counted');
+                    const target = parseInt(entry.target.dataset.count);
+                    animateNumber(entry.target, target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.number-count').forEach(el => numberObserver.observe(el));
+        });
+
+        // Parallax effect for background gradients
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const scrolled = window.pageYOffset;
+                    const parallaxElements = document.querySelectorAll('[data-parallax]');
+
+                    parallaxElements.forEach(el => {
+                        const speed = el.dataset.parallax || 0.5;
+                        const yPos = -(scrolled * speed);
+                        el.style.transform = `translateY(${yPos}px)`;
+                    });
+
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // Add floating animation to agent icons with stagger
+        document.addEventListener('DOMContentLoaded', () => {
+            const agentCards = document.querySelectorAll('.agent-card');
+            agentCards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.2}s`;
+            });
+        });
+
+        // Add hover scale effect to cards
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.pricing-card, .social-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px) scale(1.02)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        });
+
+        // Gradient background animation on mouse move
+        document.addEventListener('mousemove', (e) => {
+            const gradients = document.querySelectorAll('[data-mouse-gradient]');
+            gradients.forEach(gradient => {
+                const rect = gradient.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                gradient.style.setProperty('--mouse-x', `${x}px`);
+                gradient.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // Agent hover 交互
+        document.addEventListener('DOMContentLoaded', () => {
+            const agentData = {
+                copywriter: {
+                    desc: '智能生成字幕、标题和文案，完美匹配内容',
+                    features: [
+                        '自动生成视频标题和描述',
+                        '智能生成字幕和配字',
+                        '根据视频内容生成关键词',
+                        'AI优化文案，提高转化率'
+                    ],
+                    tags: ['内置 skills', '本地化多语言', '自动化矩阵发布'],
+                    gradient: 'linear-gradient(135deg, rgb(246, 51, 154), rgb(255, 32, 86))'
+                },
+                translator: {
+                    desc: '多语言智能翻译，支持全球100+语言',
+                    features: [
+                        '实时语言识别和翻译',
+                        '专业术语智能匹配',
+                        '语境理解精准翻译',
+                        '多语言字幕同步生成'
+                    ],
+                    tags: ['100+语言', '专业术语库', '语境理解'],
+                    gradient: 'linear-gradient(135deg, rgb(255, 105, 0), rgb(254, 154, 0))'
+                },
+                voiceover: {
+                    desc: '自然流畅的AI配音，多种声音风格可选',
+                    features: [
+                        '多种音色和语音风格',
+                        '情感表达自然真实',
+                        '支持语速和音调调整',
+                        '背景音乐智能混音'
+                    ],
+                    tags: ['200+音色', '情感识别', '智能混音'],
+                    gradient: 'linear-gradient(135deg, rgb(43, 127, 255), rgb(0, 184, 219))'
+                },
+                matcher: {
+                    desc: '智能匹配视频画面，精准定位关键片段',
+                    features: [
+                        '语义理解画面匹配',
+                        '自动识别关键画面',
+                        '场景切换智能检测',
+                        '内容相关性分析'
+                    ],
+                    tags: ['语义理解', '场景识别', '智能分析'],
+                    gradient: 'linear-gradient(135deg, rgb(255, 137, 4), rgb(240, 177, 0))'
+                },
+                composer: {
+                    desc: '一键合成专业视频，快速完成后期制作',
+                    features: [
+                        '智能剪辑和拼接',
+                        '转场效果自动添加',
+                        '画面色彩自动调优',
+                        '多轨道时间轴编辑'
+                    ],
+                    tags: ['智能剪辑', '自动转场', '色彩优化'],
+                    gradient: 'linear-gradient(135deg, rgb(0, 201, 80), rgb(56, 189, 248))'
+                },
+                music: {
+                    desc: '智能配乐系统，为视频选择最佳背景音乐',
+                    features: [
+                        '情绪匹配智能选曲',
+                        '海量版权音乐库',
+                        '自动节奏同步',
+                        '音量动态平衡'
+                    ],
+                    tags: ['情绪识别', '版权音乐', '节奏同步'],
+                    gradient: 'linear-gradient(135deg, rgb(173, 70, 255), rgb(97, 95, 255))'
+                }
+            };
+
+            const agentTriggers = document.querySelectorAll('.agent-hover-trigger');
+            const agentDetails = document.getElementById('agent-details');
+            const agentDesc = document.getElementById('agent-desc');
+            const agentFeatures = document.getElementById('agent-features');
+            const agentTags = document.getElementById('agent-tags');
+            const agentBgBlur = document.getElementById('agent-bg-blur');
+
+            agentTriggers.forEach(trigger => {
+                trigger.addEventListener('mouseenter', function() {
+                    const agentType = this.dataset.agent;
+                    const data = agentData[agentType];
+
+                    if (data) {
+                        // 更新背景模糊
+                        agentBgBlur.style.background = data.gradient.replace('135deg', '171deg');
+
+                        // 更新描述
+                        agentDesc.textContent = data.desc;
+
+                        // 更新特性
+                        agentFeatures.innerHTML = data.features.map(feature => `
+                            <div class="bg-white/5 border border-white/10 rounded-3xl px-4 py-3 flex items-center gap-3">
+                                <div class="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0" style="background: ${data.gradient};">
+                                    <img src="images/icon-check.svg" alt="" aria-hidden="true" class="w-2.5 h-2.5">
+                                </div>
+                                <span class="text-sm text-white/60 whitespace-nowrap">${feature}</span>
+                            </div>
+                        `).join('');
+
+                        // 更新标签
+                        agentTags.innerHTML = data.tags.map(tag => `
+                            <div class="bg-white/5 border border-white/10 rounded-full px-4 py-2">
+                                <span class="text-xs text-white/50">${tag}</span>
+                            </div>
+                        `).join('');
+
+                        // 显示详情
+                        agentDetails.classList.add('show');
+                    }
+                });
+            });
+
+            // 默认显示第一个agent的信息
+            if (agentTriggers.length > 0) {
+                const firstAgent = agentTriggers[0].dataset.agent;
+                const firstData = agentData[firstAgent];
+                if (firstData) {
+                    agentBgBlur.style.background = firstData.gradient.replace('135deg', '171deg');
+                    agentDesc.textContent = firstData.desc;
+                    agentFeatures.innerHTML = firstData.features.map(feature => `
+                        <div class="bg-white/5 border border-white/10 rounded-3xl px-4 py-3 flex items-center gap-3">
+                            <div class="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0" style="background: ${firstData.gradient};">
+                                <img src="images/icon-check.svg" alt="" aria-hidden="true" class="w-2.5 h-2.5">
+                            </div>
+                            <span class="text-sm text-white/60 whitespace-nowrap">${feature}</span>
+                        </div>
+                    `).join('');
+                    agentTags.innerHTML = firstData.tags.map(tag => `
+                        <div class="bg-white/5 border border-white/10 rounded-full px-4 py-2">
+                            <span class="text-xs text-white/50">${tag}</span>
+                        </div>
+                    `).join('');
+                    agentDetails.classList.add('show');
+                }
+            }
+        });
+
+        // 社交媒体区域动画
+        document.addEventListener('DOMContentLoaded', () => {
+            const socialSection = document.querySelector('section:has(.social-card)');
+            const socialBadges = document.querySelectorAll('.social-badge');
+            const socialRow2 = document.querySelector('.social-row-2');
+
+            if (socialSection && socialBadges.length > 0) {
+                const socialObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            // 依次显示浮动徽章
+                            socialBadges.forEach((badge, index) => {
+                                setTimeout(() => {
+                                    badge.classList.add('show');
+                                }, index * 120);
+                            });
+
+                            // 第一行加载完后，延迟触发第二行
+                            if (socialRow2) {
+                                setTimeout(() => {
+                                    socialRow2.classList.add('animate');
+                                }, 1200);
+                            }
+
+                            socialObserver.disconnect();
+                        }
+                    });
+                }, { threshold: 0.3 });
+
+                socialObserver.observe(socialSection);
+            }
+        });
+
+        // 工作流步骤交互数据
+        const workflowData = {
+            upload: {
+                image: 'images/深色UI 首页.jpg',
+                leftCard: { title: '切片搜索', desc: '语义理解，快速定位视频片段', position: 80 },
+                rightCard: { title: '上传支持多格式', desc: 'MP4/MOV/AVI等', position: 80 }
+            },
+            slice: {
+                image: 'images/slice.png',
+                leftCard: { title: '智能视频分析', desc: 'AI自动识别关键片段和亮点', position: 128 },
+                rightCard: { title: '批量处理', desc: '支持同时处理多个视频', position: 128 }
+            },
+            compose: {
+                image: 'images/compose.png',
+                leftCard: { title: 'AI文案生成', desc: '智能生成视频文案和字幕', position: 96 },
+                rightCard: { title: '智能配音配乐', desc: '多种音色和背景音乐', position: 96 }
+            },
+            publish: {
+                image: 'images/publish.png',
+                leftCard: { title: '多平台一键发布', desc: '支持全球60+主流平台', position: 64 },
+                rightCard: { title: '数据实时监控', desc: '跟踪每个平台的发布效果', position: 64 }
+            }
+        };
+
+        // 切换工作流步骤
+        function switchWorkflowStep(stepType) {
+            const data = workflowData[stepType];
+            if (!data) return;
+
+            // 移除所有active状态
+            document.querySelectorAll('.workflow-step').forEach(s => {
+                s.classList.remove('active');
+                const underline = s.querySelector('.step-underline');
+                if (underline) underline.style.opacity = '0';
+                const text = s.querySelector('.step-text');
+                if (text) text.style.color = 'rgba(255, 255, 255, 0.4)';
+            });
+
+            // 添加当前步骤active状态
+            const currentStep = document.querySelector('.workflow-step[data-step="' + stepType + '"]');
+            if (currentStep) {
+                currentStep.classList.add('active');
+                const underline = currentStep.querySelector('.step-underline');
+                if (underline) underline.style.opacity = '1';
+                const text = currentStep.querySelector('.step-text');
+                if (text) text.style.color = 'white';
+            }
+
+            // 切换图片
+            const workflowImage = document.getElementById('workflow-image');
+            if (workflowImage) {
+                workflowImage.style.opacity = '0.3';
+                setTimeout(() => {
+                    workflowImage.src = data.image;
+                    workflowImage.style.opacity = '1';
+                }, 200);
+            }
+
+            // 更新卡片内容和位置
+            const leftTitle = document.getElementById('left-card-title');
+            const leftDesc = document.getElementById('left-card-desc');
+            const rightTitle = document.getElementById('right-card-title');
+            const rightDesc = document.getElementById('right-card-desc');
+            const leftCard = document.getElementById('feature-card-left');
+            const rightCard = document.getElementById('feature-card-right');
+
+            if (leftTitle) leftTitle.textContent = data.leftCard.title;
+            if (leftDesc) leftDesc.textContent = data.leftCard.desc;
+            if (rightTitle) rightTitle.textContent = data.rightCard.title;
+            if (rightDesc) rightDesc.textContent = data.rightCard.desc;
+
+            if (leftCard) {
+                leftCard.style.top = data.leftCard.position + 'px';
+                leftCard.style.bottom = 'auto';
+            }
+            if (rightCard) {
+                rightCard.style.bottom = data.rightCard.position + 'px';
+                rightCard.style.top = 'auto';
+            }
+        }
+
+        // Pricing card selection
+        document.querySelectorAll('.pricing-card').forEach(card => {
+            card.addEventListener('click', function() {
+                // Remove active state from all cards
+                document.querySelectorAll('.pricing-card').forEach(c => {
+                    c.classList.remove('active-card');
+                    c.style.border = '';
+                    const btn = c.querySelector('.subscribe-btn');
+                    if (btn) {
+                        btn.style.background = '';
+                        btn.style.color = '';
+                        btn.className = 'subscribe-btn w-full bg-white/10 hover:bg-white/20 rounded-2xl py-4 transition font-medium mt-auto';
+                        btn.onmouseover = null;
+                        btn.onmouseout = null;
+                    }
+                });
+
+                // Add active state to clicked card
+                this.classList.add('active-card');
+                this.style.border = '2px solid rgba(122, 122, 255, 0.8)';
+                const activeBtn = this.querySelector('.subscribe-btn');
+                if (activeBtn) {
+                    activeBtn.style.background = '#7A7AFF';
+                    activeBtn.style.color = '#fff';
+                    activeBtn.onmouseover = function() { this.style.background = '#6A6AEE'; };
+                    activeBtn.onmouseout = function() { this.style.background = '#7A7AFF'; };
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Fade-in animation for sections
+        const fadeInObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Get all fade-in elements within the section in DOM order
+                    const section = entry.target;
+                    const fadeElements = section.querySelectorAll('.fade-in-element');
+
+                    fadeElements.forEach((element, index) => {
+                        setTimeout(() => {
+                            element.classList.add('visible');
+                        }, index * 150); // 150ms delay between each element, in DOM order
+                    });
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        // Observe all sections with fade-in elements
+        const sectionsWithFadeIn = document.querySelectorAll('section');
+        sectionsWithFadeIn.forEach(section => {
+            if (section.querySelectorAll('.fade-in-element').length > 0) {
+                fadeInObserver.observe(section);
+            }
+        });
+
+        // Mobile menu toggle
+        const menuToggle = document.querySelector('.mobile-menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        if (menuToggle && navMenu) {
+            menuToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                navMenu.classList.toggle('active');
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!menuToggle.contains(e.target) && !navMenu.contains(e.target)) {
+                    navMenu.classList.remove('active');
+                }
+            });
+
+            // Close menu when clicking any link
+            const navLinks = navMenu.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    navMenu.classList.remove('active');
+                });
+            });
+        }
+
+</script>
+</body>
+</html>
